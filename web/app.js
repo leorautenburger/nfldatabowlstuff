@@ -1,4 +1,5 @@
-const AXES = ["Protection Impact", "Chip-to-Route Value", "Route Threat", "Coverage Stress", "Open-Field Creation"];
+const AXES = ["Protection Impact", "Chip-to-Route Value", "Route Threat", "Coverage Stress", "Open-Field Creation", "Run-Game Impact"];
+const VALIDATED_AXES = AXES.filter((axis) => axis !== "Run-Game Impact");
 const ROLE_LABELS = {
   wshare_shrunk_inline_route: "Inline route",
   wshare_shrunk_detached_route: "Detached route",
@@ -42,11 +43,12 @@ function renderList() {
 }
 
 function drawRadar(player) {
+  const axes = AXES.filter((axis) => player[axis] !== null && player[axis] !== undefined);
   const canvas = $("#radar");
   const context = canvas.getContext("2d");
   const width = canvas.width, height = canvas.height, centerX = width / 2, centerY = height / 2 + 16, radius = 145;
   const point = (value, index) => {
-    const angle = -Math.PI / 2 + (Math.PI * 2 * index) / AXES.length;
+    const angle = -Math.PI / 2 + (Math.PI * 2 * index) / axes.length;
     return [centerX + (radius * value / 100) * Math.cos(angle), centerY + (radius * value / 100) * Math.sin(angle)];
   };
   const polygon = (values, stroke, fill, dashed = false) => {
@@ -57,19 +59,22 @@ function drawRadar(player) {
   };
   context.clearRect(0, 0, width, height);
   context.font = "13px system-ui"; context.fillStyle = "#99adbc"; context.textAlign = "center";
-  [25, 50, 75, 100].forEach((level) => polygon(Array(AXES.length).fill(level), "#31536a", null));
-  AXES.forEach((axis, index) => {
+  [25, 50, 75, 100].forEach((level) => polygon(Array(axes.length).fill(level), "#31536a", null));
+  axes.forEach((axis, index) => {
     const [x, y] = point(112, index);
     context.fillText(axis, x, y + 5);
   });
-  polygon(Array(AXES.length).fill(50), "#99adbc", null, true);
-  polygon(AXES.map((axis) => number(player[axis])), "#6ca8ff", "rgba(108,168,255,.27)");
+  polygon(Array(axes.length).fill(50), "#99adbc", null, true);
+  polygon(axes.map((axis) => number(player[axis])), "#6ca8ff", "rgba(108,168,255,.27)");
 }
 
 function renderBars(player) {
-  $("#axis-bars").innerHTML = AXES.map((axis) => `
-    <div class="axis-row"><span>${axis}</span><div class="bar"><i style="width:${number(player[axis])}%"></i></div>
-    <strong class="value">${number(player[axis]).toFixed(0)}</strong></div>`).join("");
+  $("#axis-bars").innerHTML = AXES.map((axis) => {
+    const available = player[axis] !== null && player[axis] !== undefined;
+    return `<div class="axis-row"><span>${axis}${axis === "Run-Game Impact" ? " †" : ""}</span>
+      <div class="bar"><i style="width:${available ? number(player[axis]) : 0}%"></i></div>
+      <strong class="value">${available ? number(player[axis]).toFixed(0) : "N/A"}</strong></div>`;
+  }).join("");
   $("#role-bars").innerHTML = Object.entries(ROLE_LABELS).map(([key, label]) => `
     <div class="role-row"><span>${label}</span><div class="bar"><i style="width:${number(player[key]) * 100}%"></i></div>
     <strong class="value">${(number(player[key]) * 100).toFixed(0)}%</strong></div>`).join("");
@@ -77,7 +82,7 @@ function renderBars(player) {
 
 function similarities(player, mode) {
   return players.filter((candidate) => candidate.profile_eligible && candidate.nflId !== player.nflId).map((candidate) => {
-    const performance = 100 - Math.sqrt(AXES.reduce((sum, axis) => sum + (number(candidate[axis]) - number(player[axis])) ** 2, 0) / AXES.length);
+    const performance = 100 - Math.sqrt(VALIDATED_AXES.reduce((sum, axis) => sum + (number(candidate[axis]) - number(player[axis])) ** 2, 0) / VALIDATED_AXES.length);
     const roles = Object.keys(ROLE_LABELS);
     const role = 100 - 100 * Math.sqrt(roles.reduce((sum, key) => sum + (number(candidate[key]) - number(player[key])) ** 2, 0) / roles.length);
     const score = mode === "performance" ? performance : mode === "role" ? role : performance * .7 + role * .3;
@@ -116,10 +121,11 @@ async function start() {
   if (!response.ok) throw new Error("Could not load the coach profile index.");
   players = await response.json();
   $("#eligible-count").textContent = players.filter((player) => player.profile_eligible).length;
+  $("#axis-count").textContent = AXES.length;
   $("#snap-count").textContent = `${(players.reduce((sum, player) => sum + number(player.snaps), 0) / 1000).toFixed(1)}k`;
   populateSelect("#performance-filter", players.map((player) => player.performance_archetype));
   populateSelect("#deployment-filter", players.map((player) => player.deployment_archetype));
-  const options = { versatility_profile_score: "Overall profile", "Protection Impact": "Protection impact", "Chip-to-Route Value": "Chip-to-route value", "Route Threat": "Route threat", "Coverage Stress": "Coverage stress", "Open-Field Creation": "Open-field creation", deployment_breadth: "Deployment breadth" };
+  const options = { versatility_profile_score: "Overall profile", "Protection Impact": "Protection impact", "Chip-to-Route Value": "Chip-to-route value", "Route Threat": "Route threat", "Coverage Stress": "Coverage stress", "Open-Field Creation": "Open-field creation", "Run-Game Impact": "Run-game impact †", deployment_breadth: "Deployment breadth" };
   $("#sort-by").innerHTML = Object.entries(options).map(([value, label]) => `<option value="${value}">${label}</option>`).join("");
   ["#search", "#performance-filter", "#deployment-filter", "#min-snaps", "#sort-by"].forEach((selector) => $(selector).addEventListener("input", renderList));
   $("#similarity-mode").addEventListener("input", renderSimilar);

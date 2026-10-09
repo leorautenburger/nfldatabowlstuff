@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from src.coach_report import AXES, ROLE_SHARE_COLUMNS
+from src.coach_report import AXES, ROLE_SHARE_COLUMNS, VALIDATED_AXES
 
 INDEX_PATH = Path("output/coach_report/search_index.csv")
 RANK_COLUMNS = {
@@ -25,6 +25,7 @@ RANK_COLUMNS = {
     "route-threat": "Route Threat",
     "coverage-stress": "Coverage Stress",
     "open-field": "Open-Field Creation",
+    "run-game": "Run-Game Impact",
     "deployment": "deployment_breadth",
 }
 
@@ -93,8 +94,8 @@ def find_target(index: pd.DataFrame, query: str) -> pd.Series:
 
 def similarity(index: pd.DataFrame, target: pd.Series, mode: str) -> pd.DataFrame:
     pool = index.loc[index.nflId.ne(target.nflId)].copy()
-    performance = pool[list(AXES)].apply(pd.to_numeric, errors="coerce").to_numpy(dtype=float)
-    target_performance = pd.to_numeric(target[list(AXES)], errors="coerce").to_numpy(dtype=float)
+    performance = pool[list(VALIDATED_AXES)].apply(pd.to_numeric, errors="coerce").to_numpy(dtype=float)
+    target_performance = pd.to_numeric(target[list(VALIDATED_AXES)], errors="coerce").to_numpy(dtype=float)
     roles = pool[ROLE_SHARE_COLUMNS].apply(pd.to_numeric, errors="coerce").to_numpy(dtype=float)
     target_roles = pd.to_numeric(target[ROLE_SHARE_COLUMNS], errors="coerce").to_numpy(dtype=float)
     performance_distance = np.sqrt(np.nanmean((performance - target_performance) ** 2, axis=1))

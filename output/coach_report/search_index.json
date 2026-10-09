@@ -9,6 +9,7 @@
     "chip_snaps":9,
     "block_snaps":11,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -24,11 +25,13 @@
     "Route Threat":77.0611430172,
     "Coverage Stress":57.9009813385,
     "Open-Field Creation":95.6043956044,
+    "Run-Game Impact":85.5263157895,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":2.0,
@@ -40,6 +43,7 @@
     "chip_snaps":6,
     "block_snaps":29,
     "profile_eligible":true,
+    "run_game_available":false,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -55,11 +59,13 @@
     "Route Threat":38.0764812999,
     "Coverage Stress":71.3419987784,
     "Open-Field Creation":87.9120879121,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":3.0,
@@ -71,6 +77,7 @@
     "chip_snaps":21,
     "block_snaps":26,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -86,11 +93,13 @@
     "Route Threat":68.8604846617,
     "Coverage Stress":48.2381443187,
     "Open-Field Creation":80.2197802198,
+    "Run-Game Impact":6.5789473684,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":4.0,
@@ -102,6 +111,7 @@
     "chip_snaps":10,
     "block_snaps":16,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -117,11 +127,13 @@
     "Route Threat":68.9469813699,
     "Coverage Stress":56.7156177061,
     "Open-Field Creation":71.4285714286,
+    "Run-Game Impact":65.7894736842,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":5.0,
@@ -133,6 +145,7 @@
     "chip_snaps":13,
     "block_snaps":9,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -148,11 +161,13 @@
     "Route Threat":84.8823364617,
     "Coverage Stress":23.3207291735,
     "Open-Field Creation":94.5054945055,
+    "Run-Game Impact":90.7894736842,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":6.0,
@@ -164,6 +179,7 @@
     "chip_snaps":20,
     "block_snaps":8,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":true,
@@ -179,11 +195,13 @@
     "Route Threat":49.1016949153,
     "Coverage Stress":50.7644637676,
     "Open-Field Creation":100.0,
+    "Run-Game Impact":67.1052631579,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":7.0,
@@ -195,6 +213,7 @@
     "chip_snaps":17,
     "block_snaps":43,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Coverage Stressor",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -210,11 +229,13 @@
     "Route Threat":38.3308586637,
     "Coverage Stress":80.7554111315,
     "Open-Field Creation":91.2087912088,
+    "Run-Game Impact":36.8421052632,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":8.0,
@@ -226,6 +247,7 @@
     "chip_snaps":18,
     "block_snaps":36,
     "profile_eligible":true,
+    "run_game_available":false,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -241,11 +263,13 @@
     "Route Threat":61.3974646309,
     "Coverage Stress":74.9907633117,
     "Open-Field Creation":39.5604395604,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":9.0,
@@ -257,6 +281,7 @@
     "chip_snaps":20,
     "block_snaps":17,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -272,11 +297,13 @@
     "Route Threat":58.5675864967,
     "Coverage Stress":33.1293081823,
     "Open-Field Creation":92.3076923077,
+    "Run-Game Impact":77.6315789474,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":10.0,
@@ -288,6 +315,7 @@
     "chip_snaps":11,
     "block_snaps":32,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -303,11 +331,13 @@
     "Route Threat":51.023392632,
     "Coverage Stress":50.2103647231,
     "Open-Field Creation":93.4065934066,
+    "Run-Game Impact":9.2105263158,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":11.0,
@@ -319,6 +349,7 @@
     "chip_snaps":9,
     "block_snaps":30,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -334,11 +365,13 @@
     "Route Threat":66.8895503572,
     "Coverage Stress":32.9052418035,
     "Open-Field Creation":63.7362637363,
+    "Run-Game Impact":19.7368421053,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":12.0,
@@ -350,6 +383,7 @@
     "chip_snaps":12,
     "block_snaps":29,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -365,11 +399,13 @@
     "Route Threat":62.5107858243,
     "Coverage Stress":38.9374809131,
     "Open-Field Creation":60.4395604396,
+    "Run-Game Impact":39.4736842105,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":13.0,
@@ -381,6 +417,7 @@
     "chip_snaps":3,
     "block_snaps":7,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -396,11 +433,13 @@
     "Route Threat":67.8097072419,
     "Coverage Stress":53.7584800297,
     "Open-Field Creation":72.5274725275,
+    "Run-Game Impact":81.5789473684,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":14.0,
@@ -412,6 +451,7 @@
     "chip_snaps":13,
     "block_snaps":10,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -427,11 +467,13 @@
     "Route Threat":84.8397534669,
     "Coverage Stress":22.4391878258,
     "Open-Field Creation":53.8461538462,
+    "Run-Game Impact":98.6842105263,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":15.0,
@@ -443,6 +485,7 @@
     "chip_snaps":12,
     "block_snaps":17,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -458,11 +501,13 @@
     "Route Threat":50.7224401177,
     "Coverage Stress":53.2282055057,
     "Open-Field Creation":85.7142857143,
+    "Run-Game Impact":26.3157894737,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":16.0,
@@ -474,6 +519,7 @@
     "chip_snaps":23,
     "block_snaps":38,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Inline Protector",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -489,11 +535,13 @@
     "Route Threat":66.0585516179,
     "Coverage Stress":51.183216358,
     "Open-Field Creation":10.989010989,
+    "Run-Game Impact":23.6842105263,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":17.0,
@@ -505,6 +553,7 @@
     "chip_snaps":5,
     "block_snaps":5,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":true,
@@ -520,11 +569,13 @@
     "Route Threat":75.3778540412,
     "Coverage Stress":7.4096985908,
     "Open-Field Creation":78.021978022,
+    "Run-Game Impact":60.5263157895,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":18.0,
@@ -536,6 +587,7 @@
     "chip_snaps":7,
     "block_snaps":21,
     "profile_eligible":true,
+    "run_game_available":false,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -551,11 +603,13 @@
     "Route Threat":26.3014427791,
     "Coverage Stress":51.9838088694,
     "Open-Field Creation":98.9010989011,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":19.0,
@@ -567,6 +621,7 @@
     "chip_snaps":10,
     "block_snaps":13,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":true,
@@ -582,11 +637,13 @@
     "Route Threat":47.0841854601,
     "Coverage Stress":33.5256677683,
     "Open-Field Creation":74.7252747253,
+    "Run-Game Impact":44.7368421053,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":20.0,
@@ -598,6 +655,7 @@
     "chip_snaps":22,
     "block_snaps":15,
     "profile_eligible":true,
+    "run_game_available":false,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -613,11 +671,13 @@
     "Route Threat":69.1361535229,
     "Coverage Stress":25.2486748249,
     "Open-Field Creation":42.8571428571,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":21.0,
@@ -629,6 +689,7 @@
     "chip_snaps":32,
     "block_snaps":23,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Inline Protector",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -644,11 +705,13 @@
     "Route Threat":60.5331979269,
     "Coverage Stress":25.4230471391,
     "Open-Field Creation":61.5384615385,
+    "Run-Game Impact":47.3684210526,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":22.0,
@@ -660,6 +723,7 @@
     "chip_snaps":13,
     "block_snaps":3,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":true,
@@ -675,11 +739,13 @@
     "Route Threat":91.1693864687,
     "Coverage Stress":28.7341442532,
     "Open-Field Creation":5.4945054945,
+    "Run-Game Impact":71.0526315789,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":23.0,
@@ -691,6 +757,7 @@
     "chip_snaps":9,
     "block_snaps":12,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Dual-Threat Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -706,11 +773,13 @@
     "Route Threat":78.6991875613,
     "Coverage Stress":23.841903344,
     "Open-Field Creation":23.0769230769,
+    "Run-Game Impact":63.1578947368,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":24.0,
@@ -722,6 +791,7 @@
     "chip_snaps":4,
     "block_snaps":6,
     "profile_eligible":true,
+    "run_game_available":false,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":true,
@@ -737,11 +807,13 @@
     "Route Threat":44.7910071439,
     "Coverage Stress":48.4306491722,
     "Open-Field Creation":45.0549450549,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":25.0,
@@ -753,6 +825,7 @@
     "chip_snaps":24,
     "block_snaps":10,
     "profile_eligible":true,
+    "run_game_available":false,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -768,11 +841,13 @@
     "Route Threat":49.3134892842,
     "Coverage Stress":26.0284762668,
     "Open-Field Creation":81.3186813187,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":26.0,
@@ -784,6 +859,7 @@
     "chip_snaps":24,
     "block_snaps":18,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -799,11 +875,13 @@
     "Route Threat":35.1133211934,
     "Coverage Stress":65.9795047772,
     "Open-Field Creation":97.8021978022,
+    "Run-Game Impact":28.9473684211,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":27.0,
@@ -815,6 +893,7 @@
     "chip_snaps":15,
     "block_snaps":21,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -830,11 +909,13 @@
     "Route Threat":36.1015548396,
     "Coverage Stress":37.2275006544,
     "Open-Field Creation":47.2527472527,
+    "Run-Game Impact":11.8421052632,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":28.0,
@@ -846,6 +927,7 @@
     "chip_snaps":22,
     "block_snaps":30,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -861,11 +943,13 @@
     "Route Threat":47.1107998319,
     "Coverage Stress":25.7843686604,
     "Open-Field Creation":12.0879120879,
+    "Run-Game Impact":69.7368421053,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":29.0,
@@ -877,6 +961,7 @@
     "chip_snaps":35,
     "block_snaps":27,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -892,11 +977,13 @@
     "Route Threat":34.689942569,
     "Coverage Stress":63.1904339267,
     "Open-Field Creation":67.032967033,
+    "Run-Game Impact":52.6315789474,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":30.0,
@@ -908,6 +995,7 @@
     "chip_snaps":37,
     "block_snaps":2,
     "profile_eligible":true,
+    "run_game_available":false,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"chip-and-release specialist",
     "archetype_reliable":true,
@@ -923,11 +1011,13 @@
     "Route Threat":64.7241210254,
     "Coverage Stress":63.1895477499,
     "Open-Field Creation":21.978021978,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":31.0,
@@ -939,6 +1029,7 @@
     "chip_snaps":19,
     "block_snaps":15,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -954,11 +1045,13 @@
     "Route Threat":47.286664799,
     "Coverage Stress":60.2916475798,
     "Open-Field Creation":35.1648351648,
+    "Run-Game Impact":57.8947368421,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":32.0,
@@ -970,6 +1063,7 @@
     "chip_snaps":25,
     "block_snaps":12,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":true,
@@ -985,11 +1079,13 @@
     "Route Threat":78.7005182799,
     "Coverage Stress":16.3186718801,
     "Open-Field Creation":27.4725274725,
+    "Run-Game Impact":51.3157894737,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":33.0,
@@ -1001,6 +1097,7 @@
     "chip_snaps":35,
     "block_snaps":25,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Inline Protector",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -1016,11 +1113,13 @@
     "Route Threat":13.7366577952,
     "Coverage Stress":82.7350277032,
     "Open-Field Creation":26.3736263736,
+    "Run-Game Impact":31.5789473684,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":34.0,
@@ -1032,6 +1131,7 @@
     "chip_snaps":22,
     "block_snaps":6,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -1047,11 +1147,13 @@
     "Route Threat":60.982070318,
     "Coverage Stress":25.2375635321,
     "Open-Field Creation":36.2637362637,
+    "Run-Game Impact":76.3157894737,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":35.0,
@@ -1063,6 +1165,7 @@
     "chip_snaps":5,
     "block_snaps":5,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":true,
@@ -1078,11 +1181,13 @@
     "Route Threat":64.7600504272,
     "Coverage Stress":19.7878152062,
     "Open-Field Creation":20.8791208791,
+    "Run-Game Impact":64.4736842105,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":36.0,
@@ -1094,6 +1199,7 @@
     "chip_snaps":10,
     "block_snaps":1,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":true,
@@ -1109,11 +1215,13 @@
     "Route Threat":7.556170332,
     "Coverage Stress":53.2445316079,
     "Open-Field Creation":24.1758241758,
+    "Run-Game Impact":27.6315789474,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":37.0,
@@ -1125,6 +1233,7 @@
     "chip_snaps":9,
     "block_snaps":5,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -1140,11 +1249,13 @@
     "Route Threat":59.3200728393,
     "Coverage Stress":19.0782262286,
     "Open-Field Creation":19.7802197802,
+    "Run-Game Impact":48.6842105263,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":38.0,
@@ -1156,6 +1267,7 @@
     "chip_snaps":14,
     "block_snaps":6,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":true,
@@ -1171,11 +1283,13 @@
     "Route Threat":45.7444319933,
     "Coverage Stress":69.0402228803,
     "Open-Field Creation":7.6923076923,
+    "Run-Game Impact":17.1052631579,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":39.0,
@@ -1187,6 +1301,7 @@
     "chip_snaps":15,
     "block_snaps":14,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -1202,11 +1317,13 @@
     "Route Threat":30.5203109679,
     "Coverage Stress":69.6030473573,
     "Open-Field Creation":3.2967032967,
+    "Run-Game Impact":93.4210526316,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":40.0,
@@ -1218,6 +1335,7 @@
     "chip_snaps":22,
     "block_snaps":13,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -1233,11 +1351,13 @@
     "Route Threat":23.4941868609,
     "Coverage Stress":24.2839010318,
     "Open-Field Creation":13.1868131868,
+    "Run-Game Impact":46.0526315789,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":41.0,
@@ -1249,6 +1369,7 @@
     "chip_snaps":23,
     "block_snaps":28,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -1264,11 +1385,13 @@
     "Route Threat":14.0123266564,
     "Coverage Stress":57.3162410292,
     "Open-Field Creation":25.2747252747,
+    "Run-Game Impact":89.4736842105,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":42.0,
@@ -1280,6 +1403,7 @@
     "chip_snaps":16,
     "block_snaps":35,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -1295,11 +1419,13 @@
     "Route Threat":12.0520381006,
     "Coverage Stress":70.4133878128,
     "Open-Field Creation":17.5824175824,
+    "Run-Game Impact":15.7894736842,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":43.0,
@@ -1311,6 +1437,7 @@
     "chip_snaps":15,
     "block_snaps":42,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -1326,11 +1453,13 @@
     "Route Threat":12.0267544474,
     "Coverage Stress":56.3138728923,
     "Open-Field Creation":51.6483516484,
+    "Run-Game Impact":21.0526315789,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":44.0,
@@ -1342,6 +1471,7 @@
     "chip_snaps":17,
     "block_snaps":26,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -1357,11 +1487,13 @@
     "Route Threat":41.1208152402,
     "Coverage Stress":24.1805932749,
     "Open-Field Creation":32.967032967,
+    "Run-Game Impact":13.1578947368,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":45.0,
@@ -1373,6 +1505,7 @@
     "chip_snaps":18,
     "block_snaps":5,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":true,
@@ -1388,11 +1521,13 @@
     "Route Threat":16.7889760471,
     "Coverage Stress":13.0888985232,
     "Open-Field Creation":31.8681318681,
+    "Run-Game Impact":72.3684210526,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":46.0,
@@ -1404,6 +1539,7 @@
     "chip_snaps":54,
     "block_snaps":18,
     "profile_eligible":true,
+    "run_game_available":false,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -1419,11 +1555,13 @@
     "Route Threat":41.6734836812,
     "Coverage Stress":33.2990791942,
     "Open-Field Creation":2.1978021978,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":47.0,
@@ -1435,6 +1573,7 @@
     "chip_snaps":11,
     "block_snaps":25,
     "profile_eligible":true,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -1450,11 +1589,13 @@
     "Route Threat":36.4091609469,
     "Coverage Stress":29.7715163711,
     "Open-Field Creation":1.0989010989,
+    "Run-Game Impact":14.4736842105,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -1466,6 +1607,7 @@
     "chip_snaps":5,
     "block_snaps":21,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Inline Protector",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -1481,11 +1623,13 @@
     "Route Threat":49.5998038941,
     "Coverage Stress":67.1203550706,
     "Open-Field Creation":96.7032967033,
+    "Run-Game Impact":78.9473684211,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -1497,6 +1641,7 @@
     "chip_snaps":4,
     "block_snaps":16,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Inline Protector",
     "deployment_archetype":"inline blocker",
     "archetype_reliable":false,
@@ -1512,11 +1657,13 @@
     "Route Threat":55.2536769856,
     "Coverage Stress":44.3801057413,
     "Open-Field Creation":84.6153846154,
+    "Run-Game Impact":82.8947368421,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -1528,6 +1675,7 @@
     "chip_snaps":0,
     "block_snaps":1,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"inline blocker",
     "archetype_reliable":false,
@@ -1543,11 +1691,13 @@
     "Route Threat":59.5041322314,
     "Coverage Stress":95.4954954955,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":0,
     "Route Threat_components":1,
     "Coverage Stress_components":1,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -1559,6 +1709,7 @@
     "chip_snaps":0,
     "block_snaps":3,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":false,
@@ -1574,11 +1725,13 @@
     "Route Threat":60.3740719989,
     "Coverage Stress":71.5180411949,
     "Open-Field Creation":57.1428571429,
+    "Run-Game Impact":null,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":1,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -1590,6 +1743,7 @@
     "chip_snaps":5,
     "block_snaps":5,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Dual-Threat Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -1605,11 +1759,13 @@
     "Route Threat":75.9291917636,
     "Coverage Stress":75.6769367733,
     "Open-Field Creation":16.4835164835,
+    "Run-Game Impact":25.0,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -1621,6 +1777,7 @@
     "chip_snaps":3,
     "block_snaps":3,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":false,
@@ -1636,11 +1793,13 @@
     "Route Threat":71.7276229164,
     "Coverage Stress":52.195571025,
     "Open-Field Creation":76.3736263736,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -1652,6 +1811,7 @@
     "chip_snaps":0,
     "block_snaps":9,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"inline blocker",
     "archetype_reliable":false,
@@ -1667,11 +1827,13 @@
     "Route Threat":60.0944109819,
     "Coverage Stress":56.1281847828,
     "Open-Field Creation":null,
+    "Run-Game Impact":2.6315789474,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":1,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -1683,6 +1845,7 @@
     "chip_snaps":7,
     "block_snaps":18,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -1698,11 +1861,13 @@
     "Route Threat":48.4718447962,
     "Coverage Stress":70.3945054316,
     "Open-Field Creation":83.5164835165,
+    "Run-Game Impact":59.2105263158,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -1714,6 +1879,7 @@
     "chip_snaps":0,
     "block_snaps":1,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":false,
@@ -1729,11 +1895,13 @@
     "Route Threat":59.921977868,
     "Coverage Stress":50.4806827106,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":1,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -1745,6 +1913,7 @@
     "chip_snaps":10,
     "block_snaps":5,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"chip-and-release specialist",
     "archetype_reliable":false,
@@ -1760,11 +1929,13 @@
     "Route Threat":65.157585096,
     "Coverage Stress":73.0853469995,
     "Open-Field Creation":89.010989011,
+    "Run-Game Impact":96.0526315789,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -1776,6 +1947,7 @@
     "chip_snaps":4,
     "block_snaps":1,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":true,
@@ -1791,11 +1963,13 @@
     "Route Threat":94.6824485222,
     "Coverage Stress":35.3186418864,
     "Open-Field Creation":29.6703296703,
+    "Run-Game Impact":null,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -1807,6 +1981,7 @@
     "chip_snaps":3,
     "block_snaps":9,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Coverage Stressor",
     "deployment_archetype":"balanced",
     "archetype_reliable":false,
@@ -1822,11 +1997,13 @@
     "Route Threat":31.3845776719,
     "Coverage Stress":77.2632272103,
     "Open-Field Creation":68.1318681319,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -1838,6 +2015,7 @@
     "chip_snaps":0,
     "block_snaps":0,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":false,
@@ -1853,11 +2031,13 @@
     "Route Threat":59.8513447262,
     "Coverage Stress":58.343865203,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":0,
     "Chip-to-Route Value_components":1,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -1869,6 +2049,7 @@
     "chip_snaps":9,
     "block_snaps":14,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -1884,11 +2065,13 @@
     "Route Threat":79.5714385768,
     "Coverage Stress":51.1012450101,
     "Open-Field Creation":41.7582417582,
+    "Run-Game Impact":73.6842105263,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -1900,6 +2083,7 @@
     "chip_snaps":0,
     "block_snaps":7,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"balanced",
     "archetype_reliable":false,
@@ -1915,11 +2099,13 @@
     "Route Threat":69.4610589718,
     "Coverage Stress":47.7222985698,
     "Open-Field Creation":null,
+    "Run-Game Impact":100.0,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":1,
     "Route Threat_components":3,
     "Coverage Stress_components":2,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -1931,6 +2117,7 @@
     "chip_snaps":3,
     "block_snaps":4,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"chip-and-release specialist",
     "archetype_reliable":false,
@@ -1946,11 +2133,13 @@
     "Route Threat":55.3568076761,
     "Coverage Stress":63.2716554327,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -1962,6 +2151,7 @@
     "chip_snaps":0,
     "block_snaps":2,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"inline blocker",
     "archetype_reliable":false,
@@ -1977,11 +2167,13 @@
     "Route Threat":53.7190082645,
     "Coverage Stress":null,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":0,
     "Route Threat_components":1,
     "Coverage Stress_components":0,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -1993,6 +2185,7 @@
     "chip_snaps":9,
     "block_snaps":0,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Dual-Threat Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -2008,11 +2201,13 @@
     "Route Threat":73.6426670402,
     "Coverage Stress":26.1597326746,
     "Open-Field Creation":37.3626373626,
+    "Run-Game Impact":null,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2024,6 +2219,7 @@
     "chip_snaps":6,
     "block_snaps":12,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -2039,11 +2235,13 @@
     "Route Threat":71.0045174394,
     "Coverage Stress":36.2925842004,
     "Open-Field Creation":82.4175824176,
+    "Run-Game Impact":40.7894736842,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -2055,6 +2253,7 @@
     "chip_snaps":0,
     "block_snaps":3,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"inline blocker",
     "archetype_reliable":false,
@@ -2070,11 +2269,13 @@
     "Route Threat":49.5867768595,
     "Coverage Stress":null,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":0,
     "Route Threat_components":1,
     "Coverage Stress_components":0,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2086,6 +2287,7 @@
     "chip_snaps":0,
     "block_snaps":1,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":false,
@@ -2101,11 +2303,13 @@
     "Route Threat":64.5184199468,
     "Coverage Stress":41.5777763235,
     "Open-Field Creation":54.9450549451,
+    "Run-Game Impact":null,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":1,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2117,6 +2321,7 @@
     "chip_snaps":0,
     "block_snaps":0,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":false,
@@ -2132,11 +2337,13 @@
     "Route Threat":49.0271746743,
     "Coverage Stress":62.0360523962,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":0,
     "Chip-to-Route Value_components":1,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2148,6 +2355,7 @@
     "chip_snaps":0,
     "block_snaps":3,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"balanced",
     "archetype_reliable":false,
@@ -2163,11 +2371,13 @@
     "Route Threat":70.1675304665,
     "Coverage Stress":39.2655367232,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":1,
     "Route Threat_components":3,
     "Coverage Stress_components":2,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2179,6 +2389,7 @@
     "chip_snaps":0,
     "block_snaps":0,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":false,
@@ -2194,11 +2405,13 @@
     "Route Threat":52.9424289116,
     "Coverage Stress":52.5423728814,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":0,
     "Chip-to-Route Value_components":1,
     "Route Threat_components":3,
     "Coverage Stress_components":1,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2210,6 +2423,7 @@
     "chip_snaps":1,
     "block_snaps":0,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"chip-and-release specialist",
     "archetype_reliable":false,
@@ -2225,11 +2439,13 @@
     "Route Threat":51.8171312509,
     "Coverage Stress":62.166695297,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2241,6 +2457,7 @@
     "chip_snaps":4,
     "block_snaps":10,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"chip-and-release specialist",
     "archetype_reliable":false,
@@ -2256,11 +2473,13 @@
     "Route Threat":57.18059252,
     "Coverage Stress":68.9705557555,
     "Open-Field Creation":null,
+    "Run-Game Impact":43.4210526316,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -2272,6 +2491,7 @@
     "chip_snaps":0,
     "block_snaps":2,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"balanced",
     "archetype_reliable":false,
@@ -2287,11 +2507,13 @@
     "Route Threat":73.8031236868,
     "Coverage Stress":35.4162917457,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":1,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2303,6 +2525,7 @@
     "chip_snaps":0,
     "block_snaps":0,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":false,
@@ -2318,11 +2541,13 @@
     "Route Threat":50.1458187421,
     "Coverage Stress":58.5625122701,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":0,
     "Chip-to-Route Value_components":1,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2334,6 +2559,7 @@
     "chip_snaps":1,
     "block_snaps":12,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"inline blocker",
     "archetype_reliable":false,
@@ -2349,11 +2575,13 @@
     "Route Threat":28.8450063034,
     "Coverage Stress":71.9067660275,
     "Open-Field Creation":null,
+    "Run-Game Impact":55.2631578947,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -2365,6 +2593,7 @@
     "chip_snaps":11,
     "block_snaps":17,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Dual-Threat Creator",
     "deployment_archetype":"chip-and-release specialist",
     "archetype_reliable":false,
@@ -2380,11 +2609,13 @@
     "Route Threat":70.5570808236,
     "Coverage Stress":26.9712660602,
     "Open-Field Creation":62.6373626374,
+    "Run-Game Impact":80.2631578947,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -2396,6 +2627,7 @@
     "chip_snaps":12,
     "block_snaps":22,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -2411,11 +2643,13 @@
     "Route Threat":40.8797450623,
     "Coverage Stress":52.7000782562,
     "Open-Field Creation":90.1098901099,
+    "Run-Game Impact":75.0,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -2427,6 +2661,7 @@
     "chip_snaps":0,
     "block_snaps":3,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"inline blocker",
     "archetype_reliable":false,
@@ -2442,11 +2677,13 @@
     "Route Threat":24.3870640146,
     "Coverage Stress":61.3716925158,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":1,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2458,6 +2695,7 @@
     "chip_snaps":7,
     "block_snaps":11,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Inline Protector",
     "deployment_archetype":"inline blocker",
     "archetype_reliable":false,
@@ -2473,11 +2711,13 @@
     "Route Threat":30.5189802493,
     "Coverage Stress":85.577609995,
     "Open-Field Creation":38.4615384615,
+    "Run-Game Impact":94.7368421053,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -2489,6 +2729,7 @@
     "chip_snaps":3,
     "block_snaps":0,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"chip-and-release specialist",
     "archetype_reliable":false,
@@ -2504,11 +2745,13 @@
     "Route Threat":35.0321473596,
     "Coverage Stress":66.5960451977,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":2,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2520,6 +2763,7 @@
     "chip_snaps":0,
     "block_snaps":0,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":false,
@@ -2535,11 +2779,13 @@
     "Route Threat":45.9442498949,
     "Coverage Stress":43.6300707487,
     "Open-Field Creation":59.3406593407,
+    "Run-Game Impact":null,
     "Protection Impact_components":0,
     "Chip-to-Route Value_components":1,
     "Route Threat_components":3,
     "Coverage Stress_components":2,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2551,6 +2797,7 @@
     "chip_snaps":0,
     "block_snaps":0,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":false,
@@ -2566,11 +2813,13 @@
     "Route Threat":61.3415744502,
     "Coverage Stress":39.8305084746,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":0,
     "Chip-to-Route Value_components":1,
     "Route Threat_components":3,
     "Coverage Stress_components":1,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2582,6 +2831,7 @@
     "chip_snaps":3,
     "block_snaps":19,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Coverage Stressor",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -2597,11 +2847,13 @@
     "Route Threat":57.6873511696,
     "Coverage Stress":86.7585768274,
     "Open-Field Creation":40.6593406593,
+    "Run-Game Impact":5.2631578947,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -2613,6 +2865,7 @@
     "chip_snaps":0,
     "block_snaps":1,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"balanced",
     "archetype_reliable":false,
@@ -2628,11 +2881,13 @@
     "Route Threat":42.154853621,
     "Coverage Stress":78.5592265995,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":1,
     "Chip-to-Route Value_components":1,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2644,6 +2899,7 @@
     "chip_snaps":1,
     "block_snaps":3,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Dual-Threat Creator",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":false,
@@ -2659,11 +2915,13 @@
     "Route Threat":85.4137134052,
     "Coverage Stress":24.3030560827,
     "Open-Field Creation":8.7912087912,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2675,6 +2933,7 @@
     "chip_snaps":8,
     "block_snaps":26,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Coverage Stressor",
     "deployment_archetype":"inline blocker",
     "archetype_reliable":true,
@@ -2690,11 +2949,13 @@
     "Route Threat":33.6285194005,
     "Coverage Stress":79.2502740331,
     "Open-Field Creation":58.2417582418,
+    "Run-Game Impact":34.2105263158,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -2706,6 +2967,7 @@
     "chip_snaps":2,
     "block_snaps":3,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":false,
@@ -2721,11 +2983,13 @@
     "Route Threat":50.3355511976,
     "Coverage Stress":65.4909828109,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2737,6 +3001,7 @@
     "chip_snaps":4,
     "block_snaps":4,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"chip-and-release specialist",
     "archetype_reliable":false,
@@ -2752,11 +3017,13 @@
     "Route Threat":38.1323714806,
     "Coverage Stress":58.5902223349,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2768,6 +3035,7 @@
     "chip_snaps":2,
     "block_snaps":5,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"inline blocker",
     "archetype_reliable":false,
@@ -2783,11 +3051,13 @@
     "Route Threat":56.2730774618,
     "Coverage Stress":48.037732042,
     "Open-Field Creation":70.3296703297,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":2,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2799,6 +3069,7 @@
     "chip_snaps":12,
     "block_snaps":10,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -2814,11 +3085,13 @@
     "Route Threat":40.5694775179,
     "Coverage Stress":31.507809262,
     "Open-Field Creation":79.1208791209,
+    "Run-Game Impact":84.2105263158,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -2830,6 +3103,7 @@
     "chip_snaps":0,
     "block_snaps":0,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":false,
@@ -2845,11 +3119,13 @@
     "Route Threat":46.5195405519,
     "Coverage Stress":54.2372881356,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":0,
     "Chip-to-Route Value_components":1,
     "Route Threat_components":3,
     "Coverage Stress_components":1,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2861,6 +3137,7 @@
     "chip_snaps":3,
     "block_snaps":2,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":false,
@@ -2876,11 +3153,13 @@
     "Route Threat":32.7482840734,
     "Coverage Stress":61.8991040072,
     "Open-Field Creation":46.1538461538,
+    "Run-Game Impact":92.1052631579,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -2892,6 +3171,7 @@
     "chip_snaps":3,
     "block_snaps":10,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":false,
@@ -2907,11 +3187,13 @@
     "Route Threat":30.3231545034,
     "Coverage Stress":54.6648684096,
     "Open-Field Creation":48.3516483516,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2923,6 +3205,7 @@
     "chip_snaps":1,
     "block_snaps":0,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":false,
@@ -2938,11 +3221,13 @@
     "Route Threat":44.5525984031,
     "Coverage Stress":64.406779661,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":1,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2954,6 +3239,7 @@
     "chip_snaps":2,
     "block_snaps":0,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"chip-and-release specialist",
     "archetype_reliable":false,
@@ -2969,11 +3255,13 @@
     "Route Threat":64.3032987813,
     "Coverage Stress":41.7376630565,
     "Open-Field Creation":56.043956044,
+    "Run-Game Impact":null,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -2985,6 +3273,7 @@
     "chip_snaps":2,
     "block_snaps":24,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"inline blocker",
     "archetype_reliable":false,
@@ -3000,11 +3289,13 @@
     "Route Threat":39.1937946491,
     "Coverage Stress":73.998006784,
     "Open-Field Creation":64.8351648352,
+    "Run-Game Impact":50.0,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3016,6 +3307,7 @@
     "chip_snaps":6,
     "block_snaps":6,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"chip-and-release specialist",
     "archetype_reliable":false,
@@ -3031,11 +3323,13 @@
     "Route Threat":37.8633562124,
     "Coverage Stress":63.9814829963,
     "Open-Field Creation":69.2307692308,
+    "Run-Game Impact":30.2631578947,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3047,6 +3341,7 @@
     "chip_snaps":4,
     "block_snaps":3,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"balanced",
     "archetype_reliable":false,
@@ -3062,11 +3357,13 @@
     "Route Threat":41.4603585936,
     "Coverage Stress":47.5982224658,
     "Open-Field Creation":null,
+    "Run-Game Impact":35.5263157895,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3078,6 +3375,7 @@
     "chip_snaps":3,
     "block_snaps":7,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":false,
@@ -3093,11 +3391,13 @@
     "Route Threat":52.1774057991,
     "Coverage Stress":48.5971481469,
     "Open-Field Creation":49.4505494505,
+    "Run-Game Impact":7.8947368421,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3109,6 +3409,7 @@
     "chip_snaps":1,
     "block_snaps":4,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"inline blocker",
     "archetype_reliable":false,
@@ -3124,11 +3425,13 @@
     "Route Threat":41.875192604,
     "Coverage Stress":67.410680202,
     "Open-Field Creation":null,
+    "Run-Game Impact":42.1052631579,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3140,6 +3443,7 @@
     "chip_snaps":2,
     "block_snaps":7,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":false,
@@ -3155,11 +3459,13 @@
     "Route Threat":20.2980459448,
     "Coverage Stress":62.5865044827,
     "Open-Field Creation":65.9340659341,
+    "Run-Game Impact":10.5263157895,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3171,6 +3477,7 @@
     "chip_snaps":17,
     "block_snaps":14,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"chip-and-release specialist",
     "archetype_reliable":true,
@@ -3186,11 +3493,13 @@
     "Route Threat":89.6445580614,
     "Coverage Stress":55.7399371224,
     "Open-Field Creation":28.5714285714,
+    "Run-Game Impact":1.3157894737,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3202,6 +3511,7 @@
     "chip_snaps":7,
     "block_snaps":6,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"chip-and-release specialist",
     "archetype_reliable":false,
@@ -3217,11 +3527,13 @@
     "Route Threat":41.4337442219,
     "Coverage Stress":36.4506304125,
     "Open-Field Creation":73.6263736264,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -3233,6 +3545,7 @@
     "chip_snaps":1,
     "block_snaps":2,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"chip-and-release specialist",
     "archetype_reliable":false,
@@ -3248,11 +3561,13 @@
     "Route Threat":44.4007914274,
     "Coverage Stress":33.7206266497,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -3264,6 +3579,7 @@
     "chip_snaps":4,
     "block_snaps":8,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"chip-and-release specialist",
     "archetype_reliable":false,
@@ -3279,11 +3595,13 @@
     "Route Threat":61.5153382827,
     "Coverage Stress":31.5375302663,
     "Open-Field Creation":null,
+    "Run-Game Impact":18.4210526316,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":2,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3295,6 +3613,7 @@
     "chip_snaps":15,
     "block_snaps":18,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"chip-and-release specialist",
     "archetype_reliable":true,
@@ -3310,11 +3629,13 @@
     "Route Threat":32.1676705421,
     "Coverage Stress":57.9956318304,
     "Open-Field Creation":76.3736263736,
+    "Run-Game Impact":61.8421052632,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3326,6 +3647,7 @@
     "chip_snaps":7,
     "block_snaps":0,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":false,
@@ -3341,11 +3663,13 @@
     "Route Threat":53.7414904048,
     "Coverage Stress":36.2087382479,
     "Open-Field Creation":30.7692307692,
+    "Run-Game Impact":null,
     "Protection Impact_components":2,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -3357,6 +3681,7 @@
     "chip_snaps":4,
     "block_snaps":16,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Open-Field Creator",
     "deployment_archetype":"balanced",
     "archetype_reliable":false,
@@ -3372,11 +3697,13 @@
     "Route Threat":31.8959938367,
     "Coverage Stress":34.9315530724,
     "Open-Field Creation":86.8131868132,
+    "Run-Game Impact":97.3684210526,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3388,6 +3715,7 @@
     "chip_snaps":2,
     "block_snaps":1,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":false,
@@ -3403,11 +3731,13 @@
     "Route Threat":55.1411262082,
     "Coverage Stress":33.491549964,
     "Open-Field Creation":50.5494505495,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -3419,6 +3749,7 @@
     "chip_snaps":2,
     "block_snaps":3,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"chip-and-release specialist",
     "archetype_reliable":false,
@@ -3434,11 +3765,13 @@
     "Route Threat":25.5037120045,
     "Coverage Stress":64.8026620749,
     "Open-Field Creation":null,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -3450,6 +3783,7 @@
     "chip_snaps":10,
     "block_snaps":17,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -3465,11 +3799,13 @@
     "Route Threat":78.163818462,
     "Coverage Stress":38.9527163362,
     "Open-Field Creation":43.956043956,
+    "Run-Game Impact":53.9473684211,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3481,6 +3817,7 @@
     "chip_snaps":11,
     "block_snaps":25,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Coverage Stressor",
     "deployment_archetype":"inline blocker",
     "archetype_reliable":true,
@@ -3496,11 +3833,13 @@
     "Route Threat":39.1911332119,
     "Coverage Stress":84.1276544402,
     "Open-Field Creation":14.2857142857,
+    "Run-Game Impact":3.9473684211,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3512,6 +3851,7 @@
     "chip_snaps":8,
     "block_snaps":31,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Coverage Stressor",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -3527,11 +3867,13 @@
     "Route Threat":13.7552878554,
     "Coverage Stress":94.6988907794,
     "Open-Field Creation":34.0659340659,
+    "Run-Game Impact":86.8421052632,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3543,6 +3885,7 @@
     "chip_snaps":4,
     "block_snaps":10,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Limited sample",
     "deployment_archetype":"inline blocker",
     "archetype_reliable":false,
@@ -3558,11 +3901,13 @@
     "Route Threat":26.6023952935,
     "Coverage Stress":56.8684150252,
     "Open-Field Creation":null,
+    "Run-Game Impact":88.1578947368,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":0
+    "Open-Field Creation_components":0,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3574,6 +3919,7 @@
     "chip_snaps":6,
     "block_snaps":20,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -3589,11 +3935,13 @@
     "Route Threat":82.0737498249,
     "Coverage Stress":14.8567870231,
     "Open-Field Creation":18.6813186813,
+    "Run-Game Impact":32.8947368421,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3605,6 +3953,7 @@
     "chip_snaps":4,
     "block_snaps":4,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"receiving specialist",
     "archetype_reliable":true,
@@ -3620,11 +3969,13 @@
     "Route Threat":29.2551827987,
     "Coverage Stress":37.9687874921,
     "Open-Field Creation":52.7472527473,
+    "Run-Game Impact":22.3684210526,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3636,6 +3987,7 @@
     "chip_snaps":7,
     "block_snaps":14,
     "profile_eligible":false,
+    "run_game_available":false,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -3651,11 +4003,13 @@
     "Route Threat":15.3893402437,
     "Coverage Stress":64.6524551186,
     "Open-Field Creation":15.3846153846,
+    "Run-Game Impact":null,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":0
   },
   {
     "profile_rank":null,
@@ -3667,6 +4021,7 @@
     "chip_snaps":7,
     "block_snaps":8,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":false,
@@ -3682,11 +4037,13 @@
     "Route Threat":34.7458327497,
     "Coverage Stress":55.240201612,
     "Open-Field Creation":9.8901098901,
+    "Run-Game Impact":68.4210526316,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3698,6 +4055,7 @@
     "chip_snaps":8,
     "block_snaps":6,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"balanced",
     "archetype_reliable":true,
@@ -3713,11 +4071,13 @@
     "Route Threat":37.6169631601,
     "Coverage Stress":60.4168370853,
     "Open-Field Creation":4.3956043956,
+    "Run-Game Impact":56.5789473684,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   },
   {
     "profile_rank":null,
@@ -3729,6 +4089,7 @@
     "chip_snaps":5,
     "block_snaps":35,
     "profile_eligible":false,
+    "run_game_available":true,
     "performance_archetype":"Balanced TE",
     "deployment_archetype":"inline blocker",
     "archetype_reliable":true,
@@ -3744,10 +4105,12 @@
     "Route Threat":47.8938927021,
     "Coverage Stress":56.6585956416,
     "Open-Field Creation":6.5934065934,
+    "Run-Game Impact":38.1578947368,
     "Protection Impact_components":3,
     "Chip-to-Route Value_components":2,
     "Route Threat_components":3,
     "Coverage Stress_components":3,
-    "Open-Field Creation_components":1
+    "Open-Field Creation_components":1,
+    "Run-Game Impact_components":1
   }
 ]

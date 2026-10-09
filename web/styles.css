@@ -23,6 +23,7 @@ main { max-width: 1440px; margin: auto; padding: 34px; }
 h1 { margin: 7px 0; font-size: clamp(30px, 4vw, 50px); line-height: 1.05; letter-spacing: -.04em; }
 h2 { margin: 0 0 16px; font-size: 24px; } h3 { margin: 0 0 18px; font-size: 18px; }
 .intro p, .caption { color: var(--muted); margin: 0; }
+.intro .provisional-note { color: #f5cc6b; font-size: 12px; margin-top: 12px; max-width: 700px; }
 .snapshot { display: grid; grid-template-columns: repeat(3, minmax(74px, 1fr)); align-content: center; gap: 4px 22px; }
 .snapshot strong { color: var(--accent); font-size: 32px; } .snapshot span { color: var(--muted); font-size: 12px; text-transform: uppercase; }
 .workspace { display: grid; grid-template-columns: 290px 1fr; gap: 24px; margin-top: 26px; }

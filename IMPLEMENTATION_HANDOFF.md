@@ -194,7 +194,21 @@ Use `run_tilt`, heavy-package share, and box count as deployment context, not
 as performance credit. Establish minimum opportunity rules for offensive runs
 and short-yardage plays before ranking players.
 
-Do **not** integrate the run table yet until all of the following are complete:
+### Current provisional integration
+
+The pipeline now includes `src.metrics.run_game_impact`, which creates:
+
+- `output/run_game_impact/players.csv`;
+- `output/run_game_impact/matches.csv`;
+- `output/run_game_impact/summary.json`.
+
+It matches all 84 source rows by normalized player name and team, records the
+match method for every row, applies the minimums above, renormalizes weights
+when a component lacks enough opportunities, and shrinks scores toward the
+league midpoint. It is included as the sixth app axis but visibly labeled
+**provisional**.
+
+The integration is not fully validated until all of the following are complete:
 
 1. Document its source and construction methodology.
 2. Validate the season/week scope against the Big Data Bowl sample.
@@ -249,8 +263,10 @@ The final player table should include:
 - optional overall profile score;
 - links or keys to underlying play-level evidence.
 
-The overall score should be secondary. If retained, use an unweighted mean of
-the six performance axes. Never include DDI in that score.
+The overall score should be secondary. Until Run-Game Impact has complete
+source coverage and documented provenance, use an unweighted mean of the five
+validated pass-game axes. Show the provisional sixth run axis separately;
+never include DDI in the performance score.
 
 ### Discovery and comparison requirements
 

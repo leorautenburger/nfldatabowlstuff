@@ -72,6 +72,7 @@ Use `Ctrl+C` in the serving terminal to stop it.
 | Route Threat | Separation, timely eligibility, and middle-of-field access. |
 | Coverage Stress | Defensive attention, alignment constraint, and red-zone conflict. |
 | Open-Field Creation | Expected post-catch runway and YAC opportunity. |
+| Run-Game Impact † | Provisional run EPA/success, edge-run, and short-yardage evidence. |
 
 Scores are league-relative percentiles. Where available, empirical-Bayes
 shrunk estimates are used; all component metrics, sample sizes, and play-level
@@ -79,6 +80,14 @@ evidence remain available in their own `output/<metric>/` directories.
 
 Deployment Breadth and its role shares are shown as context and used for
 archetypes/similarity, but are excluded from the performance score.
+
+† Run-Game Impact is derived from the uploaded `te_run_metrics.csv` table.
+The repository does not document that table's upstream methodology, so the app
+and `output/run_game_impact/summary.json` label the axis **provisional**. Its
+player matching audit and scoring thresholds are published before any
+interpretation is made. It is shown and searchable, but excluded from the
+overall score and performance-similarity calculation until source coverage and
+methodology are complete.
 
 ## Caveat
 

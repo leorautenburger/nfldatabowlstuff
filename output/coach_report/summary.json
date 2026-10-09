@@ -4,7 +4,8 @@
     "Chip-to-Route Value",
     "Route Threat",
     "Coverage Stress",
-    "Open-Field Creation"
+    "Open-Field Creation",
+    "Run-Game Impact"
   ],
   "metric_mapping": {
     "Protection Impact": [
@@ -88,6 +89,14 @@
         "higher_is_better": true,
         "value_column": "yacoe_shrunk"
       }
+    ],
+    "Run-Game Impact": [
+      {
+        "metric": "run_game_impact",
+        "weight": 1.0,
+        "higher_is_better": true,
+        "value_column": "value_shrunk/value"
+      }
     ]
   },
   "min_profile_snaps": 100,
@@ -102,6 +111,16 @@
       "wshare_shrunk_standard_pass_block"
     ]
   },
+  "provisional_axes": [
+    "Run-Game Impact"
+  ],
+  "overall_score_axes": [
+    "Protection Impact",
+    "Chip-to-Route Value",
+    "Route Threat",
+    "Coverage Stress",
+    "Open-Field Creation"
+  ],
   "eligible_profiles": 47,
   "total_tes": 121,
   "spider_charts_rendered": false,

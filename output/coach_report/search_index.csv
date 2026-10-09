@@ -1,122 +1,122 @@
-profile_rank,nflId,displayName,team,snaps,route_snaps,chip_snaps,block_snaps,profile_eligible,performance_archetype,deployment_archetype,archetype_reliable,deployment_breadth,wshare_shrunk_inline_route,wshare_shrunk_detached_route,wshare_shrunk_chip_release,wshare_shrunk_stay_in_block,wshare_shrunk_standard_pass_block,versatility_profile_score,Protection Impact,Chip-to-Route Value,Route Threat,Coverage Stress,Open-Field Creation,Protection Impact_components,Chip-to-Route Value_components,Route Threat_components,Coverage Stress_components,Open-Field Creation_components
-1.00,46118,Dallas Goedert,PHI,155,144,9,11,True,Open-Field Creator,balanced,True,0.72,0.33,0.50,0.05,0.10,0.02,71.18,49.26,76.07,77.06,57.90,95.60,3,2,3,3,1
-2.00,45339,Pharaoh Brown,HOU,103,74,6,29,True,Open-Field Creator,balanced,True,0.76,0.56,0.16,0.09,0.11,0.08,69.69,69.85,81.28,38.08,71.34,87.91,3,2,3,3,1
-3.00,44841,David Njoku,CLE,144,118,21,26,True,Open-Field Creator,balanced,True,0.91,0.28,0.36,0.18,0.07,0.12,65.23,64.36,64.49,68.86,48.24,80.22,3,2,3,3,1
-4.00,40641,Jack Doyle,IND,144,128,10,16,True,Balanced TE,balanced,True,0.74,0.41,0.42,0.06,0.08,0.02,62.65,46.32,69.86,68.95,56.72,71.43,3,2,3,3,1
-5.00,44856,Gerald Everett,SEA,123,114,13,9,True,Open-Field Creator,balanced,True,0.72,0.31,0.52,0.09,0.07,0.02,61.63,21.02,84.41,84.88,23.32,94.51,3,2,3,3,1
-6.00,40011,Travis Kelce,KC,304,296,20,8,True,Open-Field Creator,receiving specialist,True,0.59,0.20,0.67,0.09,0.03,0.01,61.51,63.44,44.26,49.10,50.76,100.00,3,2,3,3,1
-7.00,46226,Tyler Conklin,MIN,217,174,17,43,True,Coverage Stressor,balanced,True,0.74,0.57,0.22,0.05,0.06,0.10,61.18,46.91,48.70,38.33,80.76,91.21,3,2,3,3,1
-8.00,40149,Ryan Griffin,NYJ,144,108,18,36,True,Balanced TE,balanced,True,0.89,0.38,0.31,0.13,0.10,0.08,60.31,36.90,88.69,61.40,74.99,39.56,3,2,3,3,1
-9.00,46206,Dalton Schultz,DAL,189,172,20,17,True,Open-Field Creator,balanced,True,0.71,0.35,0.49,0.09,0.01,0.06,59.16,63.62,48.16,58.57,33.13,92.31,3,2,3,3,1
-10.00,46189,Will Dissly,SEA,134,102,11,32,True,Open-Field Creator,balanced,True,0.78,0.25,0.52,0.07,0.08,0.08,58.52,29.85,68.10,51.02,50.21,93.41,3,2,3,3,1
-11.00,47920,Foster Moreau,LV,117,87,9,30,True,Balanced TE,balanced,True,0.88,0.31,0.37,0.10,0.07,0.15,57.69,43.96,80.98,66.89,32.91,63.74,3,2,3,3,1
-12.00,52513,Adam Trautman,NO,150,121,12,29,True,Balanced TE,balanced,True,0.83,0.38,0.36,0.08,0.09,0.09,57.47,72.98,52.48,62.51,38.94,60.44,3,2,3,3,1
-13.00,53484,Pat Freiermuth,PIT,126,119,3,7,True,Balanced TE,balanced,True,0.72,0.46,0.37,0.11,0.03,0.04,57.35,25.79,66.88,67.81,53.76,72.53,3,2,3,3,1
-14.00,45785,Dan Arnold,JAX,165,155,13,10,True,Balanced TE,balanced,True,0.69,0.23,0.61,0.07,0.05,0.04,57.29,31.01,94.33,84.84,22.44,53.85,3,2,3,3,1
-15.00,44912,Jonnu Smith,NE,109,92,12,17,True,Open-Field Creator,balanced,True,0.79,0.30,0.45,0.17,0.04,0.05,57.00,40.30,55.01,50.72,53.23,85.71,3,2,3,3,1
-16.00,46170,Ian Thomas,CAR,166,128,23,38,True,Inline Protector,balanced,True,0.85,0.36,0.35,0.13,0.03,0.13,56.63,76.80,78.13,66.06,51.18,10.99,3,2,3,3,1
-17.00,46111,Mike Gesicki,MIA,243,238,5,5,True,Open-Field Creator,receiving specialist,True,0.30,0.07,0.88,0.03,0.02,0.00,53.73,63.83,44.01,75.38,7.41,78.02,3,2,3,3,1
-18.00,44959,George Kittle,SF,126,105,7,21,True,Open-Field Creator,balanced,True,0.76,0.38,0.44,0.04,0.08,0.07,53.20,17.89,70.91,26.30,51.98,98.90,3,2,3,3,1
-19.00,45532,Blake Jarwin,DAL,128,115,10,13,True,Balanced TE,receiving specialist,True,0.68,0.27,0.57,0.07,0.07,0.02,52.67,64.75,43.25,47.08,33.53,74.73,3,2,3,3,1
-20.00,42547,Darren Waller,LV,224,209,22,15,True,Balanced TE,balanced,True,0.79,0.39,0.39,0.12,0.06,0.04,51.96,49.85,72.70,69.14,25.25,42.86,3,2,3,3,1
-21.00,45481,Ricky Seals-Jones,WAS,208,185,32,23,True,Inline Protector,balanced,True,0.77,0.25,0.49,0.13,0.12,0.01,51.45,79.28,30.48,60.53,25.42,61.54,3,2,3,3,1
-22.00,46155,Mark Andrews,BAL,216,213,13,3,True,Balanced TE,receiving specialist,True,0.52,0.22,0.69,0.06,0.02,0.01,50.71,39.85,88.31,91.17,28.73,5.49,3,2,3,3,1
-23.00,53512,Tommy Tremble,CAR,110,98,9,12,True,Dual-Threat Creator,balanced,True,0.71,0.37,0.46,0.08,0.09,0.01,50.43,71.42,55.12,78.70,23.84,23.08,3,2,3,3,1
-24.00,41349,Logan Thomas,WAS,100,94,4,6,True,Balanced TE,receiving specialist,True,0.70,0.29,0.55,0.04,0.09,0.03,50.16,26.97,85.54,44.79,48.43,45.05,3,2,3,3,1
-25.00,47879,Dawson Knox,BUF,167,157,24,10,True,Open-Field Creator,balanced,True,0.78,0.31,0.47,0.12,0.03,0.07,49.55,43.44,47.64,49.31,26.03,81.32,3,2,3,3,1
-26.00,42500,C.J. Uzomah,CIN,216,198,24,18,True,Open-Field Creator,balanced,True,0.82,0.41,0.34,0.12,0.08,0.04,49.28,37.95,9.56,35.11,65.98,97.80,3,2,3,3,1
-27.00,46094,Hayden Hurst,ATL,167,146,15,21,True,Balanced TE,balanced,True,0.82,0.37,0.37,0.09,0.12,0.04,48.94,45.01,79.09,36.10,37.23,47.25,3,2,3,3,1
-28.00,52451,Cole Kmet,CHI,208,178,22,30,True,Balanced TE,balanced,True,0.78,0.21,0.55,0.11,0.05,0.09,48.27,66.71,89.67,47.11,25.78,12.09,3,2,3,3,1
-29.00,43324,Hunter Henry,NE,227,200,35,27,True,Balanced TE,balanced,True,0.78,0.19,0.53,0.15,0.11,0.03,47.72,52.59,21.08,34.69,63.19,67.03,3,2,3,3,1
-30.00,45355,Anthony Firkser,TEN,118,116,37,2,True,Balanced TE,chip-and-release specialist,True,0.59,0.10,0.61,0.26,0.02,0.01,46.89,35.20,49.34,64.72,63.19,21.98,3,2,3,3,1
-31.00,44792,Mo Alie-Cox,IND,123,108,19,15,True,Balanced TE,balanced,True,0.82,0.30,0.43,0.15,0.04,0.07,46.57,29.45,60.65,47.29,60.29,35.16,3,2,3,3,1
-32.00,47791,T.J. Hockenson,DET,292,280,25,12,True,Balanced TE,receiving specialist,True,0.67,0.29,0.56,0.09,0.05,0.01,42.71,42.20,48.85,78.70,16.32,27.47,3,2,3,3,1
-33.00,43399,Tyler Higbee,LA,223,198,35,25,True,Inline Protector,balanced,True,0.84,0.33,0.39,0.13,0.03,0.11,42.46,78.72,10.76,13.74,82.74,26.37,3,2,3,3,1
-34.00,44835,Evan Engram,NYG,170,164,22,6,True,Balanced TE,balanced,True,0.63,0.19,0.63,0.13,0.05,0.00,42.46,34.81,54.99,60.98,25.24,36.26,3,2,3,3,1
-35.00,53433,Kyle Pitts,ATL,245,240,5,5,True,Balanced TE,receiving specialist,True,0.53,0.22,0.72,0.03,0.03,0.01,41.08,28.14,71.81,64.76,19.79,20.88,3,2,3,3,1
-36.00,42033,Cameron Brate,TB,159,158,10,1,True,Balanced TE,receiving specialist,True,0.57,0.38,0.55,0.07,0.01,0.00,41.03,42.98,77.19,7.56,53.24,24.18,3,2,3,3,1
-37.00,41236,Eric Ebron,PIT,113,108,9,5,True,Balanced TE,balanced,True,0.68,0.60,0.22,0.09,0.06,0.03,40.16,51.47,51.16,59.32,19.08,19.78,3,2,3,3,1
-38.00,39983,Zach Ertz,PHI,168,162,14,6,True,Balanced TE,receiving specialist,True,0.65,0.29,0.59,0.08,0.02,0.01,38.76,27.30,44.03,45.74,69.04,7.69,3,2,3,3,1
-39.00,46167,Jordan Akins,HOU,154,140,15,14,True,Balanced TE,balanced,True,0.73,0.53,0.28,0.08,0.08,0.03,38.18,19.45,68.03,30.52,69.60,3.30,3,2,3,3,1
-40.00,34540,Jared Cook,LAC,205,192,22,13,True,Balanced TE,balanced,True,0.70,0.26,0.56,0.10,0.08,0.01,36.81,69.87,53.23,23.49,24.28,13.19,3,2,3,3,1
-41.00,43370,Austin Hooper,CLE,158,130,23,28,True,Balanced TE,balanced,True,0.86,0.40,0.30,0.14,0.06,0.11,36.62,68.57,17.95,14.01,57.32,25.27,3,2,3,3,1
-42.00,42589,Geoff Swaim,TEN,120,85,16,35,True,Balanced TE,balanced,True,0.84,0.41,0.28,0.14,0.05,0.12,36.47,51.02,31.30,12.05,70.41,17.58,3,2,3,3,1
-43.00,37118,Kyle Rudolph,NYG,155,113,15,42,True,Balanced TE,balanced,True,0.79,0.15,0.54,0.10,0.06,0.16,36.34,56.41,5.31,12.03,56.31,51.65,3,2,3,3,1
-44.00,42428,Tyler Kroft,NYJ,132,106,17,26,True,Balanced TE,balanced,True,0.81,0.46,0.28,0.10,0.11,0.04,35.62,40.69,39.15,41.12,24.18,32.97,3,2,3,3,1
-45.00,45635,Robert Tonyan,GB,164,159,18,5,True,Balanced TE,receiving specialist,True,0.65,0.39,0.48,0.09,0.04,0.00,29.17,70.83,13.27,16.79,13.09,31.87,3,2,3,3,1
-46.00,47803,Noah Fant,DEN,251,233,54,18,True,Balanced TE,balanced,True,0.79,0.44,0.30,0.18,0.05,0.03,25.25,28.67,20.43,41.67,33.30,2.20,3,2,3,3,1
-47.00,46192,Durham Smythe,MIA,129,104,11,25,True,Balanced TE,balanced,True,0.84,0.40,0.34,0.10,0.07,0.10,21.64,26.71,14.23,36.41,29.77,1.10,3,2,3,3,1
-,42398,Maxx Williams,ARI,93,72,5,21,False,Inline Protector,balanced,True,0.81,0.45,0.30,0.05,0.11,0.09,67.31,82.45,40.70,49.60,67.12,96.70,3,2,3,3,1
-,47924,Zach Gentry,PIT,43,27,4,16,False,Inline Protector,inline blocker,False,0.81,0.36,0.18,0.12,0.07,0.27,67.19,76.93,74.78,55.25,44.38,84.62,3,2,3,3,1
-,46797,Tanner Hudson,SF,1,0,0,1,False,Limited sample,inline blocker,False,0.69,0.29,0.41,0.09,0.06,0.15,65.56,41.68,,59.50,95.50,,2,0,1,1,0
-,45217,Cethan Carter,MIA,16,13,0,3,False,Balanced TE,receiving specialist,False,0.59,0.21,0.61,0.06,0.08,0.04,63.77,41.68,88.14,60.37,71.52,57.14,2,1,3,3,1
-,53574,Luke Farrell,JAX,51,46,5,5,False,Dual-Threat Creator,balanced,True,0.72,0.34,0.49,0.09,0.06,0.02,63.55,72.20,77.44,75.93,75.68,16.48,3,2,3,3,1
-,48683,Joe Fortson,KC,29,26,3,3,False,Open-Field Creator,balanced,False,0.78,0.28,0.45,0.12,0.10,0.05,63.32,64.22,52.06,71.73,52.20,76.37,3,2,3,3,1
-,45594,Colin Thompson,CAR,16,7,0,9,False,Limited sample,inline blocker,False,0.76,0.29,0.45,0.07,0.09,0.09,63.05,64.78,71.19,60.09,56.13,,2,1,3,3,0
-,44831,O.J. Howard,TB,94,76,7,18,False,Open-Field Creator,balanced,True,0.80,0.40,0.38,0.06,0.07,0.09,62.68,48.28,62.76,48.47,70.39,83.52,3,2,3,3,1
-,48766,Kendall Blanton,LA,6,5,0,1,False,Limited sample,receiving specialist,False,0.65,0.41,0.39,0.08,0.06,0.06,62.33,64.78,74.15,59.92,50.48,,2,1,3,3,0
-,43845,Stephen Anderson,LAC,40,35,10,5,False,Open-Field Creator,chip-and-release specialist,False,0.76,0.36,0.31,0.23,0.07,0.03,61.92,40.43,41.91,65.16,73.09,89.01,3,2,3,3,1
-,52942,Juwan Johnson,NO,59,58,4,1,False,Balanced TE,receiving specialist,True,0.64,0.29,0.56,0.11,0.02,0.02,61.45,52.63,94.94,94.68,35.32,29.67,2,2,3,3,1
-,53553,John Bates,WAS,28,19,3,9,False,Coverage Stressor,balanced,False,0.78,0.44,0.26,0.11,0.07,0.13,61.37,58.47,71.62,31.38,77.26,68.13,3,2,3,3,1
-,48723,Parker Hesse,ATL,4,4,0,0,False,Limited sample,receiving specialist,False,0.64,0.35,0.47,0.08,0.05,0.05,61.15,,65.25,59.85,58.34,,0,1,3,3,0
-,46331,Ross Dwelley,SF,72,58,9,14,False,Balanced TE,balanced,True,0.80,0.27,0.45,0.14,0.09,0.05,60.96,47.49,84.88,79.57,51.10,41.76,3,2,3,3,1
-,52725,Ben Ellefson,MIN,17,10,0,7,False,Limited sample,balanced,False,0.56,0.50,0.26,0.06,0.07,0.11,60.48,41.68,83.05,69.46,47.72,,2,1,3,2,0
-,53172,Dominique Dafney,GB,18,14,3,4,False,Limited sample,chip-and-release specialist,False,0.76,0.35,0.37,0.18,0.06,0.04,59.51,68.28,51.15,55.36,63.27,,3,2,3,3,0
-,52614,Tyler Davis,GB,2,0,0,2,False,Limited sample,inline blocker,False,0.66,0.27,0.37,0.09,0.06,0.21,59.25,64.78,,53.72,,,2,0,1,0,0
-,47852,Josh Oliver,BAL,57,57,9,0,False,Dual-Threat Creator,balanced,True,0.49,0.14,0.69,0.14,0.02,0.01,58.84,82.04,75.01,73.64,26.16,37.36,2,2,3,3,1
-,39907,Darren Fells,DET,65,53,6,12,False,Open-Field Creator,balanced,True,0.79,0.34,0.43,0.12,0.06,0.05,58.35,44.75,57.29,71.00,36.29,82.42,3,2,3,3,1
-,48475,Chris Myarick,NYG,3,0,0,3,False,Limited sample,inline blocker,False,0.67,0.26,0.36,0.08,0.10,0.20,57.18,64.78,,49.59,,,2,0,1,0,0
-,53576,Brevin Jordan,HOU,10,9,0,1,False,Balanced TE,receiving specialist,False,0.56,0.58,0.29,0.05,0.04,0.04,56.98,41.68,82.20,64.52,41.58,54.95,2,1,3,3,1
-,46915,Codey McElroy,TB,2,2,0,0,False,Limited sample,receiving specialist,False,0.30,0.29,0.49,0.09,0.06,0.06,56.94,,59.75,49.03,62.04,,0,1,3,3,0
-,53510,Hunter Long,MIA,8,5,0,3,False,Limited sample,balanced,False,0.64,0.42,0.37,0.08,0.06,0.08,56.32,41.68,74.15,70.17,39.27,,2,1,3,2,0
-,53570,Jacob Harris,LA,2,2,0,0,False,Limited sample,receiving specialist,False,0.66,0.27,0.53,0.09,0.06,0.05,55.08,,59.75,52.94,52.54,,0,1,3,1,0
-,41327,Richard Rodgers,PHI,3,3,1,0,False,Limited sample,chip-and-release specialist,False,0.68,0.29,0.40,0.19,0.06,0.05,55.07,61.95,44.33,51.82,62.17,,2,2,3,3,0
-,53946,Jack Stoll,PHI,31,21,4,10,False,Limited sample,chip-and-release specialist,False,0.80,0.31,0.24,0.21,0.06,0.18,54.96,50.43,43.25,57.18,68.97,,3,2,3,3,0
-,48096,Andrew Beck,DEN,8,6,0,2,False,Limited sample,balanced,False,0.62,0.28,0.48,0.09,0.09,0.05,54.89,41.68,68.64,73.80,35.42,,2,1,3,3,0
-,53724,Matt Bushman,LV,2,2,0,0,False,Limited sample,receiving specialist,False,0.69,0.38,0.41,0.09,0.06,0.06,54.88,,55.93,50.15,58.56,,0,1,3,3,0
-,40615,Demetrius Harris,ARI,43,31,1,12,False,Limited sample,inline blocker,False,0.76,0.44,0.30,0.03,0.08,0.14,54.37,62.40,54.32,28.85,71.91,,3,2,3,3,0
-,42460,Blake Bell,KC,40,23,11,17,False,Dual-Threat Creator,chip-and-release specialist,False,0.80,0.26,0.20,0.20,0.08,0.27,53.96,76.12,33.50,70.56,26.97,62.64,3,2,3,3,1
-,48456,Donald Parham,LAC,97,75,12,22,False,Open-Field Creator,balanced,True,0.85,0.33,0.39,0.14,0.10,0.05,53.87,27.75,57.92,40.88,52.70,90.11,3,2,3,3,1
-,44009,J.P. Holtz,CHI,10,7,0,3,False,Limited sample,inline blocker,False,0.68,0.29,0.38,0.08,0.20,0.05,53.74,64.78,64.41,24.39,61.37,,2,1,3,3,0
-,52598,Charlie Woerner,SF,47,36,7,11,False,Inline Protector,inline blocker,False,0.79,0.33,0.30,0.15,0.20,0.03,53.43,76.91,35.67,30.52,85.58,38.46,3,2,3,3,1
-,43079,Daniel Brown,NYJ,6,6,3,0,False,Limited sample,chip-and-release specialist,False,0.67,0.26,0.40,0.25,0.04,0.04,53.43,68.15,43.93,35.03,66.60,,2,2,3,2,0
-,48700,Jesper Horsted,CHI,3,3,0,0,False,Limited sample,receiving specialist,False,0.63,0.27,0.53,0.09,0.06,0.05,52.69,,61.86,45.94,43.63,59.34,0,1,3,2,1
-,53896,Tory Carter,TEN,1,1,0,0,False,Limited sample,receiving specialist,False,0.69,0.38,0.41,0.09,0.06,0.06,52.65,,56.78,61.34,39.83,,0,1,3,1,0
-,47835,Drew Sample,CIN,60,41,3,19,False,Coverage Stressor,balanced,True,0.78,0.48,0.25,0.06,0.09,0.12,52.26,36.38,39.83,57.69,86.76,40.66,3,2,3,3,1
-,52673,Mitchell Wilcox,CIN,8,7,0,1,False,Limited sample,balanced,False,0.64,0.38,0.39,0.09,0.06,0.08,52.21,37.28,50.85,42.15,78.56,,1,1,3,3,0
-,45281,Jacob Hollister,JAX,40,37,1,3,False,Dual-Threat Creator,receiving specialist,False,0.65,0.22,0.65,0.04,0.06,0.02,52.08,78.87,63.02,85.41,24.30,8.79,3,2,3,3,1
-,42302,Chris Manhertz,JAX,65,39,8,26,False,Coverage Stressor,inline blocker,True,0.93,0.31,0.25,0.15,0.10,0.18,51.26,69.11,16.06,33.63,79.25,58.24,3,2,3,3,1
-,53556,Kylen Granson,IND,40,37,2,3,False,Limited sample,receiving specialist,False,0.66,0.30,0.56,0.06,0.05,0.03,51.00,49.71,38.47,50.34,65.49,,3,2,3,3,0
-,47840,J.J. Arcega-Whiteside,PHI,19,15,4,4,False,Limited sample,chip-and-release specialist,False,0.70,0.16,0.51,0.19,0.11,0.03,50.79,75.34,31.12,38.13,58.59,,3,2,3,3,0
-,37179,Luke Stocker,MIN,9,4,2,5,False,Balanced TE,inline blocker,False,0.83,0.23,0.38,0.14,0.13,0.13,50.46,47.94,29.73,56.27,48.04,70.33,3,2,3,2,1
-,52526,Albert Okwuegbunam,DEN,69,59,12,10,False,Open-Field Creator,balanced,True,0.80,0.43,0.30,0.16,0.06,0.05,50.45,50.29,50.78,40.57,31.51,79.12,3,2,3,3,1
-,53526,Tre' McKitty,LAC,1,1,0,0,False,Limited sample,receiving specialist,False,0.69,0.38,0.41,0.09,0.06,0.06,50.11,,49.58,46.52,54.24,,0,1,3,1,0
-,46176,Christopher Herndon,MIN,29,27,3,2,False,Balanced TE,receiving specialist,False,0.63,0.44,0.40,0.07,0.05,0.04,49.87,32.07,76.48,32.75,61.90,46.15,3,2,3,3,1
-,52541,Colby Parkinson,SEA,39,29,3,10,False,Balanced TE,balanced,False,0.64,0.20,0.61,0.05,0.09,0.05,49.64,62.00,52.87,30.32,54.66,48.35,3,2,3,3,1
-,43206,Ross Travis,ARI,2,2,1,0,False,Limited sample,receiving specialist,False,0.67,0.38,0.40,0.10,0.06,0.06,49.33,54.42,33.95,44.55,64.41,,2,2,3,1,0
-,46544,Deon Yelder,TB,4,4,2,0,False,Balanced TE,chip-and-release specialist,False,0.62,0.28,0.39,0.22,0.06,0.06,49.18,46.09,37.71,64.30,41.74,56.04,2,2,3,3,1
-,45321,Antony Auclair,HOU,42,18,2,24,False,Balanced TE,inline blocker,False,0.79,0.40,0.29,0.05,0.16,0.10,48.72,35.99,29.57,39.19,74.00,64.84,3,2,3,3,1
-,52502,Josiah Deguara,GB,33,27,6,6,False,Balanced TE,chip-and-release specialist,False,0.85,0.24,0.40,0.18,0.13,0.04,48.55,60.30,11.40,37.86,63.98,69.23,3,2,3,3,1
-,45142,Darrell Daniels,ARI,26,23,4,3,False,Limited sample,balanced,False,0.78,0.29,0.44,0.13,0.07,0.07,48.45,46.71,58.03,41.46,47.60,,3,2,3,3,0
-,53591,Noah Gray,KC,43,36,3,7,False,Balanced TE,balanced,False,0.69,0.17,0.62,0.09,0.03,0.09,48.34,60.43,31.04,52.18,48.60,49.45,3,2,3,3,1
-,44967,Jeremy Sprinkle,DAL,8,4,1,4,False,Limited sample,inline blocker,False,0.65,0.25,0.36,0.10,0.23,0.06,48.22,47.10,36.50,41.88,67.41,,3,2,3,3,0
-,45094,Johnny Mundt,LA,33,26,2,7,False,Balanced TE,balanced,False,0.78,0.45,0.27,0.08,0.12,0.08,48.16,57.95,34.02,20.30,62.59,65.93,3,2,3,3,1
-,42503,Jesse James,CHI,56,42,17,14,False,Balanced TE,chip-and-release specialist,True,0.89,0.24,0.35,0.19,0.12,0.09,48.06,61.09,5.24,89.64,55.74,28.57,3,2,3,3,1
-,53065,Tommy Hudson,TEN,19,13,7,6,False,Balanced TE,chip-and-release specialist,False,0.80,0.18,0.29,0.29,0.19,0.05,47.96,53.77,34.50,41.43,36.45,73.63,3,2,3,3,1
-,52962,Tyler Mabry,SEA,6,4,1,2,False,Limited sample,chip-and-release specialist,False,0.74,0.28,0.39,0.20,0.06,0.08,47.10,50.10,60.18,44.40,33.72,,3,2,3,3,0
-,47904,Trevon Wesco,NYJ,32,24,4,8,False,Limited sample,chip-and-release specialist,False,0.76,0.42,0.27,0.17,0.09,0.04,46.92,61.61,33.02,61.52,31.54,,3,2,3,2,0
-,30842,Marcedes Lewis,GB,74,56,15,18,False,Open-Field Creator,chip-and-release specialist,True,0.81,0.39,0.18,0.23,0.04,0.15,45.94,37.56,25.59,32.17,58.00,76.37,3,2,3,3,1
-,42516,James O'Shaughnessy,JAX,38,38,7,0,False,Balanced TE,balanced,False,0.72,0.36,0.46,0.14,0.03,0.02,45.88,41.19,67.50,53.74,36.21,30.77,2,2,3,3,1
-,44075,Garrett Griffin,NO,48,32,4,16,False,Open-Field Creator,balanced,False,0.78,0.42,0.33,0.09,0.10,0.07,45.75,34.03,41.08,31.90,34.93,86.81,3,2,3,3,1
-,39109,Derek Carrier,LV,16,15,2,1,False,Balanced TE,balanced,False,0.75,0.41,0.31,0.13,0.11,0.03,45.04,48.93,37.11,55.14,33.49,50.55,3,2,3,3,1
-,53959,Brock Wright,DET,11,8,2,3,False,Limited sample,chip-and-release specialist,False,0.79,0.31,0.35,0.21,0.08,0.05,44.51,26.12,61.61,25.50,64.80,,3,2,3,3,0
-,44987,Eric Saubert,DEN,70,53,10,17,False,Balanced TE,balanced,True,0.78,0.44,0.33,0.08,0.06,0.09,43.47,26.32,29.98,78.16,38.95,43.96,3,2,3,3,1
-,47959,Kaden Smith,NYG,68,43,11,25,False,Coverage Stressor,inline blocker,True,0.93,0.32,0.28,0.13,0.09,0.19,42.90,54.81,22.10,39.19,84.13,14.29,3,2,3,3,1
-,42486,MyCole Pruitt,TEN,96,65,8,31,False,Coverage Stressor,balanced,True,0.80,0.38,0.38,0.07,0.13,0.03,41.75,29.32,36.93,13.76,94.70,34.07,3,2,3,3,1
-,42721,Eric Tomlinson,BAL,26,16,4,10,False,Limited sample,inline blocker,False,0.85,0.35,0.23,0.12,0.17,0.13,41.16,62.84,18.33,26.60,56.87,,3,2,3,3,0
-,44857,Adam Shaheen,MIA,94,74,6,20,False,Balanced TE,balanced,True,0.78,0.30,0.44,0.04,0.08,0.14,40.58,69.06,18.23,82.07,14.86,18.68,3,2,3,3,1
-,35534,Jimmy Graham,CHI,50,46,4,4,False,Balanced TE,receiving specialist,True,0.62,0.24,0.61,0.08,0.03,0.04,39.18,44.22,31.73,29.26,37.97,52.75,3,2,3,3,1
-,35481,Rob Gronkowski,TB,97,83,7,14,False,Balanced TE,balanced,True,0.77,0.45,0.33,0.07,0.03,0.12,37.35,32.85,58.45,15.39,64.65,15.38,3,2,3,3,1
-,48011,Tommy Sweeney,BUF,47,39,7,8,False,Balanced TE,balanced,False,0.82,0.35,0.37,0.13,0.10,0.05,35.56,54.03,23.91,34.75,55.24,9.89,3,2,3,3,1
-,52523,Harrison Bryant,CLE,79,73,8,6,False,Balanced TE,balanced,True,0.72,0.29,0.52,0.10,0.06,0.03,34.49,31.28,38.74,37.62,60.42,4.40,3,2,3,3,1
-,37234,Lee Smith,ATL,63,28,5,35,False,Balanced TE,inline blocker,True,0.83,0.42,0.16,0.08,0.14,0.20,29.54,15.93,20.63,47.89,56.66,6.59,3,2,3,3,1
+profile_rank,nflId,displayName,team,snaps,route_snaps,chip_snaps,block_snaps,profile_eligible,run_game_available,performance_archetype,deployment_archetype,archetype_reliable,deployment_breadth,wshare_shrunk_inline_route,wshare_shrunk_detached_route,wshare_shrunk_chip_release,wshare_shrunk_stay_in_block,wshare_shrunk_standard_pass_block,versatility_profile_score,Protection Impact,Chip-to-Route Value,Route Threat,Coverage Stress,Open-Field Creation,Run-Game Impact,Protection Impact_components,Chip-to-Route Value_components,Route Threat_components,Coverage Stress_components,Open-Field Creation_components,Run-Game Impact_components
+1.00,46118,Dallas Goedert,PHI,155,144,9,11,True,True,Open-Field Creator,balanced,True,0.72,0.33,0.50,0.05,0.10,0.02,71.18,49.26,76.07,77.06,57.90,95.60,85.53,3,2,3,3,1,1
+2.00,45339,Pharaoh Brown,HOU,103,74,6,29,True,False,Open-Field Creator,balanced,True,0.76,0.56,0.16,0.09,0.11,0.08,69.69,69.85,81.28,38.08,71.34,87.91,,3,2,3,3,1,0
+3.00,44841,David Njoku,CLE,144,118,21,26,True,True,Open-Field Creator,balanced,True,0.91,0.28,0.36,0.18,0.07,0.12,65.23,64.36,64.49,68.86,48.24,80.22,6.58,3,2,3,3,1,1
+4.00,40641,Jack Doyle,IND,144,128,10,16,True,True,Balanced TE,balanced,True,0.74,0.41,0.42,0.06,0.08,0.02,62.65,46.32,69.86,68.95,56.72,71.43,65.79,3,2,3,3,1,1
+5.00,44856,Gerald Everett,SEA,123,114,13,9,True,True,Open-Field Creator,balanced,True,0.72,0.31,0.52,0.09,0.07,0.02,61.63,21.02,84.41,84.88,23.32,94.51,90.79,3,2,3,3,1,1
+6.00,40011,Travis Kelce,KC,304,296,20,8,True,True,Open-Field Creator,receiving specialist,True,0.59,0.20,0.67,0.09,0.03,0.01,61.51,63.44,44.26,49.10,50.76,100.00,67.11,3,2,3,3,1,1
+7.00,46226,Tyler Conklin,MIN,217,174,17,43,True,True,Coverage Stressor,balanced,True,0.74,0.57,0.22,0.05,0.06,0.10,61.18,46.91,48.70,38.33,80.76,91.21,36.84,3,2,3,3,1,1
+8.00,40149,Ryan Griffin,NYJ,144,108,18,36,True,False,Balanced TE,balanced,True,0.89,0.38,0.31,0.13,0.10,0.08,60.31,36.90,88.69,61.40,74.99,39.56,,3,2,3,3,1,0
+9.00,46206,Dalton Schultz,DAL,189,172,20,17,True,True,Open-Field Creator,balanced,True,0.71,0.35,0.49,0.09,0.01,0.06,59.16,63.62,48.16,58.57,33.13,92.31,77.63,3,2,3,3,1,1
+10.00,46189,Will Dissly,SEA,134,102,11,32,True,True,Open-Field Creator,balanced,True,0.78,0.25,0.52,0.07,0.08,0.08,58.52,29.85,68.10,51.02,50.21,93.41,9.21,3,2,3,3,1,1
+11.00,47920,Foster Moreau,LV,117,87,9,30,True,True,Balanced TE,balanced,True,0.88,0.31,0.37,0.10,0.07,0.15,57.69,43.96,80.98,66.89,32.91,63.74,19.74,3,2,3,3,1,1
+12.00,52513,Adam Trautman,NO,150,121,12,29,True,True,Balanced TE,balanced,True,0.83,0.38,0.36,0.08,0.09,0.09,57.47,72.98,52.48,62.51,38.94,60.44,39.47,3,2,3,3,1,1
+13.00,53484,Pat Freiermuth,PIT,126,119,3,7,True,True,Balanced TE,balanced,True,0.72,0.46,0.37,0.11,0.03,0.04,57.35,25.79,66.88,67.81,53.76,72.53,81.58,3,2,3,3,1,1
+14.00,45785,Dan Arnold,JAX,165,155,13,10,True,True,Balanced TE,balanced,True,0.69,0.23,0.61,0.07,0.05,0.04,57.29,31.01,94.33,84.84,22.44,53.85,98.68,3,2,3,3,1,1
+15.00,44912,Jonnu Smith,NE,109,92,12,17,True,True,Open-Field Creator,balanced,True,0.79,0.30,0.45,0.17,0.04,0.05,57.00,40.30,55.01,50.72,53.23,85.71,26.32,3,2,3,3,1,1
+16.00,46170,Ian Thomas,CAR,166,128,23,38,True,True,Inline Protector,balanced,True,0.85,0.36,0.35,0.13,0.03,0.13,56.63,76.80,78.13,66.06,51.18,10.99,23.68,3,2,3,3,1,1
+17.00,46111,Mike Gesicki,MIA,243,238,5,5,True,True,Open-Field Creator,receiving specialist,True,0.30,0.07,0.88,0.03,0.02,0.00,53.73,63.83,44.01,75.38,7.41,78.02,60.53,3,2,3,3,1,1
+18.00,44959,George Kittle,SF,126,105,7,21,True,False,Open-Field Creator,balanced,True,0.76,0.38,0.44,0.04,0.08,0.07,53.20,17.89,70.91,26.30,51.98,98.90,,3,2,3,3,1,0
+19.00,45532,Blake Jarwin,DAL,128,115,10,13,True,True,Balanced TE,receiving specialist,True,0.68,0.27,0.57,0.07,0.07,0.02,52.67,64.75,43.25,47.08,33.53,74.73,44.74,3,2,3,3,1,1
+20.00,42547,Darren Waller,LV,224,209,22,15,True,False,Balanced TE,balanced,True,0.79,0.39,0.39,0.12,0.06,0.04,51.96,49.85,72.70,69.14,25.25,42.86,,3,2,3,3,1,0
+21.00,45481,Ricky Seals-Jones,WAS,208,185,32,23,True,True,Inline Protector,balanced,True,0.77,0.25,0.49,0.13,0.12,0.01,51.45,79.28,30.48,60.53,25.42,61.54,47.37,3,2,3,3,1,1
+22.00,46155,Mark Andrews,BAL,216,213,13,3,True,True,Balanced TE,receiving specialist,True,0.52,0.22,0.69,0.06,0.02,0.01,50.71,39.85,88.31,91.17,28.73,5.49,71.05,3,2,3,3,1,1
+23.00,53512,Tommy Tremble,CAR,110,98,9,12,True,True,Dual-Threat Creator,balanced,True,0.71,0.37,0.46,0.08,0.09,0.01,50.43,71.42,55.12,78.70,23.84,23.08,63.16,3,2,3,3,1,1
+24.00,41349,Logan Thomas,WAS,100,94,4,6,True,False,Balanced TE,receiving specialist,True,0.70,0.29,0.55,0.04,0.09,0.03,50.16,26.97,85.54,44.79,48.43,45.05,,3,2,3,3,1,0
+25.00,47879,Dawson Knox,BUF,167,157,24,10,True,False,Open-Field Creator,balanced,True,0.78,0.31,0.47,0.12,0.03,0.07,49.55,43.44,47.64,49.31,26.03,81.32,,3,2,3,3,1,0
+26.00,42500,C.J. Uzomah,CIN,216,198,24,18,True,True,Open-Field Creator,balanced,True,0.82,0.41,0.34,0.12,0.08,0.04,49.28,37.95,9.56,35.11,65.98,97.80,28.95,3,2,3,3,1,1
+27.00,46094,Hayden Hurst,ATL,167,146,15,21,True,True,Balanced TE,balanced,True,0.82,0.37,0.37,0.09,0.12,0.04,48.94,45.01,79.09,36.10,37.23,47.25,11.84,3,2,3,3,1,1
+28.00,52451,Cole Kmet,CHI,208,178,22,30,True,True,Balanced TE,balanced,True,0.78,0.21,0.55,0.11,0.05,0.09,48.27,66.71,89.67,47.11,25.78,12.09,69.74,3,2,3,3,1,1
+29.00,43324,Hunter Henry,NE,227,200,35,27,True,True,Balanced TE,balanced,True,0.78,0.19,0.53,0.15,0.11,0.03,47.72,52.59,21.08,34.69,63.19,67.03,52.63,3,2,3,3,1,1
+30.00,45355,Anthony Firkser,TEN,118,116,37,2,True,False,Balanced TE,chip-and-release specialist,True,0.59,0.10,0.61,0.26,0.02,0.01,46.89,35.20,49.34,64.72,63.19,21.98,,3,2,3,3,1,0
+31.00,44792,Mo Alie-Cox,IND,123,108,19,15,True,True,Balanced TE,balanced,True,0.82,0.30,0.43,0.15,0.04,0.07,46.57,29.45,60.65,47.29,60.29,35.16,57.89,3,2,3,3,1,1
+32.00,47791,T.J. Hockenson,DET,292,280,25,12,True,True,Balanced TE,receiving specialist,True,0.67,0.29,0.56,0.09,0.05,0.01,42.71,42.20,48.85,78.70,16.32,27.47,51.32,3,2,3,3,1,1
+33.00,43399,Tyler Higbee,LA,223,198,35,25,True,True,Inline Protector,balanced,True,0.84,0.33,0.39,0.13,0.03,0.11,42.46,78.72,10.76,13.74,82.74,26.37,31.58,3,2,3,3,1,1
+34.00,44835,Evan Engram,NYG,170,164,22,6,True,True,Balanced TE,balanced,True,0.63,0.19,0.63,0.13,0.05,0.00,42.46,34.81,54.99,60.98,25.24,36.26,76.32,3,2,3,3,1,1
+35.00,53433,Kyle Pitts,ATL,245,240,5,5,True,True,Balanced TE,receiving specialist,True,0.53,0.22,0.72,0.03,0.03,0.01,41.08,28.14,71.81,64.76,19.79,20.88,64.47,3,2,3,3,1,1
+36.00,42033,Cameron Brate,TB,159,158,10,1,True,True,Balanced TE,receiving specialist,True,0.57,0.38,0.55,0.07,0.01,0.00,41.03,42.98,77.19,7.56,53.24,24.18,27.63,3,2,3,3,1,1
+37.00,41236,Eric Ebron,PIT,113,108,9,5,True,True,Balanced TE,balanced,True,0.68,0.60,0.22,0.09,0.06,0.03,40.16,51.47,51.16,59.32,19.08,19.78,48.68,3,2,3,3,1,1
+38.00,39983,Zach Ertz,PHI,168,162,14,6,True,True,Balanced TE,receiving specialist,True,0.65,0.29,0.59,0.08,0.02,0.01,38.76,27.30,44.03,45.74,69.04,7.69,17.11,3,2,3,3,1,1
+39.00,46167,Jordan Akins,HOU,154,140,15,14,True,True,Balanced TE,balanced,True,0.73,0.53,0.28,0.08,0.08,0.03,38.18,19.45,68.03,30.52,69.60,3.30,93.42,3,2,3,3,1,1
+40.00,34540,Jared Cook,LAC,205,192,22,13,True,True,Balanced TE,balanced,True,0.70,0.26,0.56,0.10,0.08,0.01,36.81,69.87,53.23,23.49,24.28,13.19,46.05,3,2,3,3,1,1
+41.00,43370,Austin Hooper,CLE,158,130,23,28,True,True,Balanced TE,balanced,True,0.86,0.40,0.30,0.14,0.06,0.11,36.62,68.57,17.95,14.01,57.32,25.27,89.47,3,2,3,3,1,1
+42.00,42589,Geoff Swaim,TEN,120,85,16,35,True,True,Balanced TE,balanced,True,0.84,0.41,0.28,0.14,0.05,0.12,36.47,51.02,31.30,12.05,70.41,17.58,15.79,3,2,3,3,1,1
+43.00,37118,Kyle Rudolph,NYG,155,113,15,42,True,True,Balanced TE,balanced,True,0.79,0.15,0.54,0.10,0.06,0.16,36.34,56.41,5.31,12.03,56.31,51.65,21.05,3,2,3,3,1,1
+44.00,42428,Tyler Kroft,NYJ,132,106,17,26,True,True,Balanced TE,balanced,True,0.81,0.46,0.28,0.10,0.11,0.04,35.62,40.69,39.15,41.12,24.18,32.97,13.16,3,2,3,3,1,1
+45.00,45635,Robert Tonyan,GB,164,159,18,5,True,True,Balanced TE,receiving specialist,True,0.65,0.39,0.48,0.09,0.04,0.00,29.17,70.83,13.27,16.79,13.09,31.87,72.37,3,2,3,3,1,1
+46.00,47803,Noah Fant,DEN,251,233,54,18,True,False,Balanced TE,balanced,True,0.79,0.44,0.30,0.18,0.05,0.03,25.25,28.67,20.43,41.67,33.30,2.20,,3,2,3,3,1,0
+47.00,46192,Durham Smythe,MIA,129,104,11,25,True,True,Balanced TE,balanced,True,0.84,0.40,0.34,0.10,0.07,0.10,21.64,26.71,14.23,36.41,29.77,1.10,14.47,3,2,3,3,1,1
+,42398,Maxx Williams,ARI,93,72,5,21,False,True,Inline Protector,balanced,True,0.81,0.45,0.30,0.05,0.11,0.09,67.31,82.45,40.70,49.60,67.12,96.70,78.95,3,2,3,3,1,1
+,47924,Zach Gentry,PIT,43,27,4,16,False,True,Inline Protector,inline blocker,False,0.81,0.36,0.18,0.12,0.07,0.27,67.19,76.93,74.78,55.25,44.38,84.62,82.89,3,2,3,3,1,1
+,46797,Tanner Hudson,SF,1,0,0,1,False,False,Limited sample,inline blocker,False,0.69,0.29,0.41,0.09,0.06,0.15,65.56,41.68,,59.50,95.50,,,2,0,1,1,0,0
+,45217,Cethan Carter,MIA,16,13,0,3,False,False,Balanced TE,receiving specialist,False,0.59,0.21,0.61,0.06,0.08,0.04,63.77,41.68,88.14,60.37,71.52,57.14,,2,1,3,3,1,0
+,53574,Luke Farrell,JAX,51,46,5,5,False,True,Dual-Threat Creator,balanced,True,0.72,0.34,0.49,0.09,0.06,0.02,63.55,72.20,77.44,75.93,75.68,16.48,25.00,3,2,3,3,1,1
+,48683,Joe Fortson,KC,29,26,3,3,False,False,Open-Field Creator,balanced,False,0.78,0.28,0.45,0.12,0.10,0.05,63.32,64.22,52.06,71.73,52.20,76.37,,3,2,3,3,1,0
+,45594,Colin Thompson,CAR,16,7,0,9,False,True,Limited sample,inline blocker,False,0.76,0.29,0.45,0.07,0.09,0.09,63.05,64.78,71.19,60.09,56.13,,2.63,2,1,3,3,0,1
+,44831,O.J. Howard,TB,94,76,7,18,False,True,Open-Field Creator,balanced,True,0.80,0.40,0.38,0.06,0.07,0.09,62.68,48.28,62.76,48.47,70.39,83.52,59.21,3,2,3,3,1,1
+,48766,Kendall Blanton,LA,6,5,0,1,False,False,Limited sample,receiving specialist,False,0.65,0.41,0.39,0.08,0.06,0.06,62.33,64.78,74.15,59.92,50.48,,,2,1,3,3,0,0
+,43845,Stephen Anderson,LAC,40,35,10,5,False,True,Open-Field Creator,chip-and-release specialist,False,0.76,0.36,0.31,0.23,0.07,0.03,61.92,40.43,41.91,65.16,73.09,89.01,96.05,3,2,3,3,1,1
+,52942,Juwan Johnson,NO,59,58,4,1,False,False,Balanced TE,receiving specialist,True,0.64,0.29,0.56,0.11,0.02,0.02,61.45,52.63,94.94,94.68,35.32,29.67,,2,2,3,3,1,0
+,53553,John Bates,WAS,28,19,3,9,False,False,Coverage Stressor,balanced,False,0.78,0.44,0.26,0.11,0.07,0.13,61.37,58.47,71.62,31.38,77.26,68.13,,3,2,3,3,1,0
+,48723,Parker Hesse,ATL,4,4,0,0,False,False,Limited sample,receiving specialist,False,0.64,0.35,0.47,0.08,0.05,0.05,61.15,,65.25,59.85,58.34,,,0,1,3,3,0,0
+,46331,Ross Dwelley,SF,72,58,9,14,False,True,Balanced TE,balanced,True,0.80,0.27,0.45,0.14,0.09,0.05,60.96,47.49,84.88,79.57,51.10,41.76,73.68,3,2,3,3,1,1
+,52725,Ben Ellefson,MIN,17,10,0,7,False,True,Limited sample,balanced,False,0.56,0.50,0.26,0.06,0.07,0.11,60.48,41.68,83.05,69.46,47.72,,100.00,2,1,3,2,0,1
+,53172,Dominique Dafney,GB,18,14,3,4,False,False,Limited sample,chip-and-release specialist,False,0.76,0.35,0.37,0.18,0.06,0.04,59.51,68.28,51.15,55.36,63.27,,,3,2,3,3,0,0
+,52614,Tyler Davis,GB,2,0,0,2,False,False,Limited sample,inline blocker,False,0.66,0.27,0.37,0.09,0.06,0.21,59.25,64.78,,53.72,,,,2,0,1,0,0,0
+,47852,Josh Oliver,BAL,57,57,9,0,False,False,Dual-Threat Creator,balanced,True,0.49,0.14,0.69,0.14,0.02,0.01,58.84,82.04,75.01,73.64,26.16,37.36,,2,2,3,3,1,0
+,39907,Darren Fells,DET,65,53,6,12,False,True,Open-Field Creator,balanced,True,0.79,0.34,0.43,0.12,0.06,0.05,58.35,44.75,57.29,71.00,36.29,82.42,40.79,3,2,3,3,1,1
+,48475,Chris Myarick,NYG,3,0,0,3,False,False,Limited sample,inline blocker,False,0.67,0.26,0.36,0.08,0.10,0.20,57.18,64.78,,49.59,,,,2,0,1,0,0,0
+,53576,Brevin Jordan,HOU,10,9,0,1,False,False,Balanced TE,receiving specialist,False,0.56,0.58,0.29,0.05,0.04,0.04,56.98,41.68,82.20,64.52,41.58,54.95,,2,1,3,3,1,0
+,46915,Codey McElroy,TB,2,2,0,0,False,False,Limited sample,receiving specialist,False,0.30,0.29,0.49,0.09,0.06,0.06,56.94,,59.75,49.03,62.04,,,0,1,3,3,0,0
+,53510,Hunter Long,MIA,8,5,0,3,False,False,Limited sample,balanced,False,0.64,0.42,0.37,0.08,0.06,0.08,56.32,41.68,74.15,70.17,39.27,,,2,1,3,2,0,0
+,53570,Jacob Harris,LA,2,2,0,0,False,False,Limited sample,receiving specialist,False,0.66,0.27,0.53,0.09,0.06,0.05,55.08,,59.75,52.94,52.54,,,0,1,3,1,0,0
+,41327,Richard Rodgers,PHI,3,3,1,0,False,False,Limited sample,chip-and-release specialist,False,0.68,0.29,0.40,0.19,0.06,0.05,55.07,61.95,44.33,51.82,62.17,,,2,2,3,3,0,0
+,53946,Jack Stoll,PHI,31,21,4,10,False,True,Limited sample,chip-and-release specialist,False,0.80,0.31,0.24,0.21,0.06,0.18,54.96,50.43,43.25,57.18,68.97,,43.42,3,2,3,3,0,1
+,48096,Andrew Beck,DEN,8,6,0,2,False,False,Limited sample,balanced,False,0.62,0.28,0.48,0.09,0.09,0.05,54.89,41.68,68.64,73.80,35.42,,,2,1,3,3,0,0
+,53724,Matt Bushman,LV,2,2,0,0,False,False,Limited sample,receiving specialist,False,0.69,0.38,0.41,0.09,0.06,0.06,54.88,,55.93,50.15,58.56,,,0,1,3,3,0,0
+,40615,Demetrius Harris,ARI,43,31,1,12,False,True,Limited sample,inline blocker,False,0.76,0.44,0.30,0.03,0.08,0.14,54.37,62.40,54.32,28.85,71.91,,55.26,3,2,3,3,0,1
+,42460,Blake Bell,KC,40,23,11,17,False,True,Dual-Threat Creator,chip-and-release specialist,False,0.80,0.26,0.20,0.20,0.08,0.27,53.96,76.12,33.50,70.56,26.97,62.64,80.26,3,2,3,3,1,1
+,48456,Donald Parham,LAC,97,75,12,22,False,True,Open-Field Creator,balanced,True,0.85,0.33,0.39,0.14,0.10,0.05,53.87,27.75,57.92,40.88,52.70,90.11,75.00,3,2,3,3,1,1
+,44009,J.P. Holtz,CHI,10,7,0,3,False,False,Limited sample,inline blocker,False,0.68,0.29,0.38,0.08,0.20,0.05,53.74,64.78,64.41,24.39,61.37,,,2,1,3,3,0,0
+,52598,Charlie Woerner,SF,47,36,7,11,False,True,Inline Protector,inline blocker,False,0.79,0.33,0.30,0.15,0.20,0.03,53.43,76.91,35.67,30.52,85.58,38.46,94.74,3,2,3,3,1,1
+,43079,Daniel Brown,NYJ,6,6,3,0,False,False,Limited sample,chip-and-release specialist,False,0.67,0.26,0.40,0.25,0.04,0.04,53.43,68.15,43.93,35.03,66.60,,,2,2,3,2,0,0
+,48700,Jesper Horsted,CHI,3,3,0,0,False,False,Limited sample,receiving specialist,False,0.63,0.27,0.53,0.09,0.06,0.05,52.69,,61.86,45.94,43.63,59.34,,0,1,3,2,1,0
+,53896,Tory Carter,TEN,1,1,0,0,False,False,Limited sample,receiving specialist,False,0.69,0.38,0.41,0.09,0.06,0.06,52.65,,56.78,61.34,39.83,,,0,1,3,1,0,0
+,47835,Drew Sample,CIN,60,41,3,19,False,True,Coverage Stressor,balanced,True,0.78,0.48,0.25,0.06,0.09,0.12,52.26,36.38,39.83,57.69,86.76,40.66,5.26,3,2,3,3,1,1
+,52673,Mitchell Wilcox,CIN,8,7,0,1,False,False,Limited sample,balanced,False,0.64,0.38,0.39,0.09,0.06,0.08,52.21,37.28,50.85,42.15,78.56,,,1,1,3,3,0,0
+,45281,Jacob Hollister,JAX,40,37,1,3,False,False,Dual-Threat Creator,receiving specialist,False,0.65,0.22,0.65,0.04,0.06,0.02,52.08,78.87,63.02,85.41,24.30,8.79,,3,2,3,3,1,0
+,42302,Chris Manhertz,JAX,65,39,8,26,False,True,Coverage Stressor,inline blocker,True,0.93,0.31,0.25,0.15,0.10,0.18,51.26,69.11,16.06,33.63,79.25,58.24,34.21,3,2,3,3,1,1
+,53556,Kylen Granson,IND,40,37,2,3,False,False,Limited sample,receiving specialist,False,0.66,0.30,0.56,0.06,0.05,0.03,51.00,49.71,38.47,50.34,65.49,,,3,2,3,3,0,0
+,47840,J.J. Arcega-Whiteside,PHI,19,15,4,4,False,False,Limited sample,chip-and-release specialist,False,0.70,0.16,0.51,0.19,0.11,0.03,50.79,75.34,31.12,38.13,58.59,,,3,2,3,3,0,0
+,37179,Luke Stocker,MIN,9,4,2,5,False,False,Balanced TE,inline blocker,False,0.83,0.23,0.38,0.14,0.13,0.13,50.46,47.94,29.73,56.27,48.04,70.33,,3,2,3,2,1,0
+,52526,Albert Okwuegbunam,DEN,69,59,12,10,False,True,Open-Field Creator,balanced,True,0.80,0.43,0.30,0.16,0.06,0.05,50.45,50.29,50.78,40.57,31.51,79.12,84.21,3,2,3,3,1,1
+,53526,Tre' McKitty,LAC,1,1,0,0,False,False,Limited sample,receiving specialist,False,0.69,0.38,0.41,0.09,0.06,0.06,50.11,,49.58,46.52,54.24,,,0,1,3,1,0,0
+,46176,Christopher Herndon,MIN,29,27,3,2,False,True,Balanced TE,receiving specialist,False,0.63,0.44,0.40,0.07,0.05,0.04,49.87,32.07,76.48,32.75,61.90,46.15,92.11,3,2,3,3,1,1
+,52541,Colby Parkinson,SEA,39,29,3,10,False,False,Balanced TE,balanced,False,0.64,0.20,0.61,0.05,0.09,0.05,49.64,62.00,52.87,30.32,54.66,48.35,,3,2,3,3,1,0
+,43206,Ross Travis,ARI,2,2,1,0,False,False,Limited sample,receiving specialist,False,0.67,0.38,0.40,0.10,0.06,0.06,49.33,54.42,33.95,44.55,64.41,,,2,2,3,1,0,0
+,46544,Deon Yelder,TB,4,4,2,0,False,False,Balanced TE,chip-and-release specialist,False,0.62,0.28,0.39,0.22,0.06,0.06,49.18,46.09,37.71,64.30,41.74,56.04,,2,2,3,3,1,0
+,45321,Antony Auclair,HOU,42,18,2,24,False,True,Balanced TE,inline blocker,False,0.79,0.40,0.29,0.05,0.16,0.10,48.72,35.99,29.57,39.19,74.00,64.84,50.00,3,2,3,3,1,1
+,52502,Josiah Deguara,GB,33,27,6,6,False,True,Balanced TE,chip-and-release specialist,False,0.85,0.24,0.40,0.18,0.13,0.04,48.55,60.30,11.40,37.86,63.98,69.23,30.26,3,2,3,3,1,1
+,45142,Darrell Daniels,ARI,26,23,4,3,False,True,Limited sample,balanced,False,0.78,0.29,0.44,0.13,0.07,0.07,48.45,46.71,58.03,41.46,47.60,,35.53,3,2,3,3,0,1
+,53591,Noah Gray,KC,43,36,3,7,False,True,Balanced TE,balanced,False,0.69,0.17,0.62,0.09,0.03,0.09,48.34,60.43,31.04,52.18,48.60,49.45,7.89,3,2,3,3,1,1
+,44967,Jeremy Sprinkle,DAL,8,4,1,4,False,True,Limited sample,inline blocker,False,0.65,0.25,0.36,0.10,0.23,0.06,48.22,47.10,36.50,41.88,67.41,,42.11,3,2,3,3,0,1
+,45094,Johnny Mundt,LA,33,26,2,7,False,True,Balanced TE,balanced,False,0.78,0.45,0.27,0.08,0.12,0.08,48.16,57.95,34.02,20.30,62.59,65.93,10.53,3,2,3,3,1,1
+,42503,Jesse James,CHI,56,42,17,14,False,True,Balanced TE,chip-and-release specialist,True,0.89,0.24,0.35,0.19,0.12,0.09,48.06,61.09,5.24,89.64,55.74,28.57,1.32,3,2,3,3,1,1
+,53065,Tommy Hudson,TEN,19,13,7,6,False,False,Balanced TE,chip-and-release specialist,False,0.80,0.18,0.29,0.29,0.19,0.05,47.96,53.77,34.50,41.43,36.45,73.63,,3,2,3,3,1,0
+,52962,Tyler Mabry,SEA,6,4,1,2,False,False,Limited sample,chip-and-release specialist,False,0.74,0.28,0.39,0.20,0.06,0.08,47.10,50.10,60.18,44.40,33.72,,,3,2,3,3,0,0
+,47904,Trevon Wesco,NYJ,32,24,4,8,False,True,Limited sample,chip-and-release specialist,False,0.76,0.42,0.27,0.17,0.09,0.04,46.92,61.61,33.02,61.52,31.54,,18.42,3,2,3,2,0,1
+,30842,Marcedes Lewis,GB,74,56,15,18,False,True,Open-Field Creator,chip-and-release specialist,True,0.81,0.39,0.18,0.23,0.04,0.15,45.94,37.56,25.59,32.17,58.00,76.37,61.84,3,2,3,3,1,1
+,42516,James O'Shaughnessy,JAX,38,38,7,0,False,False,Balanced TE,balanced,False,0.72,0.36,0.46,0.14,0.03,0.02,45.88,41.19,67.50,53.74,36.21,30.77,,2,2,3,3,1,0
+,44075,Garrett Griffin,NO,48,32,4,16,False,True,Open-Field Creator,balanced,False,0.78,0.42,0.33,0.09,0.10,0.07,45.75,34.03,41.08,31.90,34.93,86.81,97.37,3,2,3,3,1,1
+,39109,Derek Carrier,LV,16,15,2,1,False,False,Balanced TE,balanced,False,0.75,0.41,0.31,0.13,0.11,0.03,45.04,48.93,37.11,55.14,33.49,50.55,,3,2,3,3,1,0
+,53959,Brock Wright,DET,11,8,2,3,False,False,Limited sample,chip-and-release specialist,False,0.79,0.31,0.35,0.21,0.08,0.05,44.51,26.12,61.61,25.50,64.80,,,3,2,3,3,0,0
+,44987,Eric Saubert,DEN,70,53,10,17,False,True,Balanced TE,balanced,True,0.78,0.44,0.33,0.08,0.06,0.09,43.47,26.32,29.98,78.16,38.95,43.96,53.95,3,2,3,3,1,1
+,47959,Kaden Smith,NYG,68,43,11,25,False,True,Coverage Stressor,inline blocker,True,0.93,0.32,0.28,0.13,0.09,0.19,42.90,54.81,22.10,39.19,84.13,14.29,3.95,3,2,3,3,1,1
+,42486,MyCole Pruitt,TEN,96,65,8,31,False,True,Coverage Stressor,balanced,True,0.80,0.38,0.38,0.07,0.13,0.03,41.75,29.32,36.93,13.76,94.70,34.07,86.84,3,2,3,3,1,1
+,42721,Eric Tomlinson,BAL,26,16,4,10,False,True,Limited sample,inline blocker,False,0.85,0.35,0.23,0.12,0.17,0.13,41.16,62.84,18.33,26.60,56.87,,88.16,3,2,3,3,0,1
+,44857,Adam Shaheen,MIA,94,74,6,20,False,True,Balanced TE,balanced,True,0.78,0.30,0.44,0.04,0.08,0.14,40.58,69.06,18.23,82.07,14.86,18.68,32.89,3,2,3,3,1,1
+,35534,Jimmy Graham,CHI,50,46,4,4,False,True,Balanced TE,receiving specialist,True,0.62,0.24,0.61,0.08,0.03,0.04,39.18,44.22,31.73,29.26,37.97,52.75,22.37,3,2,3,3,1,1
+,35481,Rob Gronkowski,TB,97,83,7,14,False,False,Balanced TE,balanced,True,0.77,0.45,0.33,0.07,0.03,0.12,37.35,32.85,58.45,15.39,64.65,15.38,,3,2,3,3,1,0
+,48011,Tommy Sweeney,BUF,47,39,7,8,False,True,Balanced TE,balanced,False,0.82,0.35,0.37,0.13,0.10,0.05,35.56,54.03,23.91,34.75,55.24,9.89,68.42,3,2,3,3,1,1
+,52523,Harrison Bryant,CLE,79,73,8,6,False,True,Balanced TE,balanced,True,0.72,0.29,0.52,0.10,0.06,0.03,34.49,31.28,38.74,37.62,60.42,4.40,56.58,3,2,3,3,1,1
+,37234,Lee Smith,ATL,63,28,5,35,False,True,Balanced TE,inline blocker,True,0.83,0.42,0.16,0.08,0.14,0.20,29.54,15.93,20.63,47.89,56.66,6.59,38.16,3,2,3,3,1,1

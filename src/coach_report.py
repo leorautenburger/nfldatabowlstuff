@@ -45,8 +45,10 @@ METRICS = (
     Metric("constraint_value", "Coverage Stress", 0.25),
     Metric("red_zone_conflict", "Coverage Stress", 0.25),
     Metric("yac_runway", "Open-Field Creation", 1.00, value_column="yacoe_shrunk"),
+    Metric("run_game_impact", "Run-Game Impact", 1.00),
 )
 AXES = tuple(dict.fromkeys(metric.axis for metric in METRICS))
+VALIDATED_AXES = tuple(axis for axis in AXES if axis != "Run-Game Impact")
 ROLE_SHARE_COLUMNS = [
     "wshare_shrunk_inline_route",
     "wshare_shrunk_detached_route",
@@ -108,8 +110,9 @@ def build_profiles() -> tuple[pd.DataFrame, dict[str, object]]:
         profiles[f"{axis}_components"] = available.sum(axis=1)
 
     profiles["profile_eligible"] = profiles.snaps.ge(MIN_PROFILE_SNAPS)
+    profiles["run_game_available"] = profiles["Run-Game Impact"].notna()
     profiles["performance_archetype"] = profiles.apply(assign_archetype, axis=1)
-    profiles["versatility_profile_score"] = profiles[list(AXES)].mean(axis=1)
+    profiles["versatility_profile_score"] = profiles[list(VALIDATED_AXES)].mean(axis=1)
     profiles["profile_rank"] = (
         profiles.loc[profiles.profile_eligible, "versatility_profile_score"]
         .rank(method="min", ascending=False)
@@ -144,6 +147,8 @@ def build_profiles() -> tuple[pd.DataFrame, dict[str, object]]:
             ),
             "role_share_columns": ROLE_SHARE_COLUMNS,
         },
+        "provisional_axes": ["Run-Game Impact"],
+        "overall_score_axes": list(VALIDATED_AXES),
     }
     return profiles, metadata
 
@@ -176,8 +181,9 @@ def point(value: float, angle: float, center: float, radius: float) -> tuple[flo
 
 def svg_for_player(player: pd.Series) -> str:
     size, center, radius = 480, 240, 145
-    angles = [(-math.pi / 2) + index * 2 * math.pi / len(AXES) for index in range(len(AXES))]
-    values = [float(player[axis]) for axis in AXES]
+    axes = [axis for axis in AXES if pd.notna(player[axis])]
+    angles = [(-math.pi / 2) + index * 2 * math.pi / len(axes) for index in range(len(axes))]
+    values = [float(player[axis]) for axis in axes]
 
     grid = []
     for level in (25, 50, 75, 100):
@@ -189,7 +195,7 @@ def svg_for_player(player: pd.Series) -> str:
         )
     spokes = []
     labels = []
-    for axis, angle in zip(AXES, angles):
+    for axis, angle in zip(axes, angles):
         x, y = point(100, angle, center, radius)
         lx, ly = point(122, angle, center, radius)
         anchor = "middle" if abs(lx - center) < 15 else ("start" if lx > center else "end")
@@ -241,6 +247,7 @@ def main() -> None:
         "chip_snaps",
         "block_snaps",
         "profile_eligible",
+        "run_game_available",
         "performance_archetype",
         "deployment_archetype",
         "archetype_reliable",
