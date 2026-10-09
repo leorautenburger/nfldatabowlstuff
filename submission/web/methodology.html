@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Methodology · TE Versatility Scout</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="index.html">TE<span>+</span> Scout</a>
+      <p>Metric definitions and scoring rules</p>
+      <a class="methodology" href="index.html">← Explore players</a>
+    </header>
+    <main class="methodology-page">
+      <span class="eyebrow">METHODS</span>
+      <h1>What every score means</h1>
+      <p class="lead">TE Versatility Scout separates what a tight end is asked to do from how well they perform. The player profile shows performance percentiles; Deployment Breadth and role shares explain usage without increasing a player’s performance score.</p>
+
+      <section class="panel">
+        <h2>Reading the profile</h2>
+        <div class="method-grid">
+          <div><h3>Percentiles</h3><p>Each axis is converted to a 0–100 percentile among TEs with that component available. Higher is better after score direction is aligned; Route Release Tax is inverted because a lower delay is better.</p></div>
+          <div><h3>Overall score</h3><p>The overall score is the unweighted mean of the five fully covered pass-game axes. It intentionally excludes Deployment Breadth and the provisional Run-Game Impact axis.</p></div>
+          <div><h3>Samples and shrinkage</h3><p>Component outputs retain their opportunity counts. Where supplied, empirical-Bayes shrunk estimates are used so small samples move toward the league mean rather than producing extreme player rankings.</p></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Performance axes</h2>
+        <div class="metric-cards">
+          <article class="panel metric-card">
+            <span class="eyebrow">AXIS 1</span><h3>Protection Impact</h3>
+            <p><code>60% Protection Value Added + 40% Edge Seal Sustainability</code></p>
+            <p><b>Protection Value Added (PVA)</b> estimates the change in expected pressure if TE blocks and chips are removed from the protection structure. <b>Edge Seal Sustainability</b> measures whether the TE sustains protection against the assigned edge threat.</p>
+          </article>
+          <article class="panel metric-card">
+            <span class="eyebrow">AXIS 2</span><h3>Chip-to-Route Value</h3>
+            <p><code>40% PAV + 40% CSR + 20% inverted Release Tax</code></p>
+            <p><b>Protection-to-Availability Value (PAV)</b> is extra protection-window time after a chip, multiplied by the TE’s receiving availability. <b>Chip-to-Separation Return (CSR)</b> measures separation retained after the chip. <b>Route Release Tax</b> measures the cost of delayed release.</p>
+          </article>
+          <article class="panel metric-card">
+            <span class="eyebrow">AXIS 3</span><h3>Route Threat</h3>
+            <p><code>34% Eligible Threat Rate + 33% Separation Over Expected + 33% Middle-of-Field Access</code></p>
+            <p><b>Eligible Threat Rate</b> measures timely viable receiving options. <b>Separation Over Expected</b> compares observed separation with route/context expectation. <b>Middle-of-Field Access</b> measures viable central throwing windows at fixed dropback times.</p>
+          </article>
+          <article class="panel metric-card">
+            <span class="eyebrow">AXIS 4</span><h3>Coverage Stress</h3>
+            <p><code>50% Coverage Gravity + 25% Constraint Value + 25% Red-Zone Conflict</code></p>
+            <p><b>Coverage Gravity</b> captures added defensive attention. <b>Constraint Value</b> measures defensive alignment changes when the TE aligns inline versus detached. <b>Red-Zone Conflict</b> measures route, run-fit, and protection ambiguity near the goal line.</p>
+          </article>
+          <article class="panel metric-card">
+            <span class="eyebrow">AXIS 5</span><h3>Open-Field Creation</h3>
+            <p><code>100% YAC Runway</code></p>
+            <p><b>YAC Runway</b> estimates post-catch open-field opportunity from defender spacing, momentum, and catch location. The profile uses the player-specific shrunk YAC-over-expected estimate.</p>
+          </article>
+          <article class="panel metric-card provisional-card">
+            <span class="eyebrow">AXIS 6 · PROVISIONAL</span><h3>Run-Game Impact †</h3>
+            <p><code>40% rush EPA on/off + 25% rush success on/off + 20% edge-run EPA + 15% short-yardage conversion</code></p>
+            <p>Run tilt, heavy-package usage, and box count are context fields, not score credit. The uploaded source table has no upstream methodology in this repository; this axis is visible and searchable but excluded from the overall score and performance-similarity model. Players with no matching run row see a five-spoke radar and an <b>N/A</b> run bar; this is missing coverage, not a zero score.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Deployment is context, not performance</h2>
+        <p><b>Deployment Breadth</b> is the context-adjusted Dual-Threat Deployment Index. It uses normalized entropy across inline route, detached route, chip-and-release, standard pass block, and stay-in/non-conventional pass block roles. Inverse-propensity weighting accounts for formation and personnel context.</p>
+        <p>Deployment Breadth drives role filters, archetypes, and role-similarity comparisons. It does <b>not</b> increase the overall performance score.</p>
+      </section>
+
+      <section class="panel">
+        <h2>Similarity and evidence</h2>
+        <div class="method-grid">
+          <div><h3>Performance similarity</h3><p>Nearest players based on the five validated pass-game axes.</p></div>
+          <div><h3>Role similarity</h3><p>Nearest players based on context-adjusted deployment shares.</p></div>
+          <div><h3>Combined similarity</h3><p><code>70% performance + 30% role</code>. Every metric retains a player-level table, play-level table, and machine-readable summary under <code>output/&lt;metric&gt;/</code>.</p></div>
+        </div>
+      </section>
+
+      <section class="panel caveat">
+        <h2>Scope and limitations</h2>
+        <p>The tracking study covers 2021 Weeks 1–8 and is pass-play focused. Metrics are transparent, observational estimates—not proprietary NFL grades or causal claims. Interpret player percentiles alongside opportunity counts, confidence intervals, and the underlying play rows.</p>
+        <p>For implementation detail, validation outputs, score thresholds, and branch state, read <a href="../IMPLEMENTATION_HANDOFF.md" target="_blank">IMPLEMENTATION_HANDOFF.md ↗</a>.</p>
+      </section>
+    </main>
+  </body>
+</html>

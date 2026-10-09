@@ -1,0 +1,342 @@
+{
+  "metric": "Protection Value Added (PVA)",
+  "slug": "protection_value_added",
+  "definition": {
+    "target": "plays.pressure (any PFF hurry/hit/sack on the play)",
+    "pva_scheme": "E[pressure | TE blockers & chips set to 0] - E[pressure | observed]",
+    "protection_oe": "E[pressure | observed] - actual pressure",
+    "pva_total": "E[pressure | no TE help] - actual pressure (player value, per assisted snap)",
+    "credit": "play values split equally among TEs with assignment pass_block or chip_release",
+    "counterfactual": "n_te_block=0, n_te_chip=0, rushers_minus_blockers = n_rushers - (pass blockers - TE blockers); chips are not counted as blockers",
+    "honesty": "counterfactuals use the same fold model as each play's OOF prediction (train) or the full-train model (test); fold replication checked (max diff 0.0e+00)",
+    "higher_is_better": true
+  },
+  "features": [
+    "n_ol_block",
+    "n_rb_block",
+    "n_te_block",
+    "n_te_chip",
+    "n_rushers",
+    "rushers_minus_blockers",
+    "n_rush_outside",
+    "rusher_q_mean",
+    "rusher_q_max",
+    "pff_playAction",
+    "down",
+    "yardsToGo",
+    "red_zone",
+    "dropBackType",
+    "offenseFormation",
+    "pff_passCoverageType"
+  ],
+  "categorical_features": [
+    "dropBackType",
+    "offenseFormation",
+    "pff_passCoverageType"
+  ],
+  "monotonic_constraints": {
+    "n_ol_block": -1,
+    "n_rb_block": -1,
+    "n_te_block": -1,
+    "n_te_chip": -1,
+    "n_rushers": 1,
+    "rushers_minus_blockers": 1,
+    "n_rush_outside": 0,
+    "rusher_q_mean": 0,
+    "rusher_q_max": 0,
+    "pff_playAction": 0,
+    "down": 0,
+    "yardsToGo": 0,
+    "red_zone": 0,
+    "dropBackType": 0,
+    "offenseFormation": 0,
+    "pff_passCoverageType": 0
+  },
+  "constraint_note": "rushers_minus_blockers (+1) added beyond the requested set so that removing a TE blocker cannot lower expected pressure through the derived feature",
+  "excluded_features": [
+    "time_to_throw (caused by pressure)",
+    "player identity"
+  ],
+  "parameters": {
+    "hgb": {
+      "max_iter": 250,
+      "learning_rate": 0.04,
+      "max_depth": 3,
+      "min_samples_leaf": 40,
+      "l2_regularization": 1.0,
+      "early_stopping": false,
+      "random_state": 42
+    },
+    "edge_labels": [
+      "LE",
+      "LEO",
+      "LOLB",
+      "RE",
+      "REO",
+      "ROLB"
+    ],
+    "db_label_prefixes": [
+      "SCB",
+      "LCB",
+      "RCB",
+      "CB",
+      "SS",
+      "FS"
+    ],
+    "outside_geom_buffer_yd": 1.0,
+    "rusher_quality": {
+      "league_rush_pressure_rate_train": 0.11754004209324724,
+      "prior_strength": 90.47491834109113,
+      "n_rushers_prior": 209,
+      "prior_min_n": 50,
+      "method": "beta-shrunk PFF pressure rate, train weeks only, leave-own-game-out on train rows; per-play mean & max"
+    },
+    "min_top_snaps": 25,
+    "eb_pooled_within_sd": 0.41023493089164526,
+    "eb_tau2": 1e-06,
+    "train_weeks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "test_weeks": [
+      7,
+      8
+    ],
+    "n_folds": 5
+  },
+  "sample": {
+    "plays": 8557,
+    "train_plays": 6608,
+    "test_plays": 1949,
+    "te_assisted_plays": 2184,
+    "te_assisted_snaps": 2533,
+    "te_block_snaps": 1432,
+    "te_chip_snaps": 1101,
+    "tes": 114,
+    "tes_with_min_snaps": 46
+  },
+  "validation": {
+    "test_constrained": {
+      "n": 1949,
+      "pressure_rate": 0.3642893791688045,
+      "base_rate_train": 0.3792372881355932,
+      "auc": 0.6967647694074048,
+      "log_loss": 0.5927552909882606,
+      "brier": 0.20251755282082173,
+      "baseline_log_loss": 0.6563233751601667,
+      "baseline_brier": 0.23180606737609094,
+      "brier_skill": 0.1263492146120162,
+      "calibration_5bin": [
+        {
+          "bin": 0,
+          "n": 390,
+          "mean_pred": 0.2171,
+          "actual": 0.1872,
+          "base_rate": 0.3792
+        },
+        {
+          "bin": 1,
+          "n": 390,
+          "mean_pred": 0.2756,
+          "actual": 0.2667,
+          "base_rate": 0.3792
+        },
+        {
+          "bin": 2,
+          "n": 389,
+          "mean_pred": 0.3377,
+          "actual": 0.3033,
+          "base_rate": 0.3792
+        },
+        {
+          "bin": 3,
+          "n": 390,
+          "mean_pred": 0.4275,
+          "actual": 0.4077,
+          "base_rate": 0.3792
+        },
+        {
+          "bin": 4,
+          "n": 390,
+          "mean_pred": 0.655,
+          "actual": 0.6564,
+          "base_rate": 0.3792
+        }
+      ]
+    },
+    "train_oof_constrained": {
+      "n": 6608,
+      "pressure_rate": 0.3792372881355932,
+      "base_rate_train": 0.3792372881355932,
+      "auc": 0.6773995458194336,
+      "log_loss": 0.6122988815128365,
+      "brier": 0.2111268859718118,
+      "baseline_log_loss": 0.6636895074340812,
+      "baseline_brier": 0.2354163674231543,
+      "brier_skill": 0.10317668952763526
+    },
+    "test_auc_vs_pff_labels": {
+      "hurry": 0.6934570696457381,
+      "hit": 0.6307641437688061,
+      "sack": 0.5943218060969602
+    },
+    "test_label_rates": {
+      "hurry": 0.2637249871729092,
+      "hit": 0.08722421754746024,
+      "sack": 0.06516162134427912
+    },
+    "test_te_assisted_plays": {
+      "n": 523,
+      "pressure_rate": 0.37667304015296366,
+      "base_rate_train": 0.3792372881355932,
+      "auc": 0.7067360094671608,
+      "log_loss": 0.5893861325843658,
+      "brier": 0.20108173349430614,
+      "baseline_log_loss": 0.6624258798681698,
+      "baseline_brier": 0.2347970363426039,
+      "brier_skill": 0.14359339186505793
+    }
+  },
+  "sanity": {
+    "league_pva_scheme_one_full_block": 0.014481355913975428,
+    "n_block_plays": 1195,
+    "league_pva_scheme_one_chip": 0.0,
+    "n_chip_plays": 1063,
+    "share_negative_play_pva_scheme": 0.0,
+    "pass_block_gt_chip_gt_0": false
+  },
+  "sensitivity": {
+    "unconstrained_test_auc": 0.70082756425559,
+    "unconstrained_test_log_loss": 0.5915148094853172,
+    "unconstrained_league_pva_scheme_one_full_block": 0.012737122498553374,
+    "unconstrained_league_pva_scheme_one_chip": -0.011704071549247677
+  },
+  "reliability": {
+    "pva_total": {
+      "split_half_weeks_spearman": -0.06434782608695652,
+      "split_half_n_players": 24,
+      "odd_even_games_spearman": -0.03382663847780127,
+      "odd_even_n_players": 44
+    },
+    "pva_scheme": {
+      "split_half_weeks_spearman": 0.10086956521739131,
+      "split_half_n_players": 24,
+      "odd_even_games_spearman": 0.005637773079633544,
+      "odd_even_n_players": 44
+    },
+    "protection_oe": {
+      "split_half_weeks_spearman": -0.033913043478260865,
+      "split_half_n_players": 24,
+      "odd_even_games_spearman": -0.02100070472163495,
+      "odd_even_n_players": 44
+    },
+    "te_allowed": {
+      "split_half_weeks_spearman": -0.07364209072239662,
+      "split_half_n_players": 24,
+      "odd_even_games_spearman": 0.0763198673932335,
+      "odd_even_n_players": 44
+    }
+  },
+  "allowed_pressure": {
+    "te_allowed_rate_per_snap": 0.049743387287801026,
+    "te_n_snaps": 2533,
+    "te_n_snaps_by_assignment": {
+      "pass_block": 1432,
+      "chip_release": 1101
+    },
+    "olrb_allowed_rate_same_plays": 0.05570429225321703
+  },
+  "league_means_per_te_snap": {
+    "chip_release": {
+      "pva_scheme": 0.0005148349615927012,
+      "protection_oe": -0.01120556346583779,
+      "pva_total": -0.01069072850424509
+    },
+    "pass_block": {
+      "pva_scheme": 0.014034098814125396,
+      "protection_oe": 0.01714287041142934,
+      "pva_total": 0.03117696922555474
+    }
+  },
+  "top5_min_snaps": [
+    {
+      "displayName": "Ian Thomas",
+      "team": "CAR",
+      "n": 61,
+      "n_block": 38,
+      "n_chip": 23,
+      "value": 0.1207,
+      "value_shrunk": 0.0136,
+      "lo": 0.0177,
+      "hi": 0.2236,
+      "pva_scheme": 0.0076,
+      "protection_oe": 0.1131
+    },
+    {
+      "displayName": "Kyle Rudolph",
+      "team": "NYG",
+      "n": 57,
+      "n_block": 42,
+      "n_chip": 15,
+      "value": 0.1143,
+      "value_shrunk": 0.0136,
+      "lo": 0.0078,
+      "hi": 0.2208,
+      "pva_scheme": 0.0108,
+      "protection_oe": 0.1035
+    },
+    {
+      "displayName": "Austin Hooper",
+      "team": "CLE",
+      "n": 51,
+      "n_block": 28,
+      "n_chip": 23,
+      "value": 0.1185,
+      "value_shrunk": 0.0136,
+      "lo": 0.0059,
+      "hi": 0.2311,
+      "pva_scheme": 0.012,
+      "protection_oe": 0.1065
+    },
+    {
+      "displayName": "Jared Cook",
+      "team": "LAC",
+      "n": 35,
+      "n_block": 13,
+      "n_chip": 22,
+      "value": 0.1311,
+      "value_shrunk": 0.0136,
+      "lo": -0.0048,
+      "hi": 0.267,
+      "pva_scheme": 0.004,
+      "protection_oe": 0.1272
+    },
+    {
+      "displayName": "Ricky Seals-Jones",
+      "team": "WAS",
+      "n": 55,
+      "n_block": 23,
+      "n_chip": 32,
+      "value": 0.0836,
+      "value_shrunk": 0.0136,
+      "lo": -0.0249,
+      "hi": 0.192,
+      "pva_scheme": 0.0047,
+      "protection_oe": 0.0789
+    }
+  ],
+  "caveats": [
+    "Observational: TE stay-in decisions are scheme choices correlated with expected pressure; the model controls for listed context only.",
+    "protection_oe credits the whole protection unit's over/under-performance to the assisting TEs.",
+    "Equal split among TEs ignores who actually faced rushers.",
+    "Monotone constraints force PVA_scheme >= 0 by construction; its size, not sign, is informative.",
+    "Chip sanity check: the constrained model never lowers pressure for a chip (effect clamps to 0); the unconstrained model estimates a chip RAISES expected pressure, i.e. chips are used on plays that are harder to protect in ways the features do not capture.",
+    "EB tau2 hits its floor (player PVA is not separable from noise in 8 weeks), so value_shrunk is ~the grand mean for everyone; lo/hi are raw-mean CIs, lo_shrunk/hi_shrunk posterior.",
+    "Time-to-threat variant skipped for runtime."
+  ],
+  "runtime_sec": 8.6
+}

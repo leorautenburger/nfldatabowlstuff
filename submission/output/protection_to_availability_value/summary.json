@@ -1,0 +1,88 @@
+{
+  "metric": "Protection-to-Availability Value (PAV)",
+  "definition": "For a TE chip-and-release play, PAV = (observed protection window - matched immediate-release control expectation) * receiving availability score.",
+  "treatment": "TE PFF assignment chip_release (Pass Route with CH or SR block type).",
+  "control": "TE PFF route assignment without a CH or SR chip label and with tracking-confirmed release.",
+  "protection_window": "Seconds from snap to the first labeled pass rusher entering a 2.0-yard, closing QB threat zone after 0.5 seconds; time_to_end when no threat occurs.",
+  "availability": {
+    "definition": "Mean of separation, passing-lane, viable-depth, and sideline components at end of dropback.",
+    "thresholds": {
+      "separation_yards": 2.5,
+      "lane_clearance_yards": 1.0,
+      "viable_depth_range": [
+        -2.0,
+        25.0
+      ],
+      "sideline_buffer_yards": 1.0
+    }
+  },
+  "matching": {
+    "method": "distance-weighted nearest-neighbor matching on immediate-release TE route controls",
+    "n_neighbors": 8,
+    "features": [
+      "down",
+      "yardsToGo",
+      "defendersInBox",
+      "pff_playAction",
+      "n_rushers",
+      "n_pass_blockers",
+      "n_routes",
+      "n_te_on_field",
+      "x_rel_snap",
+      "lat_from_ball",
+      "alignment",
+      "offenseFormation",
+      "personnelO",
+      "personnelD",
+      "dropBackType",
+      "pff_passCoverageType",
+      "pff_passCoverage"
+    ],
+    "train_weeks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "test_weeks": [
+      7,
+      8
+    ],
+    "cross_fit": "5-fold GroupKFold by game for train rows; all train controls for test rows"
+  },
+  "sample_sizes": {
+    "te_route_or_chip_assignments": 9064,
+    "immediate_release_controls": 7874,
+    "chip_assignments": 1101,
+    "scored_chip_assignments": 999,
+    "scored_chip_train": 753,
+    "scored_chip_test": 246
+  },
+  "test_control_window_validation": {
+    "n": 1786,
+    "mae": 0.593267994808419,
+    "rmse": 0.9521708178168858,
+    "baseline_mae": 0.6264544116211527,
+    "baseline_rmse": 0.9568508789249507
+  },
+  "test_chip_pressure_validation": {
+    "n": 246,
+    "observed_pressure_rate": 0.4024390243902439,
+    "matched_control_expected_pressure_rate": 0.4013749790245169,
+    "difference": 0.0010640453657270177
+  },
+  "split_half_reliability": {
+    "spearman": -0.07822580645161291,
+    "n_players": 31,
+    "minimum_plays_per_split": 3
+  },
+  "caveats": [
+    "This is matched observational evidence, not a randomized causal effect.",
+    "The source data has no ball-flight or catch-point tracking; availability is measured at end of dropback.",
+    "PFF chip labels and role assignments define treatment and may contain classification error.",
+    "Player leaderboards require at least eight scored chip-release plays."
+  ],
+  "seed": 42
+}

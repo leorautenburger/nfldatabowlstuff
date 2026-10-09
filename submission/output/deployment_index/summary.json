@@ -1,0 +1,593 @@
+{
+  "metric": "Dual-Threat Deployment Index (DDI)",
+  "slug": "deployment_index",
+  "higher_is_better": true,
+  "definition": "value = normalized Shannon entropy H/log(5) of a TE's 5-category snap mix after inverse-propensity reweighting of his snaps to the league (train-week) offenseFormation x personnelO context distribution; weights w(c)=q_league(c|TE support)/p_TE(c) capped at 5. value_shrunk = normal-normal EB shrinkage of DDI toward the grand mean (stats.eb_shrink_mean), per-player sampling variance = bootstrap variance. wshare_shrunk_* = IPW shares Dirichlet-shrunk toward the league train mix (prior strength k, Kish n_eff). lo/hi = 2.5/97.5 percentiles of a bootstrap over games within player.",
+  "category_rule": {
+    "implemented": {
+      "inline_route": "assignment=route & alignment in {inline, wing, backfield}",
+      "detached_route": "assignment=route & alignment=detached",
+      "chip_release": "assignment=chip_release (Pass Route with blockType CH/SR)",
+      "standard_pass_block": "assignment=pass_block & alignment=inline & blockType in {PP, PA}",
+      "stay_in_block": "any other pass_block: off-line alignment (wing/detached/backfield) or non-conventional type (CL, NB, PT, PR, SW, UP, BH, PU, CH, SR, NA)"
+    },
+    "literal_rule_as_requested": {
+      "standard_pass_block": "pass_block & blockType=PP & alignment=inline",
+      "stay_in_block": "pass_block & (blockType in PA/PU/BH/PT/SW/PR/UP/CL/NB or off-line); residual inline CH/SR/NA-typed pass blocks also -> stay_in"
+    },
+    "why_refined": "Under the literal rule 82% of TE pass blocks are stay_in, driven by PA (557 of 1432; PFF defines PA as inline pass protection on a play-action pass, 98% on play-action plays). The literal split mostly encodes the play call (play action vs not), not the TE's job. Refined rule treats inline PP and PA as the same conventional inline pass set; stay_in = off-line or non-conventional protection. Literal-rule DDI kept as a sensitivity column (value_literal_rule).",
+    "pass_block_counts_literal": {
+      "stay_in_block": 1174,
+      "standard_pass_block": 258
+    },
+    "pass_block_counts_refined": {
+      "stay_in_block": 743,
+      "standard_pass_block": 689
+    },
+    "play_action_rate_by_bucket_literal": {
+      "standard_pass_block": 0.547,
+      "stay_in_block": 0.834
+    },
+    "play_action_rate_by_bucket_refined": {
+      "standard_pass_block": 0.816,
+      "stay_in_block": 0.751
+    },
+    "blockType_x_alignment_te_pass_blocks": {
+      "backfield": {
+        "BH": 9,
+        "CH": 2,
+        "CL": 0,
+        "NA": 3,
+        "NB": 5,
+        "PA": 4,
+        "PP": 0,
+        "PR": 0,
+        "PT": 0,
+        "PU": 31,
+        "SR": 1,
+        "SW": 1,
+        "UP": 0,
+        "All": 56
+      },
+      "detached": {
+        "BH": 0,
+        "CH": 0,
+        "CL": 8,
+        "NA": 4,
+        "NB": 4,
+        "PA": 34,
+        "PP": 79,
+        "PR": 5,
+        "PT": 10,
+        "PU": 0,
+        "SR": 3,
+        "SW": 2,
+        "UP": 5,
+        "All": 154
+      },
+      "inline": {
+        "BH": 0,
+        "CH": 5,
+        "CL": 106,
+        "NA": 12,
+        "NB": 44,
+        "PA": 431,
+        "PP": 258,
+        "PR": 32,
+        "PT": 57,
+        "PU": 2,
+        "SR": 15,
+        "SW": 3,
+        "UP": 64,
+        "All": 1029
+      },
+      "wing": {
+        "BH": 0,
+        "CH": 4,
+        "CL": 24,
+        "NA": 9,
+        "NB": 11,
+        "PA": 88,
+        "PP": 29,
+        "PR": 1,
+        "PT": 17,
+        "PU": 0,
+        "SR": 1,
+        "SW": 1,
+        "UP": 8,
+        "All": 193
+      },
+      "All": {
+        "BH": 9,
+        "CH": 11,
+        "CL": 138,
+        "NA": 28,
+        "NB": 64,
+        "PA": 557,
+        "PP": 366,
+        "PR": 38,
+        "PT": 84,
+        "PU": 33,
+        "SR": 20,
+        "SW": 7,
+        "UP": 77,
+        "All": 1432
+      }
+    },
+    "play_action_rate_by_blockType": {
+      "BH": 0.778,
+      "CH": 0.818,
+      "CL": 0.906,
+      "NA": 0.857,
+      "NB": 0.797,
+      "PA": 0.978,
+      "PP": 0.495,
+      "PR": 0.053,
+      "PT": 0.786,
+      "PU": 0.545,
+      "SR": 0.6,
+      "SW": 0.429,
+      "UP": 1.0
+    },
+    "category_counts_all": {
+      "detached_route": 4654,
+      "inline_route": 3309,
+      "chip_release": 1101,
+      "stay_in_block": 743,
+      "standard_pass_block": 689
+    }
+  },
+  "parameters": {
+    "min_cell_train_snaps": 30,
+    "backoff": "formation x personnel -> formation -> league",
+    "ipw_weight_cap": 5.0,
+    "n_bootstrap": 1000,
+    "bootstrap_unit": "game within player",
+    "dirichlet_prior_strength_k": 10.47,
+    "min_snaps_top5_and_archetype": 50,
+    "min_snaps_per_half_reliability": 20,
+    "archetype_thresholds_on_ipw_shares": {
+      "chip_and_release_min_chip": 0.2,
+      "inline_blocker_min_block": 0.25,
+      "receiving_specialist_min_route": 0.85
+    },
+    "archetype_order": [
+      "chip-and-release specialist",
+      "inline blocker",
+      "receiving specialist",
+      "balanced (otherwise)"
+    ],
+    "train_weeks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "test_weeks": [
+      7,
+      8
+    ],
+    "seed": 42
+  },
+  "sample": {
+    "te_snaps": 10496,
+    "train_snaps": 8080,
+    "test_snaps": 2416,
+    "n_te": 121,
+    "n_te_ge_min": 68,
+    "n_contexts": 28,
+    "context_level_counts": {
+      "C:": 10019,
+      "F:": 465,
+      "AL": 12
+    },
+    "snaps_with_capped_weight": 90
+  },
+  "expected_mix_test_quality": {
+    "n": 2416,
+    "log_loss": 1.237031160110537,
+    "log_loss_baseline": 1.3450491559218458,
+    "brier": 0.6287721357163404,
+    "brier_baseline": 0.6899086665149696,
+    "calibration_5bin_test": [
+      {
+        "category": "inline_route",
+        "b": 0,
+        "mean_pred": 0.2064,
+        "obs_rate": 0.2025,
+        "n": 484
+      },
+      {
+        "category": "inline_route",
+        "b": 1,
+        "mean_pred": 0.2706,
+        "obs_rate": 0.2505,
+        "n": 483
+      },
+      {
+        "category": "inline_route",
+        "b": 2,
+        "mean_pred": 0.283,
+        "obs_rate": 0.2816,
+        "n": 483
+      },
+      {
+        "category": "inline_route",
+        "b": 3,
+        "mean_pred": 0.3778,
+        "obs_rate": 0.4017,
+        "n": 483
+      },
+      {
+        "category": "inline_route",
+        "b": 4,
+        "mean_pred": 0.4675,
+        "obs_rate": 0.3851,
+        "n": 483
+      },
+      {
+        "category": "detached_route",
+        "b": 0,
+        "mean_pred": 0.0596,
+        "obs_rate": 0.0785,
+        "n": 484
+      },
+      {
+        "category": "detached_route",
+        "b": 1,
+        "mean_pred": 0.3884,
+        "obs_rate": 0.3996,
+        "n": 483
+      },
+      {
+        "category": "detached_route",
+        "b": 2,
+        "mean_pred": 0.5382,
+        "obs_rate": 0.5549,
+        "n": 483
+      },
+      {
+        "category": "detached_route",
+        "b": 3,
+        "mean_pred": 0.5456,
+        "obs_rate": 0.5114,
+        "n": 483
+      },
+      {
+        "category": "detached_route",
+        "b": 4,
+        "mean_pred": 0.6735,
+        "obs_rate": 0.6667,
+        "n": 483
+      },
+      {
+        "category": "chip_release",
+        "b": 0,
+        "mean_pred": 0.0467,
+        "obs_rate": 0.0661,
+        "n": 484
+      },
+      {
+        "category": "chip_release",
+        "b": 1,
+        "mean_pred": 0.0929,
+        "obs_rate": 0.1077,
+        "n": 483
+      },
+      {
+        "category": "chip_release",
+        "b": 2,
+        "mean_pred": 0.119,
+        "obs_rate": 0.1077,
+        "n": 483
+      },
+      {
+        "category": "chip_release",
+        "b": 3,
+        "mean_pred": 0.12,
+        "obs_rate": 0.1159,
+        "n": 483
+      },
+      {
+        "category": "chip_release",
+        "b": 4,
+        "mean_pred": 0.1345,
+        "obs_rate": 0.1553,
+        "n": 483
+      },
+      {
+        "category": "stay_in_block",
+        "b": 0,
+        "mean_pred": 0.0159,
+        "obs_rate": 0.0434,
+        "n": 484
+      },
+      {
+        "category": "stay_in_block",
+        "b": 1,
+        "mean_pred": 0.0347,
+        "obs_rate": 0.0497,
+        "n": 483
+      },
+      {
+        "category": "stay_in_block",
+        "b": 2,
+        "mean_pred": 0.0357,
+        "obs_rate": 0.0373,
+        "n": 483
+      },
+      {
+        "category": "stay_in_block",
+        "b": 3,
+        "mean_pred": 0.0611,
+        "obs_rate": 0.0683,
+        "n": 483
+      },
+      {
+        "category": "stay_in_block",
+        "b": 4,
+        "mean_pred": 0.1984,
+        "obs_rate": 0.1553,
+        "n": 483
+      },
+      {
+        "category": "standard_pass_block",
+        "b": 0,
+        "mean_pred": 0.0088,
+        "obs_rate": 0.0145,
+        "n": 484
+      },
+      {
+        "category": "standard_pass_block",
+        "b": 1,
+        "mean_pred": 0.027,
+        "obs_rate": 0.0393,
+        "n": 483
+      },
+      {
+        "category": "standard_pass_block",
+        "b": 2,
+        "mean_pred": 0.029,
+        "obs_rate": 0.0248,
+        "n": 483
+      },
+      {
+        "category": "standard_pass_block",
+        "b": 3,
+        "mean_pred": 0.0513,
+        "obs_rate": 0.0849,
+        "n": 483
+      },
+      {
+        "category": "standard_pass_block",
+        "b": 4,
+        "mean_pred": 0.2157,
+        "obs_rate": 0.1988,
+        "n": 483
+      }
+    ],
+    "test_observed_vs_expected": {
+      "inline_route": {
+        "observed": 0.3042,
+        "expected": 0.321
+      },
+      "detached_route": {
+        "observed": 0.4421,
+        "expected": 0.4409
+      },
+      "chip_release": {
+        "observed": 0.1105,
+        "expected": 0.1026
+      },
+      "stay_in_block": {
+        "observed": 0.0708,
+        "expected": 0.0691
+      },
+      "standard_pass_block": {
+        "observed": 0.0724,
+        "expected": 0.0663
+      }
+    }
+  },
+  "league_mix": {
+    "train_weeks": {
+      "inline_route": 0.3186,
+      "detached_route": 0.4438,
+      "chip_release": 0.1032,
+      "stay_in_block": 0.0708,
+      "standard_pass_block": 0.0636
+    },
+    "test_weeks": {
+      "inline_route": 0.3042,
+      "detached_route": 0.4421,
+      "chip_release": 0.1105,
+      "stay_in_block": 0.0708,
+      "standard_pass_block": 0.0724
+    },
+    "chi2_train_vs_test": {
+      "chi2": 4.374247156284399,
+      "dof": 4,
+      "p": 0.3577199834522666
+    }
+  },
+  "reliability": {
+    "ddi_and_ipw_shares": {
+      "split_half_train_vs_test": {
+        "ddi": {
+          "spearman": 0.489036039947894,
+          "n_players": 48
+        },
+        "inline_route": {
+          "spearman": 0.4846938775510204,
+          "n_players": 48
+        },
+        "detached_route": {
+          "spearman": 0.5743595310464611,
+          "n_players": 48
+        },
+        "chip_release": {
+          "spearman": 0.16163699522362138,
+          "n_players": 48
+        },
+        "stay_in_block": {
+          "spearman": 0.3244187276057975,
+          "n_players": 48
+        },
+        "standard_pass_block": {
+          "spearman": 0.6439168884122946,
+          "n_players": 48
+        }
+      },
+      "odd_even_games": {
+        "ddi": {
+          "spearman": 0.5167526900533637,
+          "n_players": 70
+        },
+        "inline_route": {
+          "spearman": 0.49498731519552097,
+          "n_players": 70
+        },
+        "detached_route": {
+          "spearman": 0.8003674219228414,
+          "n_players": 70
+        },
+        "chip_release": {
+          "spearman": 0.2747681550323363,
+          "n_players": 70
+        },
+        "stay_in_block": {
+          "spearman": 0.44168625127274636,
+          "n_players": 70
+        },
+        "standard_pass_block": {
+          "spearman": 0.7307370305754985,
+          "n_players": 70
+        }
+      }
+    },
+    "raw_shares_stats_module": {
+      "inline_route": {
+        "split_half": {
+          "spearman": 0.6135598749675883,
+          "n_players": 48
+        },
+        "odd_even": {
+          "spearman": 0.554364753362146,
+          "n_players": 70
+        }
+      },
+      "detached_route": {
+        "split_half": {
+          "spearman": 0.6719861043261142,
+          "n_players": 48
+        },
+        "odd_even": {
+          "spearman": 0.8909564928645558,
+          "n_players": 70
+        }
+      },
+      "chip_release": {
+        "split_half": {
+          "spearman": 0.1526371536011364,
+          "n_players": 48
+        },
+        "odd_even": {
+          "spearman": 0.19983200814444713,
+          "n_players": 70
+        }
+      },
+      "stay_in_block": {
+        "split_half": {
+          "spearman": 0.39573186779157127,
+          "n_players": 48
+        },
+        "odd_even": {
+          "spearman": 0.5390891408597556,
+          "n_players": 70
+        }
+      },
+      "standard_pass_block": {
+        "split_half": {
+          "spearman": 0.7160564767762387,
+          "n_players": 48
+        },
+        "odd_even": {
+          "spearman": 0.784984952843671,
+          "n_players": 70
+        }
+      }
+    }
+  },
+  "sensitivity": {
+    "spearman_ddi_refined_vs_literal_rule_n>=50": 0.9690804290567622,
+    "spearman_ddi_ipw_vs_unadjusted_n>=50": 0.9220139710653891
+  },
+  "top5_n>=50": [
+    {
+      "displayName": "Chris Manhertz",
+      "team": "JAX",
+      "n": 65,
+      "value": 0.965,
+      "lo": 0.777,
+      "hi": 0.987,
+      "value_shrunk": 0.925,
+      "archetype": "inline blocker"
+    },
+    {
+      "displayName": "Jesse James",
+      "team": "CHI",
+      "n": 56,
+      "value": 0.961,
+      "lo": 0.71,
+      "hi": 0.983,
+      "value_shrunk": 0.888,
+      "archetype": "chip-and-release specialist"
+    },
+    {
+      "displayName": "Kaden Smith",
+      "team": "NYG",
+      "n": 68,
+      "value": 0.949,
+      "lo": 0.824,
+      "hi": 0.98,
+      "value_shrunk": 0.926,
+      "archetype": "inline blocker"
+    },
+    {
+      "displayName": "David Njoku",
+      "team": "CLE",
+      "n": 144,
+      "value": 0.916,
+      "lo": 0.837,
+      "hi": 0.951,
+      "value_shrunk": 0.905,
+      "archetype": "balanced"
+    },
+    {
+      "displayName": "Foster Moreau",
+      "team": "LV",
+      "n": 117,
+      "value": 0.898,
+      "lo": 0.739,
+      "hi": 0.928,
+      "value_shrunk": 0.875,
+      "archetype": "balanced"
+    }
+  ],
+  "archetype_counts_n>=50": {
+    "balanced": 50,
+    "receiving specialist": 12,
+    "inline blocker": 3,
+    "chip-and-release specialist": 3
+  },
+  "caveats": [
+    "Descriptive usage metric: high DDI = varied deployment, not better play.",
+    "Labels come from PFF role/blockType; chip_release is PFF Pass Route with CH/SR only.",
+    "IPW can only reweight within contexts a TE actually played; contexts he never saw are dropped from his target distribution (q renormalized on his support).",
+    "Plug-in entropy is biased low for small n; Miller-Madow columns (value_mm uses Kish n_eff) and value_shrunk partly correct this. Bootstrap CIs are degenerate for 1-game TEs.",
+    "Only dropbacks are in the data; run-play deployment is invisible.",
+    "Weeks 7-8 half is small; split-half correlations are noisy (see n_players)."
+  ]
+}

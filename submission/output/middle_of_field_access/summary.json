@@ -1,0 +1,1217 @@
+{
+  "metric": "Middle-of-Field Access",
+  "slug": "middle_of_field_access",
+  "higher_is_better": true,
+  "definition": {
+    "checkpoints_s": [
+      1.5,
+      2.5,
+      3.5
+    ],
+    "frame_rule": "receiver_frames frame nearest each checkpoint (|t - checkpoint| <= 0.050 s; frames are on an exact 0.1 s grid so this is the frame at t)",
+    "viable_mof_window_if_all": {
+      "y_band_between_numbers": [
+        12.0,
+        41.3
+      ],
+      "x_rel_band_yd_past_los": [
+        0.0,
+        20.0
+      ],
+      "min_sep_yd (config.VIABLE_MIN_SEP)": 2.5,
+      "min_lane_clear_yd (config.VIABLE_MIN_LANE)": 1.0,
+      "missing sep/lane": "treated as not viable"
+    },
+    "live_rule": "checkpoint t is live iff t <= t_end (routes.t_end = end of dropback: throw frame on throw plays, sack/scramble/other stop frame otherwise)",
+    "population": "TE snaps with te_plays.assignment in {route, chip_release} that have tracking",
+    "primary": "P(viable at t | TE route/chip_release, live at t), per checkpoint",
+    "unconditional": "P(viable at t | TE route/chip_release); not live counted as not viable",
+    "player_value": "value = equal-weight mean of the 3 raw per-checkpoint live rates (NaN if a checkpoint has 0 live snaps); value_shrunk = equal-weight mean of the 3 beta-shrunk rates (prior = TE league live rate at that checkpoint, strength by method of moments)",
+    "intervals": "per-checkpoint: Wilson 95%; lo/hi (raw value), value_shrunk_lo/hi, mofa_oe_lo/hi: play-level bootstrap within player (2000 reps, the 3 checkpoints of a play resampled together; priors held fixed)",
+    "n_column": "n = TE route/chip_release snaps with tracking (live counts per checkpoint in n_live_t*)",
+    "context_adjusted": "expected = P(viable | context) at each live checkpoint from a cross-fitted HGB classifier fit on ALL route runners (position not a feature); oe_t* = mean(viable - expected) over the TE's live snaps at t; mofa_oe = equal-weight mean of oe_t*; oe_t*_shrunk = normal-normal EB toward the TE pooled mean residual at t (se2 = pooled within-player residual variance / n_live, tau2 by MoM over TEs with n >= 40); mofa_oe_shrunk = mean of the three"
+  },
+  "parameters": {
+    "min_n_rank_top5_spearman": 40,
+    "min_n_prior_estimation": 20,
+    "n_boot": 2000,
+    "train_weeks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "test_weeks": [
+      7,
+      8
+    ],
+    "seed": 42
+  },
+  "sample": {
+    "te_route_chip_snaps_total": 9064,
+    "te_route_chip_snaps_used": 9035,
+    "dropped_no_tracking": 29,
+    "n_route_chip": {
+      "route": 7939,
+      "chip_release": 1096
+    },
+    "n_tes": 118,
+    "n_tes_min40": 66,
+    "all_route_runner_snaps": 39398,
+    "live_rows_all_runners": 76941,
+    "frames_missing_on_live_checkpoints": 0,
+    "te_live_n_by_checkpoint": {
+      "1.5": 8992,
+      "2.5": 6065,
+      "3.5": 2436
+    }
+  },
+  "league": {
+    "te": {
+      "1.5": {
+        "n_te_route_snaps": 9035,
+        "n_live": 8992,
+        "live_share": 0.9952,
+        "p_viable_given_live": 0.1486,
+        "ci": [
+          0.1414,
+          0.1561
+        ],
+        "p_viable_unconditional": 0.1479,
+        "mean_expected_live": 0.1497,
+        "te_mean_oe_live": -0.0011,
+        "component_rates_live": {
+          "in_y_band": 0.9582,
+          "in_x_rel_band": 0.7747,
+          "sep_ok": 0.4703,
+          "lane_ok": 0.3618,
+          "in_mof_zone_y_and_x": 0.7344
+        }
+      },
+      "2.5": {
+        "n_te_route_snaps": 9035,
+        "n_live": 6065,
+        "live_share": 0.6713,
+        "p_viable_given_live": 0.154,
+        "ci": [
+          0.1451,
+          0.1633
+        ],
+        "p_viable_unconditional": 0.1034,
+        "mean_expected_live": 0.1598,
+        "te_mean_oe_live": -0.0058,
+        "component_rates_live": {
+          "in_y_band": 0.8976,
+          "in_x_rel_band": 0.8544,
+          "sep_ok": 0.4969,
+          "lane_ok": 0.3782,
+          "in_mof_zone_y_and_x": 0.7561
+        }
+      },
+      "3.5": {
+        "n_te_route_snaps": 9035,
+        "n_live": 2436,
+        "live_share": 0.2696,
+        "p_viable_given_live": 0.2028,
+        "ci": [
+          0.1873,
+          0.2192
+        ],
+        "p_viable_unconditional": 0.0547,
+        "mean_expected_live": 0.1832,
+        "te_mean_oe_live": 0.0196,
+        "component_rates_live": {
+          "in_y_band": 0.7787,
+          "in_x_rel_band": 0.9002,
+          "sep_ok": 0.5234,
+          "lane_ok": 0.5086,
+          "in_mof_zone_y_and_x": 0.6913
+        }
+      }
+    },
+    "by_position_live": {
+      "1.5": {
+        "FB": {
+          "mean": 0.0366,
+          "count": 383
+        },
+        "RB": {
+          "mean": 0.0144,
+          "count": 6940
+        },
+        "TE": {
+          "mean": 0.1486,
+          "count": 8992
+        },
+        "WR": {
+          "mean": 0.1498,
+          "count": 22857
+        }
+      },
+      "2.5": {
+        "FB": {
+          "mean": 0.1476,
+          "count": 271
+        },
+        "RB": {
+          "mean": 0.0731,
+          "count": 4829
+        },
+        "TE": {
+          "mean": 0.154,
+          "count": 6065
+        },
+        "WR": {
+          "mean": 0.1485,
+          "count": 15691
+        }
+      },
+      "3.5": {
+        "FB": {
+          "mean": 0.0619,
+          "count": 113
+        },
+        "RB": {
+          "mean": 0.1333,
+          "count": 1973
+        },
+        "TE": {
+          "mean": 0.2028,
+          "count": 2436
+        },
+        "WR": {
+          "mean": 0.1673,
+          "count": 6312
+        }
+      }
+    },
+    "te_by_alignment_live": {
+      "1.5": {
+        "backfield": {
+          "mean": 0.011,
+          "count": 182
+        },
+        "detached": {
+          "mean": 0.1701,
+          "count": 4980
+        },
+        "inline": {
+          "mean": 0.13,
+          "count": 3301
+        },
+        "wing": {
+          "mean": 0.1096,
+          "count": 529
+        }
+      },
+      "2.5": {
+        "backfield": {
+          "mean": 0.121,
+          "count": 157
+        },
+        "detached": {
+          "mean": 0.1445,
+          "count": 3211
+        },
+        "inline": {
+          "mean": 0.1701,
+          "count": 2293
+        },
+        "wing": {
+          "mean": 0.151,
+          "count": 404
+        }
+      },
+      "3.5": {
+        "backfield": {
+          "mean": 0.209,
+          "count": 67
+        },
+        "detached": {
+          "mean": 0.1971,
+          "count": 1233
+        },
+        "inline": {
+          "mean": 0.2081,
+          "count": 942
+        },
+        "wing": {
+          "mean": 0.2113,
+          "count": 194
+        }
+      }
+    },
+    "te_by_assignment_live": {
+      "1.5": {
+        "chip_release": {
+          "mean": 0.0138,
+          "count": 1090
+        },
+        "route": {
+          "mean": 0.1672,
+          "count": 7902
+        }
+      },
+      "2.5": {
+        "chip_release": {
+          "mean": 0.1434,
+          "count": 990
+        },
+        "route": {
+          "mean": 0.1561,
+          "count": 5075
+        }
+      },
+      "3.5": {
+        "chip_release": {
+          "mean": 0.2357,
+          "count": 471
+        },
+        "route": {
+          "mean": 0.1949,
+          "count": 1965
+        }
+      }
+    },
+    "te_summary_equal_weight_live": 0.1685
+  },
+  "shrinkage_prior_by_checkpoint": {
+    "1.5": {
+      "mean": 0.148576512455516,
+      "strength": 160.8099219091847,
+      "between_player_var": 0.0007841316387410049,
+      "n_players_used": 87,
+      "n_live": 8992
+    },
+    "2.5": {
+      "mean": 0.15399835119538335,
+      "strength": 530.2182946706414,
+      "between_player_var": 0.00024663952291643356,
+      "n_players_used": 76,
+      "n_live": 6065
+    },
+    "3.5": {
+      "mean": 0.20279146141215107,
+      "strength": 101.82259981893115,
+      "between_player_var": 0.0015667811495215138,
+      "n_players_used": 44,
+      "n_live": 2436
+    }
+  },
+  "oe_eb_by_checkpoint": {
+    "1.5": {
+      "grand_mean_te_resid": -0.00113,
+      "within_player_resid_var": 0.11973,
+      "tau2": 0.0003864784190549446,
+      "implied_strength_n_for_half_weight": 309.8
+    },
+    "2.5": {
+      "grand_mean_te_resid": -0.00582,
+      "within_player_resid_var": 0.12619,
+      "tau2": 0.0005067243407198456,
+      "implied_strength_n_for_half_weight": 249.0
+    },
+    "3.5": {
+      "grand_mean_te_resid": 0.01959,
+      "within_player_resid_var": 0.1539,
+      "tau2": 0.005450227070241779,
+      "implied_strength_n_for_half_weight": 28.2
+    }
+  },
+  "expected_model": {
+    "features": [
+      "t",
+      "alignment",
+      "x_rel_snap",
+      "abs_lat",
+      "receiver_num",
+      "n_rec_side",
+      "offenseFormation",
+      "personnelO",
+      "pff_passCoverage",
+      "pff_passCoverageType",
+      "dropBackType",
+      "pff_playAction",
+      "down",
+      "yardsToGo",
+      "red_zone"
+    ],
+    "categorical": [
+      "alignment",
+      "offenseFormation",
+      "personnelO",
+      "pff_passCoverage",
+      "pff_passCoverageType",
+      "dropBackType"
+    ],
+    "target": "viable MOF window at a live checkpoint",
+    "rows": "all route runners x live checkpoints",
+    "estimator": "HistGradientBoostingClassifier (categorical from dtype); stats.cross_fit GroupKFold(gameId) on train weeks, refit on all train for test weeks",
+    "n_train_rows": 59606,
+    "n_test_rows": 17335,
+    "train_base_rate": 0.13427,
+    "train_base_rate_by_t": {
+      "1.5": 0.12362,
+      "2.5": 0.13716,
+      "3.5": 0.16536
+    },
+    "selected_config": {
+      "learning_rate": 0.03,
+      "max_iter": 500,
+      "max_depth": 6,
+      "min_samples_leaf": 80,
+      "l2_regularization": 3.0
+    },
+    "tuning_train_oof": [
+      {
+        "config": 0,
+        "learning_rate": 0.05,
+        "max_iter": 300,
+        "max_depth": 4,
+        "min_samples_leaf": 50,
+        "l2_regularization": 1.0,
+        "train_oof_logloss": 0.35053
+      },
+      {
+        "config": 1,
+        "learning_rate": 0.05,
+        "max_iter": 400,
+        "max_depth": 3,
+        "min_samples_leaf": 100,
+        "l2_regularization": 1.0,
+        "train_oof_logloss": 0.35074
+      },
+      {
+        "config": 2,
+        "learning_rate": 0.03,
+        "max_iter": 500,
+        "max_depth": 6,
+        "min_samples_leaf": 80,
+        "l2_regularization": 3.0,
+        "train_oof_logloss": 0.35029
+      }
+    ],
+    "test": {
+      "all_route_runners": {
+        "n": 17335,
+        "obs_rate": 0.13597,
+        "mean_pred": 0.1333,
+        "model": {
+          "auc": 0.73804,
+          "log_loss": 0.34993,
+          "brier": 0.10808
+        },
+        "baseline_train_rate": {
+          "auc": 0.5,
+          "log_loss": 0.39759,
+          "brier": 0.11748
+        },
+        "baseline_train_rate_by_t": {
+          "auc": 0.52901,
+          "log_loss": 0.39655,
+          "brier": 0.11722
+        },
+        "by_checkpoint": {
+          "1.5": {
+            "n": 8899,
+            "obs_rate": 0.12698,
+            "mean_pred": 0.12335,
+            "model": {
+              "auc": 0.7767,
+              "log_loss": 0.31776,
+              "brier": 0.0993
+            },
+            "baseline_train_rate_t": {
+              "auc": 0.5,
+              "log_loss": 0.38066,
+              "brier": 0.11087
+            }
+          },
+          "2.5": {
+            "n": 6019,
+            "obs_rate": 0.13241,
+            "mean_pred": 0.13683,
+            "model": {
+              "auc": 0.69125,
+              "log_loss": 0.36314,
+              "brier": 0.10909
+            },
+            "baseline_train_rate_t": {
+              "auc": 0.5,
+              "log_loss": 0.39105,
+              "brier": 0.1149
+            }
+          },
+          "3.5": {
+            "n": 2417,
+            "obs_rate": 0.17791,
+            "mean_pred": 0.16112,
+            "model": {
+              "auc": 0.68812,
+              "log_loss": 0.43546,
+              "brier": 0.13787
+            },
+            "baseline_train_rate_t": {
+              "auc": 0.5,
+              "log_loss": 0.46876,
+              "brier": 0.14641
+            }
+          }
+        },
+        "calibration_5bin": [
+          {
+            "bin": 0,
+            "n": 3467,
+            "mean_pred": 0.0103,
+            "obs_rate": 0.0069
+          },
+          {
+            "bin": 1,
+            "n": 3467,
+            "mean_pred": 0.0604,
+            "obs_rate": 0.0623
+          },
+          {
+            "bin": 2,
+            "n": 3467,
+            "mean_pred": 0.1174,
+            "obs_rate": 0.1243
+          },
+          {
+            "bin": 3,
+            "n": 3467,
+            "mean_pred": 0.1973,
+            "obs_rate": 0.2215
+          },
+          {
+            "bin": 4,
+            "n": 3467,
+            "mean_pred": 0.2812,
+            "obs_rate": 0.2648
+          }
+        ]
+      },
+      "te_only": {
+        "n": 3966,
+        "obs_rate": 0.16364,
+        "mean_pred": 0.15827,
+        "model": {
+          "auc": 0.67626,
+          "log_loss": 0.41802,
+          "brier": 0.13011
+        },
+        "baseline_train_rate": {
+          "auc": 0.5,
+          "log_loss": 0.44916,
+          "brier": 0.13773
+        },
+        "baseline_train_rate_by_t": {
+          "auc": 0.52504,
+          "log_loss": 0.44804,
+          "brier": 0.13741
+        },
+        "by_checkpoint": {
+          "1.5": {
+            "n": 2051,
+            "obs_rate": 0.15651,
+            "mean_pred": 0.15014,
+            "model": {
+              "auc": 0.70467,
+              "log_loss": 0.39937,
+              "brier": 0.12368
+            },
+            "baseline_train_rate_t": {
+              "auc": 0.5,
+              "log_loss": 0.43849,
+              "brier": 0.1331
+            }
+          },
+          "2.5": {
+            "n": 1372,
+            "obs_rate": 0.15233,
+            "mean_pred": 0.16099,
+            "model": {
+              "auc": 0.64129,
+              "log_loss": 0.40882,
+              "brier": 0.12511
+            },
+            "baseline_train_rate_t": {
+              "auc": 0.5,
+              "log_loss": 0.42768,
+              "brier": 0.12936
+            }
+          },
+          "3.5": {
+            "n": 543,
+            "obs_rate": 0.21915,
+            "mean_pred": 0.18208,
+            "model": {
+              "auc": 0.62914,
+              "log_loss": 0.51175,
+              "brier": 0.16705
+            },
+            "baseline_train_rate_t": {
+              "auc": 0.5,
+              "log_loss": 0.53554,
+              "brier": 0.17402
+            }
+          }
+        },
+        "calibration_5bin": [
+          {
+            "bin": 0,
+            "n": 794,
+            "mean_pred": 0.0511,
+            "obs_rate": 0.0529
+          },
+          {
+            "bin": 1,
+            "n": 793,
+            "mean_pred": 0.1047,
+            "obs_rate": 0.0832
+          },
+          {
+            "bin": 2,
+            "n": 793,
+            "mean_pred": 0.1558,
+            "obs_rate": 0.1955
+          },
+          {
+            "bin": 3,
+            "n": 793,
+            "mean_pred": 0.2063,
+            "obs_rate": 0.2106
+          },
+          {
+            "bin": 4,
+            "n": 793,
+            "mean_pred": 0.2736,
+            "obs_rate": 0.2762
+          }
+        ]
+      }
+    }
+  },
+  "validation": {
+    "te_throw_snaps": 8015,
+    "te_throw_snaps_with_checkpoint": 7974,
+    "te_throw_snaps_thrown_before_1.5s_excluded": 41,
+    "target_rate_lift_viable_vs_not": {
+      "TE route/chip snaps": 1.268,
+      "all route runners": 1.246,
+      "TE, last cp = 1.5": 1.269,
+      "TE, last cp = 2.5": 1.282,
+      "TE, last cp = 3.5": 1.281
+    },
+    "rule": "throw plays; viability at the last checkpoint with checkpoint <= t_end (throw frame); snaps thrown before 1.5 s excluded",
+    "table": [
+      {
+        "population": "TE route/chip snaps",
+        "split": "all",
+        "viable_mof_last_cp": true,
+        "n_snaps": 1372,
+        "targets": 325,
+        "catches": 237,
+        "target_rate": 0.2369,
+        "target_lo": 0.2151,
+        "target_hi": 0.2601,
+        "completion_rate": 0.7292,
+        "completion_lo": 0.6785,
+        "completion_hi": 0.7747,
+        "catch_per_snap": 0.1727
+      },
+      {
+        "population": "TE route/chip snaps",
+        "split": "all",
+        "viable_mof_last_cp": false,
+        "n_snaps": 6602,
+        "targets": 1233,
+        "catches": 802,
+        "target_rate": 0.1868,
+        "target_lo": 0.1775,
+        "target_hi": 0.1963,
+        "completion_rate": 0.6504,
+        "completion_lo": 0.6234,
+        "completion_hi": 0.6766,
+        "catch_per_snap": 0.1215
+      },
+      {
+        "population": "TE route/chip snaps",
+        "split": "train",
+        "viable_mof_last_cp": true,
+        "n_snaps": 1049,
+        "targets": 248,
+        "catches": 180,
+        "target_rate": 0.2364,
+        "target_lo": 0.2117,
+        "target_hi": 0.2631,
+        "completion_rate": 0.7258,
+        "completion_lo": 0.6672,
+        "completion_hi": 0.7776,
+        "catch_per_snap": 0.1716
+      },
+      {
+        "population": "TE route/chip snaps",
+        "split": "train",
+        "viable_mof_last_cp": false,
+        "n_snaps": 5113,
+        "targets": 952,
+        "catches": 628,
+        "target_rate": 0.1862,
+        "target_lo": 0.1758,
+        "target_hi": 0.1971,
+        "completion_rate": 0.6597,
+        "completion_lo": 0.629,
+        "completion_hi": 0.6891,
+        "catch_per_snap": 0.1228
+      },
+      {
+        "population": "TE route/chip snaps",
+        "split": "test",
+        "viable_mof_last_cp": true,
+        "n_snaps": 323,
+        "targets": 77,
+        "catches": 57,
+        "target_rate": 0.2384,
+        "target_lo": 0.1952,
+        "target_hi": 0.2878,
+        "completion_rate": 0.7403,
+        "completion_lo": 0.6326,
+        "completion_hi": 0.8251,
+        "catch_per_snap": 0.1765
+      },
+      {
+        "population": "TE route/chip snaps",
+        "split": "test",
+        "viable_mof_last_cp": false,
+        "n_snaps": 1489,
+        "targets": 281,
+        "catches": 174,
+        "target_rate": 0.1887,
+        "target_lo": 0.1697,
+        "target_hi": 0.2094,
+        "completion_rate": 0.6192,
+        "completion_lo": 0.5612,
+        "completion_hi": 0.674,
+        "catch_per_snap": 0.1169
+      },
+      {
+        "population": "all route runners",
+        "split": "all",
+        "viable_mof_last_cp": true,
+        "n_snaps": 4931,
+        "targets": 1232,
+        "catches": 865,
+        "target_rate": 0.2498,
+        "target_lo": 0.238,
+        "target_hi": 0.2621,
+        "completion_rate": 0.7021,
+        "completion_lo": 0.676,
+        "completion_hi": 0.727,
+        "catch_per_snap": 0.1754
+      },
+      {
+        "population": "all route runners",
+        "split": "all",
+        "viable_mof_last_cp": false,
+        "n_snaps": 29919,
+        "targets": 5997,
+        "catches": 3691,
+        "target_rate": 0.2004,
+        "target_lo": 0.1959,
+        "target_hi": 0.205,
+        "completion_rate": 0.6155,
+        "completion_lo": 0.6031,
+        "completion_hi": 0.6277,
+        "catch_per_snap": 0.1234
+      },
+      {
+        "population": "all route runners",
+        "split": "train",
+        "viable_mof_last_cp": true,
+        "n_snaps": 3775,
+        "targets": 949,
+        "catches": 674,
+        "target_rate": 0.2514,
+        "target_lo": 0.2378,
+        "target_hi": 0.2655,
+        "completion_rate": 0.7102,
+        "completion_lo": 0.6806,
+        "completion_hi": 0.7382,
+        "catch_per_snap": 0.1785
+      },
+      {
+        "population": "all route runners",
+        "split": "train",
+        "viable_mof_last_cp": false,
+        "n_snaps": 23180,
+        "targets": 4635,
+        "catches": 2863,
+        "target_rate": 0.2,
+        "target_lo": 0.1949,
+        "target_hi": 0.2052,
+        "completion_rate": 0.6177,
+        "completion_lo": 0.6036,
+        "completion_hi": 0.6316,
+        "catch_per_snap": 0.1235
+      },
+      {
+        "population": "all route runners",
+        "split": "test",
+        "viable_mof_last_cp": true,
+        "n_snaps": 1156,
+        "targets": 283,
+        "catches": 191,
+        "target_rate": 0.2448,
+        "target_lo": 0.2209,
+        "target_hi": 0.2704,
+        "completion_rate": 0.6749,
+        "completion_lo": 0.6183,
+        "completion_hi": 0.7268,
+        "catch_per_snap": 0.1652
+      },
+      {
+        "population": "all route runners",
+        "split": "test",
+        "viable_mof_last_cp": false,
+        "n_snaps": 6739,
+        "targets": 1362,
+        "catches": 828,
+        "target_rate": 0.2021,
+        "target_lo": 0.1927,
+        "target_hi": 0.2119,
+        "completion_rate": 0.6079,
+        "completion_lo": 0.5817,
+        "completion_hi": 0.6335,
+        "catch_per_snap": 0.1229
+      },
+      {
+        "population": "TE, last cp = 1.5",
+        "split": "all",
+        "viable_mof_last_cp": true,
+        "n_snaps": 530,
+        "targets": 126,
+        "catches": 93,
+        "target_rate": 0.2377,
+        "target_lo": 0.2035,
+        "target_hi": 0.2758,
+        "completion_rate": 0.7381,
+        "completion_lo": 0.6551,
+        "completion_hi": 0.807,
+        "catch_per_snap": 0.1755
+      },
+      {
+        "population": "TE, last cp = 1.5",
+        "split": "all",
+        "viable_mof_last_cp": false,
+        "n_snaps": 2370,
+        "targets": 444,
+        "catches": 322,
+        "target_rate": 0.1873,
+        "target_lo": 0.1721,
+        "target_hi": 0.2036,
+        "completion_rate": 0.7252,
+        "completion_lo": 0.6819,
+        "completion_hi": 0.7647,
+        "catch_per_snap": 0.1359
+      },
+      {
+        "population": "TE, last cp = 2.5",
+        "split": "all",
+        "viable_mof_last_cp": true,
+        "n_snaps": 524,
+        "targets": 132,
+        "catches": 104,
+        "target_rate": 0.2519,
+        "target_lo": 0.2166,
+        "target_hi": 0.2908,
+        "completion_rate": 0.7879,
+        "completion_lo": 0.7105,
+        "completion_hi": 0.849,
+        "catch_per_snap": 0.1985
+      },
+      {
+        "population": "TE, last cp = 2.5",
+        "split": "all",
+        "viable_mof_last_cp": false,
+        "n_snaps": 2907,
+        "targets": 571,
+        "catches": 364,
+        "target_rate": 0.1964,
+        "target_lo": 0.1824,
+        "target_hi": 0.2113,
+        "completion_rate": 0.6375,
+        "completion_lo": 0.5972,
+        "completion_hi": 0.6759,
+        "catch_per_snap": 0.1252
+      },
+      {
+        "population": "TE, last cp = 3.5",
+        "split": "all",
+        "viable_mof_last_cp": true,
+        "n_snaps": 318,
+        "targets": 67,
+        "catches": 40,
+        "target_rate": 0.2107,
+        "target_lo": 0.1695,
+        "target_hi": 0.2588,
+        "completion_rate": 0.597,
+        "completion_lo": 0.4774,
+        "completion_hi": 0.7061,
+        "catch_per_snap": 0.1258
+      },
+      {
+        "population": "TE, last cp = 3.5",
+        "split": "all",
+        "viable_mof_last_cp": false,
+        "n_snaps": 1325,
+        "targets": 218,
+        "catches": 116,
+        "target_rate": 0.1645,
+        "target_lo": 0.1455,
+        "target_hi": 0.1855,
+        "completion_rate": 0.5321,
+        "completion_lo": 0.4659,
+        "completion_hi": 0.5972,
+        "catch_per_snap": 0.0875
+      }
+    ]
+  },
+  "sensitivity": [
+    {
+      "band": "numbers_12_41.3",
+      "y_band": [
+        12.0,
+        41.3
+      ],
+      "min_sep": 2.0,
+      "is_default": false,
+      "spearman_value_shrunk_vs_default": 0.7817,
+      "n_players": 66,
+      "te_target_lift_last_cp": 1.227,
+      "te_live_rate_t15": 0.1825,
+      "te_uncond_rate_t15": 0.1816,
+      "all_live_rate_t15": 0.1478,
+      "prior_strength_t15": 99.2,
+      "te_live_rate_t25": 0.1845,
+      "te_uncond_rate_t25": 0.1239,
+      "all_live_rate_t25": 0.1605,
+      "prior_strength_t25": 715.3,
+      "te_live_rate_t35": 0.2393,
+      "te_uncond_rate_t35": 0.0645,
+      "all_live_rate_t35": 0.1979,
+      "prior_strength_t35": 262.5
+    },
+    {
+      "band": "numbers_12_41.3",
+      "y_band": [
+        12.0,
+        41.3
+      ],
+      "min_sep": 2.5,
+      "is_default": true,
+      "spearman_value_shrunk_vs_default": 1.0,
+      "n_players": 66,
+      "te_target_lift_last_cp": 1.268,
+      "te_live_rate_t15": 0.1486,
+      "te_uncond_rate_t15": 0.1479,
+      "all_live_rate_t15": 0.1244,
+      "prior_strength_t15": 160.8,
+      "te_live_rate_t25": 0.154,
+      "te_uncond_rate_t25": 0.1034,
+      "all_live_rate_t25": 0.1361,
+      "prior_strength_t25": 530.2,
+      "te_live_rate_t35": 0.2028,
+      "te_uncond_rate_t35": 0.0547,
+      "all_live_rate_t35": 0.1682,
+      "prior_strength_t35": 101.8
+    },
+    {
+      "band": "numbers_12_41.3",
+      "y_band": [
+        12.0,
+        41.3
+      ],
+      "min_sep": 3.0,
+      "is_default": false,
+      "spearman_value_shrunk_vs_default": 0.9112,
+      "n_players": 66,
+      "te_target_lift_last_cp": 1.329,
+      "te_live_rate_t15": 0.1151,
+      "te_uncond_rate_t15": 0.1146,
+      "all_live_rate_t15": 0.102,
+      "prior_strength_t15": 190.0,
+      "te_live_rate_t25": 0.1261,
+      "te_uncond_rate_t25": 0.0847,
+      "all_live_rate_t25": 0.1107,
+      "prior_strength_t25": 1000.0,
+      "te_live_rate_t35": 0.1765,
+      "te_uncond_rate_t35": 0.0476,
+      "all_live_rate_t35": 0.1424,
+      "prior_strength_t35": 121.7
+    },
+    {
+      "band": "hashes_wide_18_35.3",
+      "y_band": [
+        18.0,
+        35.3
+      ],
+      "min_sep": 2.0,
+      "is_default": false,
+      "spearman_value_shrunk_vs_default": 0.5641,
+      "n_players": 66,
+      "te_target_lift_last_cp": 1.171,
+      "te_live_rate_t15": 0.1125,
+      "te_uncond_rate_t15": 0.112,
+      "all_live_rate_t15": 0.0721,
+      "prior_strength_t15": 72.8,
+      "te_live_rate_t25": 0.1141,
+      "te_uncond_rate_t25": 0.0766,
+      "all_live_rate_t25": 0.0803,
+      "prior_strength_t25": 130.6,
+      "te_live_rate_t35": 0.1445,
+      "te_uncond_rate_t35": 0.039,
+      "all_live_rate_t35": 0.1123,
+      "prior_strength_t35": 1000.0
+    },
+    {
+      "band": "hashes_wide_18_35.3",
+      "y_band": [
+        18.0,
+        35.3
+      ],
+      "min_sep": 2.5,
+      "is_default": false,
+      "spearman_value_shrunk_vs_default": 0.7352,
+      "n_players": 66,
+      "te_target_lift_last_cp": 1.196,
+      "te_live_rate_t15": 0.0881,
+      "te_uncond_rate_t15": 0.0877,
+      "all_live_rate_t15": 0.0588,
+      "prior_strength_t15": 96.6,
+      "te_live_rate_t25": 0.0951,
+      "te_uncond_rate_t25": 0.0639,
+      "all_live_rate_t25": 0.0685,
+      "prior_strength_t25": 138.9,
+      "te_live_rate_t35": 0.1215,
+      "te_uncond_rate_t35": 0.0328,
+      "all_live_rate_t35": 0.094,
+      "prior_strength_t35": 119.6
+    },
+    {
+      "band": "hashes_wide_18_35.3",
+      "y_band": [
+        18.0,
+        35.3
+      ],
+      "min_sep": 3.0,
+      "is_default": false,
+      "spearman_value_shrunk_vs_default": 0.6777,
+      "n_players": 66,
+      "te_target_lift_last_cp": 1.297,
+      "te_live_rate_t15": 0.0677,
+      "te_uncond_rate_t15": 0.0674,
+      "all_live_rate_t15": 0.0472,
+      "prior_strength_t15": 89.2,
+      "te_live_rate_t25": 0.0773,
+      "te_uncond_rate_t25": 0.0519,
+      "all_live_rate_t25": 0.0561,
+      "prior_strength_t25": 175.3,
+      "te_live_rate_t35": 0.1034,
+      "te_uncond_rate_t35": 0.0279,
+      "all_live_rate_t35": 0.0794,
+      "prior_strength_t35": 184.7
+    }
+  ],
+  "sensitivity_summary": {
+    "spearman_min": 0.5641,
+    "te_live_rate_t25_range": [
+      0.0773,
+      0.1845
+    ]
+  },
+  "split_half_reliability": {
+    "pooled_live_viable_min10": {
+      "spearman": 0.049,
+      "n_players": 68
+    },
+    "pooled_live_viable_min25": {
+      "spearman": -0.0286,
+      "n_players": 54
+    },
+    "pooled_live_oe_min10": {
+      "spearman": 0.0356,
+      "n_players": 68
+    },
+    "pooled_live_oe_min25": {
+      "spearman": -0.1009,
+      "n_players": 54
+    },
+    "summary_value_shrunk_min10_route_snaps_per_half": {
+      "spearman": -0.0392,
+      "n_players": 58
+    },
+    "summary_value_shrunk_min20_route_snaps_per_half": {
+      "spearman": -0.0098,
+      "n_players": 41
+    },
+    "summary_value_min10_route_snaps_per_half": {
+      "spearman": -0.1016,
+      "n_players": 57
+    },
+    "summary_value_min20_route_snaps_per_half": {
+      "spearman": -0.037,
+      "n_players": 40
+    }
+  },
+  "top5_min40": [
+    {
+      "nflId": 53484,
+      "displayName": "Pat Freiermuth",
+      "team": "PIT",
+      "n": 119,
+      "value": 0.1749,
+      "value_shrunk": 0.1851,
+      "value_shrunk_lo": 0.1709,
+      "value_shrunk_hi": 0.2,
+      "rate_t15": 0.2957,
+      "rate_t25": 0.0625,
+      "rate_t35": 0.1667,
+      "n_live_t35": 12,
+      "mofa_oe_shrunk": 0.0036
+    },
+    {
+      "nflId": 46118,
+      "displayName": "Dallas Goedert",
+      "team": "PHI",
+      "n": 143,
+      "value": 0.1954,
+      "value_shrunk": 0.1839,
+      "value_shrunk_lo": 0.1674,
+      "value_shrunk_hi": 0.2015,
+      "rate_t15": 0.2238,
+      "rate_t25": 0.1081,
+      "rate_t35": 0.2542,
+      "n_live_t35": 59,
+      "mofa_oe_shrunk": 0.0137
+    },
+    {
+      "nflId": 41236,
+      "displayName": "Eric Ebron",
+      "team": "PIT",
+      "n": 108,
+      "value": 0.1913,
+      "value_shrunk": 0.182,
+      "value_shrunk_lo": 0.1679,
+      "value_shrunk_hi": 0.1967,
+      "rate_t15": 0.2617,
+      "rate_t25": 0.1455,
+      "rate_t35": 0.1667,
+      "n_live_t35": 12,
+      "mofa_oe_shrunk": 0.0048
+    },
+    {
+      "nflId": 47791,
+      "displayName": "T.J. Hockenson",
+      "team": "DET",
+      "n": 279,
+      "value": 0.2077,
+      "value_shrunk": 0.1814,
+      "value_shrunk_lo": 0.1637,
+      "value_shrunk_hi": 0.2003,
+      "rate_t15": 0.1655,
+      "rate_t25": 0.2421,
+      "rate_t35": 0.2154,
+      "n_live_t35": 65,
+      "mofa_oe_shrunk": 0.0119
+    },
+    {
+      "nflId": 44792,
+      "displayName": "Mo Alie-Cox",
+      "team": "IND",
+      "n": 108,
+      "value": 0.1974,
+      "value_shrunk": 0.179,
+      "value_shrunk_lo": 0.163,
+      "value_shrunk_hi": 0.1965,
+      "rate_t15": 0.1574,
+      "rate_t25": 0.1304,
+      "rate_t35": 0.3043,
+      "n_live_t35": 46,
+      "mofa_oe_shrunk": 0.0219
+    }
+  ],
+  "top5_oe_min40": [
+    {
+      "nflId": 47959,
+      "displayName": "Kaden Smith",
+      "team": "NYG",
+      "n": 43,
+      "mofa_expected": 0.1473,
+      "mofa_oe": 0.0946,
+      "mofa_oe_shrunk": 0.049,
+      "mofa_oe_lo": -0.0014,
+      "mofa_oe_hi": 0.1837
+    },
+    {
+      "nflId": 47835,
+      "displayName": "Drew Sample",
+      "team": "CIN",
+      "n": 41,
+      "mofa_expected": 0.1686,
+      "mofa_oe": 0.1615,
+      "mofa_oe_shrunk": 0.0309,
+      "mofa_oe_lo": -0.0313,
+      "mofa_oe_hi": 0.3359
+    },
+    {
+      "nflId": 42503,
+      "displayName": "Jesse James",
+      "team": "CHI",
+      "n": 42,
+      "mofa_expected": 0.1498,
+      "mofa_oe": 0.0838,
+      "mofa_oe_shrunk": 0.0282,
+      "mofa_oe_lo": -0.0151,
+      "mofa_oe_hi": 0.1856
+    },
+    {
+      "nflId": 45355,
+      "displayName": "Anthony Firkser",
+      "team": "TEN",
+      "n": 116,
+      "mofa_expected": 0.1604,
+      "mofa_oe": 0.0517,
+      "mofa_oe_shrunk": 0.0262,
+      "mofa_oe_lo": -0.0111,
+      "mofa_oe_hi": 0.1211
+    },
+    {
+      "nflId": 39907,
+      "displayName": "Darren Fells",
+      "team": "DET",
+      "n": 53,
+      "mofa_expected": 0.1842,
+      "mofa_oe": 0.1202,
+      "mofa_oe_shrunk": 0.0233,
+      "mofa_oe_lo": -0.0569,
+      "mofa_oe_hi": 0.3061
+    }
+  ],
+  "caveats": [
+    "3.5 s checkpoint is live on only ~27% of TE route snaps; it is the noisiest component yet gets equal weight in the summary (shrinkage pulls low-n 3.5 s rates strongly toward the league prior)",
+    "live-conditioning selects on play length: long-developing dropbacks (more often play action / deep shots / pressure-free) dominate 3.5 s; compare checkpoints with that in mind",
+    "viability = nearest-defender separation and a straight QB->TE lane at one frame; no ball-flight, defender closing speed, or QB sightline/progression model",
+    "MOF band is a fixed absolute y band (numbers); it does not move with hash/ball position",
+    "x_rel >= 0 excludes flat/behind-LOS checkdowns, which are a real part of the TE checkdown role",
+    "expected model has no position feature, so TE mean OE vs all route runners partly reflects TE alignment/route mix not captured by the snap-alignment features",
+    "route vs block assignment is a play-call choice; chip_release snaps are included in the denominator",
+    "test weeks are only 2 weeks, so split-half reliability rests on small test-week samples",
+    "split-half reliability is ~0 for every variant (see split_half_reliability) and beta prior strengths are large (100-530 pseudo-snaps): in 8 weeks MOFA mostly reflects scheme/context, not a stable player trait; down-weight it in any composite"
+  ],
+  "shared_code_notes": [
+    "29 te_plays route/chip rows have no snap frame / tracking and no routes row; dropped"
+  ]
+}

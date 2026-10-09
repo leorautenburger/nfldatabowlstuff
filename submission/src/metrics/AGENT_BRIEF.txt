@@ -1,0 +1,83 @@
+SHARED BRIEF FOR METRIC AGENTS  (project root: /Users/alex/nfldatabowlstuff)
+
+Goal: implement ONE tight-end metric from tight-end-metrics.md (read the section for your metric
+plus "Reporting principles"). Data = NFL Big Data Bowl 2023 regional-event data (2021 weeks 1-8,
+122 games, 8,557 dropbacks). This is the only data we have.
+
+ENVIRONMENT
+- Python: .venv/bin/python (pandas 2.2.3, numpy 1.26, scikit-learn 1.5.2, scipy 1.13, pyarrow 17).
+  Do NOT install packages. Run your module from the project root: .venv/bin/python -m src.metrics.<slug>
+- Machine is shared with ~5 other agents running in parallel (16 GB RAM, 8 cores). Load only the
+  columns you need, filter tracking by game/play, and cap model threads (e.g. set
+  os.environ["OMP_NUM_THREADS"]="2" before importing sklearn; prefer HistGradientBoosting*).
+- DO NOT edit anything in src/common/, src/prep.py, or data/. If you find a bug there, work around it
+  locally in your module and report it in your final message.
+- Only create files inside src/metrics/<slug>.py and output/<slug>/.
+
+SHARED CODE (import, don't copy)
+- src/common/config.py : paths, TRAIN_WEEKS=[1..6], TEST_WEEKS=[7,8], N_FOLDS=5, SEED,
+  release thresholds, VIABLE_* thresholds, RED_ZONE_YARDS=20, FPS=10.
+- src/common/io.py : plays(), player_plays(), te_plays(), routes(), receiver_frames(columns, filters),
+  tracking(columns, filters)  filters e.g. [("gameId","in",[...])] or [("gameId","==",g)].
+- src/common/stats.py : cross_fit(model, df, features, target, proba=False) -> (pred Series, full model)
+  [OOF GroupKFold-by-game preds for train rows; train-fit preds for test rows]; wilson_ci, mean_ci,
+  beta_shrink, eb_shrink_mean(means, ns, sd), pooled_within_sd(df, player_col, value_col),
+  split_half_reliability(df, player_col, value_col), odd_even_reliability(df, player_col, value_col).
+  For eb_shrink_mean pass a scalar pooled within-player SD (pooled_within_sd); hyper-parameters are
+  estimated from players with n >= 10 so tiny samples don't break shrinkage.
+  Report BOTH split_half_reliability (weeks 1-6 vs 7-8) and odd_even_reliability (alternating games).
+
+TRAIN / TEST PROTOCOL (mandatory for every expected-value model)
+- Fit and tune only on is_train rows (weeks 1-6). Use stats.cross_fit so every play gets an honest
+  (out-of-sample) expectation. Report model quality on TEST rows (weeks 7-8) only, versus a naive
+  baseline (train mean / base rate). Regression: RMSE, MAE, R2. Classification: AUC, log loss, Brier,
+  plus a 5-bin calibration table.
+- Also report split-half reliability of the player metric (train weeks vs test weeks Spearman via
+  stats.split_half_reliability) so we know whether it is a stable player trait.
+- Never use player identity as a model feature for expectations. Expectations describe context.
+
+DATA FACTS (important)
+- Coordinates are standardized: offense always moves toward +x. x_rel = yards past line of scrimmage
+  (negative = backfield). y in [0, 53.3]. vx = downfield velocity, vy = lateral velocity.
+  t = seconds since snap (t=0 is the snap frame). 10 frames/sec.
+- Tracking ends ~0.5 s after the throw (or at sack/scramble). There is NO tracking of the ball flight
+  or catch point. "Throw frame" (plays.throw_frame / routes *_end columns) is the last reliable look.
+- No targeted-receiver column exists; plays.targetNflId was parsed from playDescription (7,310 of
+  7,565 pass attempts matched). player_plays.is_target / is_catch derive from it.
+- Every play is a dropback (no designed runs). plays.pressure = any PFF hit/hurry/sack on the play.
+- plays: context columns from plays.csv + week, split, is_train, snap_frame, throw_frame, end_frame,
+  end_event (throw/other_stop), los_x, ball_y, time_to_throw, time_to_end, yards_to_goal, red_zone,
+  goal_to_go, targetNflId, pressure, n_rushers, n_pass_blockers, n_routes, n_te_on_field.
+- player_plays: PFF scouting x players + x_rel_snap, y_snap, lat_from_ball, alignment
+  (inline / wing / detached / backfield), is_target, is_catch, split, is_train, displayName, officialPosition.
+- te_plays: player_plays restricted to officialPosition == "TE" (10,496 rows, 121 TEs) +
+  assignment in {route, chip_release (Pass Route with blockType CH or SR), pass_block},
+  release_t, release_frame, max_depth, x_rel_end, sep_end, receiver_num, n_rec_side.
+- routes: one row per route runner per play, ALL positions (39,398): x_rel_snap, y_snap, sep_snap,
+  nd_dx_snap/nd_dy_snap (nearest defender offset at snap), *_end = at end of dropback (throw frame):
+  t_end, x_rel_end, y_end, sep_end, n_def_3_end, n_def_5_end, lane_end, s_end, vx_end, vy_end,
+  max_depth, min_sep, max_sep, release_t/release_frame (NaN = never released), alignment,
+  officialPosition, pff_positionLinedUp, pff_blockType, receiver_num (1 = widest on that side),
+  n_rec_side, side, abs_lat, is_target, is_catch, time_to_throw, end_event.
+- receiver_frames: per frame per route runner, snap -> end of dropback (1.26M rows): t, x, y, x_rel,
+  s, a, vx, vy, dir, o, qb_x, qb_y, sep (nearest defender), sep2 (2nd nearest), n_def_3, n_def_5,
+  lane_clear (min defender distance to QB->receiver segment, ignoring defenders at the QB end),
+  nearest_def_id, nd_x, nd_y, dist_qb, released (bool, cumulative), split, is_train.
+- tracking (7.3M rows, all 22 players + ball, snap -> last frame): gameId, playId, nflId, frameId, t,
+  team, is_off, is_def, pff_role, officialPosition, x, y, x_rel, s, a, dis, o, dir, vx, vy, event.
+- Release definition (shared, in config): first frame where displacement from snap position
+  (downfield or lateral) >= 1.5 yd AND speed >= 2.5 yd/s held for 3 frames.
+
+OUTPUTS (required, so the composite step can join everything)
+1. output/<slug>/players.csv : one row per TE (nflId, displayName, team if easy) with at least
+   columns: nflId, displayName, n (sample size used), value (raw metric), value_shrunk (empirical-Bayes
+   shrunk value or NaN if not applicable), lo, hi (95% interval), plus any component columns.
+   Sort by value_shrunk (or value) descending, best first in the metric's "good" direction; add a
+   column higher_is_better (True/False).
+2. output/<slug>/plays.csv : play-level (or TE-play-level) rows behind the metric.
+3. output/<slug>/summary.json : definition actually implemented, every threshold/parameter, sample
+   sizes, test-set model metrics vs baseline, sensitivity results, split-half reliability, caveats.
+
+FINAL MESSAGE (keep it under ~300 words): what you implemented (one paragraph), key thresholds,
+test-set validation numbers, split-half reliability, top-5 TEs (min sample applied), caveats, and any
+issue found in shared code. Verify your script runs end-to-end from a clean state before finishing.
