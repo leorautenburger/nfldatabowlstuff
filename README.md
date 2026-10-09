@@ -60,3 +60,25 @@ chip-and-release record.
 
 Thresholds are explicit constants at the top of the script. They should be
 tested through sensitivity analysis before drawing player-level conclusions.
+
+## Protection-to-Availability Value v1
+
+`src/metrics/protection_to_availability_value.py` estimates a TE
+chip-and-release play's protection-time lift by matching it to standard TE
+routes with comparable pre-snap context. It then weights that lift by a
+receiving-availability score based on separation, passing-lane clearance,
+depth, and sideline position at the end of the dropback.
+
+```bash
+.venv/bin/python -m src.metrics.protection_to_availability_value
+```
+
+It writes merge-ready artifacts to `output/protection_to_availability_value/`:
+
+- `players.csv` — player-level PAV, empirical-Bayes shrinkage, and intervals.
+- `plays.csv` — scored TE chip-and-release plays and matched expectations.
+- `summary.json` — thresholds, sample counts, held-out validation, reliability,
+  and caveats.
+
+PAV v1 is a cross-fitted matched observational estimate, not a randomized
+causal effect.

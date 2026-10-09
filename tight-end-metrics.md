@@ -127,8 +127,8 @@ while still becoming a viable receiving option.
 
 ```text
 PAV =
-  (expected time to QB threat without TE assistance
-   - observed time to QB threat with TE assistance)
+  (observed time to QB threat with TE assistance
+   - expected time to QB threat without TE assistance)
   * receiving availability score
 ```
 
@@ -145,6 +145,12 @@ dualThreatWindowSeconds =
 It measures the time remaining after the TE's release before a threat reaches
 the QB, weighted by the TE's separation at the pass, threat, or play-end
 frame. It should not be described as causal added time.
+
+The v1 implementation at
+`src/metrics/protection_to_availability_value.py` uses cross-fitted,
+distance-weighted matches to comparable standard TE routes as the
+no-chip expectation. It is matched observational evidence, not a randomized
+causal estimate.
 
 ### Edge Seal Sustainability
 
