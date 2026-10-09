@@ -20,7 +20,6 @@ function filters() {
   const deployment = $("#deployment-filter").value;
   const minSnaps = number($("#min-snaps").value);
   return players
-    .filter((player) => player.profile_eligible)
     .filter((player) => !term || `${player.displayName} ${player.team}`.toLowerCase().includes(term))
     .filter((player) => !performance || player.performance_archetype === performance)
     .filter((player) => !deployment || player.deployment_archetype === deployment)
