@@ -1,84 +1,57 @@
-# NFL Data Bowl Stuff
+# TE Versatility Scout
 
-This repository contains reproducible exploratory metrics for tight ends in the
-NFL Big Data Bowl regional-event dataset.
+An NFL Big Data Bowl tool for comparing tight ends as blockers, receivers, and
+dual-threat players. It turns tracking and PFF scouting data into transparent,
+play-level evidence and a coach-facing player profile.
 
-## Protection-to-Availability prototype
+## Football question
 
-`pav_prototype.py` evaluates tight ends labeled as `CH` (chip block) and `Pass
-Route` in PFF scouting data. It emits the inputs for a descriptive
-**dual-threat window**:
+**Which TEs create the most offensive value for a specific role: protect the
+QB, become a viable outlet after helping protection, win routes, stress
+coverage, or create after the catch?**
 
-```text
-dualThreatWindowSeconds =
-  max(protectionWindowSeconds - releaseTimeSeconds, 0) * availabilityScore
-```
+The metric suite includes Protection-to-Availability Value (PAV), Protection
+Value Added, Chip-to-Separation Return, route availability, separation over
+expected, coverage gravity, red-zone conflict, and YAC runway.
 
-It measures the post-release time before the QB faces a nearby defender, scaled
-by the tight end's separation when the ball is thrown, a QB threat occurs, or
-the play ends.
+## Run
 
-This is not yet causal **Protection-to-Availability Value**. It does not
-estimate the counterfactual extra time created by the tight end; that requires
-an expected-pressure model. The output makes each component available for that
-next stage.
-
-### Setup
-
-Download this dataset so the directory has this structure:
-
-```text
-data/
-  players.csv
-  pffScoutingData.csv
-  tracking/
-    tracking_<gameId>.csv
-```
-
-Install the dependency and run one game:
+After producing the component metric outputs in `output/<metric>/`, build the
+coach-facing table:
 
 ```bash
-python3 -m pip install -r requirements.txt
-python3 pav_prototype.py \
-  --data-dir /path/to/data \
-  --game-id 2021090900 \
-  --output output/te_chip_release_pav.csv
+.venv/bin/python -m src.coach_report
 ```
 
-Omit `--game-id` to process every tracking file represented by a tight-end
-chip-and-release record.
+This writes:
 
-### Output fields
+- `output/coach_report/players.csv` — ranked player profiles, five 0-100
+  percentile axes, opportunity counts, and archetypes.
+- `output/coach_report/summary.json` — metric-to-axis mapping and thresholds.
 
-| Field | Meaning |
+Spider charts are intentionally opt-in while profiles are reviewed:
+
+```bash
+.venv/bin/python -m src.coach_report --render-spider-charts
+```
+
+## Coach profile axes
+
+| Axis | Football interpretation |
 | --- | --- |
-| `releaseTimeSeconds` | Time from snap to sustained route movement. |
-| `protectionWindowSeconds` | Time from snap to the first labeled pass rusher that enters a 2-yard, closing threat zone around the QB, or play end. |
-| `nearestDefenderSeparationYards` | TE's nearest-defender separation at the evaluation frame. |
-| `availabilityScore` | Separation scaled from 0 to 1, reaching 1 at 3 yards. |
-| `dualThreatWindowSeconds` | Post-release protection window weighted by receiving availability. |
+| Protection Impact | Pocket protection, edge sealing, and chip-and-release PAV. |
+| Chip-to-Route Value | Protection help without losing route availability. |
+| Route Threat | Separation, timely eligibility, and middle-of-field access. |
+| Coverage Stress | Defensive attention, alignment constraint, and red-zone conflict. |
+| Open-Field Creation | Expected post-catch runway and YAC opportunity. |
 
-Thresholds are explicit constants at the top of the script. They should be
-tested through sensitivity analysis before drawing player-level conclusions.
+Scores are league-relative percentiles. Where available, empirical-Bayes
+shrunk estimates are used; all component metrics, sample sizes, and play-level
+evidence remain available in their own `output/<metric>/` directories.
 
-## Protection-to-Availability Value v1
+## Caveat
 
-`src/metrics/protection_to_availability_value.py` estimates a TE
-chip-and-release play's protection-time lift by matching it to standard TE
-routes with comparable pre-snap context. It then weights that lift by a
-receiving-availability score based on separation, passing-lane clearance,
-depth, and sideline position at the end of the dropback.
-
-```bash
-.venv/bin/python -m src.metrics.protection_to_availability_value
-```
-
-It writes merge-ready artifacts to `output/protection_to_availability_value/`:
-
-- `players.csv` — player-level PAV, empirical-Bayes shrinkage, and intervals.
-- `plays.csv` — scored TE chip-and-release plays and matched expectations.
-- `summary.json` — thresholds, sample counts, held-out validation, reliability,
-  and caveats.
-
-PAV v1 is a cross-fitted matched observational estimate, not a randomized
-causal effect.
+These are transparent, tracking-derived observational metrics—not proprietary
+NFL grades or causal claims. Use player profiles with their opportunity counts
+and the underlying play rows, especially for low-volume roles such as
+chip-and-release.

@@ -1,0 +1,102 @@
+{
+  "axes": [
+    "Protection Impact",
+    "Chip-to-Route Value",
+    "Route Threat",
+    "Coverage Stress",
+    "Open-Field Creation"
+  ],
+  "metric_mapping": {
+    "Protection Impact": [
+      {
+        "metric": "protection_to_availability_value",
+        "weight": 0.4,
+        "higher_is_better": true,
+        "value_column": "value_shrunk/value"
+      },
+      {
+        "metric": "protection_value_added",
+        "weight": 0.4,
+        "higher_is_better": true,
+        "value_column": "value_shrunk/value"
+      },
+      {
+        "metric": "edge_seal_sustainability",
+        "weight": 0.2,
+        "higher_is_better": true,
+        "value_column": "value_shrunk/value"
+      }
+    ],
+    "Chip-to-Route Value": [
+      {
+        "metric": "chip_to_separation_return",
+        "weight": 0.6,
+        "higher_is_better": true,
+        "value_column": "value_shrunk/value"
+      },
+      {
+        "metric": "route_release_tax",
+        "weight": 0.4,
+        "higher_is_better": false,
+        "value_column": "value_shrunk/value"
+      }
+    ],
+    "Route Threat": [
+      {
+        "metric": "eligible_threat_rate",
+        "weight": 0.34,
+        "higher_is_better": true,
+        "value_column": "value_shrunk/value"
+      },
+      {
+        "metric": "matchup_soe",
+        "weight": 0.33,
+        "higher_is_better": true,
+        "value_column": "value_shrunk/value"
+      },
+      {
+        "metric": "middle_of_field_access",
+        "weight": 0.33,
+        "higher_is_better": true,
+        "value_column": "value_shrunk/value"
+      }
+    ],
+    "Coverage Stress": [
+      {
+        "metric": "coverage_gravity",
+        "weight": 0.5,
+        "higher_is_better": true,
+        "value_column": "value_shrunk/value"
+      },
+      {
+        "metric": "constraint_value",
+        "weight": 0.25,
+        "higher_is_better": true,
+        "value_column": "value_shrunk/value"
+      },
+      {
+        "metric": "red_zone_conflict",
+        "weight": 0.25,
+        "higher_is_better": true,
+        "value_column": "value_shrunk/value"
+      }
+    ],
+    "Open-Field Creation": [
+      {
+        "metric": "yac_runway",
+        "weight": 1.0,
+        "higher_is_better": true,
+        "value_column": "yacoe_shrunk"
+      }
+    ]
+  },
+  "min_profile_snaps": 100,
+  "percentile_definition": "Percentile among all TEs with a non-missing component score. Where supplied, empirical-Bayes shrunk values are used.",
+  "eligible_profiles": 47,
+  "total_tes": 121,
+  "spider_charts_rendered": false,
+  "output_files": {
+    "players": "players.csv",
+    "spider_charts": "spider_charts/<nflId>_<player>.svg"
+  }
+}
