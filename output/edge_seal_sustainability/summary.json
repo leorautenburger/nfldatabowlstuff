@@ -1,0 +1,393 @@
+{
+  "metric": "Edge Seal Sustainability (ESS)",
+  "slug": "edge_seal_sustainability",
+  "definition": "Blocker -> assigned rusher (PFF pff_nflIdBlockedPlayer) seal time = time from snap to the first frame where the rusher is within R=2.5 yd of the QB, or rusher x <= qb_x + 0.5 while |rusher y - qb y| <= 3.0 yd, counted as zone entry (the rusher must first be observed outside the zone; under-center snaps can place an interior rusher inside R at t=0). Right-censored at end of dropback (throw/sack/other stop); chip-release rows are censored at the TE's release. value = TE observed Kaplan-Meier S(2.5 s) on pass-block snaps minus mean context-expected S(2.5 s) from a discrete-time hazard model.",
+  "parameters": {
+    "R_yards": 2.5,
+    "L_yards": 3.0,
+    "depth_plane_yards": 0.5,
+    "bin_width_s": 0.5,
+    "time_bin_feature_cap": 9,
+    "partial_censored_bin_min_frames": 3,
+    "eval_times_s": [
+      1.5,
+      2.5,
+      3.5
+    ],
+    "value_time_s": 2.5,
+    "min_te_snaps_top": 20,
+    "rusher_quality": {
+      "league_train_pressure_rate": 0.11754,
+      "beta_prior_strength": 90.47492
+    },
+    "seed": 42,
+    "train_weeks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "test_weeks": [
+      7,
+      8
+    ]
+  },
+  "population": {
+    "candidate_pairs": {
+      "pass_block": 44526,
+      "chip_release": 1094
+    },
+    "pairs_after_requiring_blocked_player_is_pass_rusher": {
+      "pass_block": 44166,
+      "chip_release": 1054
+    },
+    "usable_pairs": {
+      "pass_block": 44045,
+      "chip_release": 1049
+    },
+    "pairs_with_rusher_and_qb_tracking": 45094,
+    "te_pass_block_pairs": 1274,
+    "te_chip_release_pairs": 1049,
+    "chip_rows_never_released_censored_at_dropback_end": 85,
+    "snap_zone_diagnostics": {
+      "R2.5": {
+        "in_zone_at_snap": 1474,
+        "entry_breach_t<=0.3s": 158
+      },
+      "R2.0": {
+        "in_zone_at_snap": 53,
+        "entry_breach_t<=0.3s": 52
+      },
+      "R3.0": {
+        "in_zone_at_snap": 3078,
+        "entry_breach_t<=0.3s": 235
+      }
+    }
+  },
+  "expected_model": {
+    "type": "discrete-time hazard, 0.5 s bins, HistGradientBoostingClassifier wrapped to fit only at-risk person-periods; stats.cross_fit(proba=True), GroupKFold by game on weeks 1-6, full-train refit for weeks 7-8. Fit on all pairs (OL/TE/RB pass blocks + TE chips).",
+    "features": [
+      "time_bin",
+      "rusher_pr",
+      "r_dx",
+      "r_dy",
+      "b_dx",
+      "b_dy",
+      "b_xrel",
+      "br_dx",
+      "br_out",
+      "br_dist",
+      "pff_playAction",
+      "n_rushers",
+      "n_pass_blockers",
+      "rusher_pos",
+      "dropBackType",
+      "offenseFormation"
+    ],
+    "categorical": [
+      "rusher_pos",
+      "dropBackType",
+      "offenseFormation"
+    ],
+    "n_person_period_rows": 268540,
+    "full_model_iterations": 300,
+    "test_metrics": {
+      "unit": "test person-period rows (pair x 0.5 s bin while at risk), weeks 7-8",
+      "n_rows": 60666,
+      "n_events": 1885,
+      "model": {
+        "auc": 0.89709,
+        "log_loss": 0.10067,
+        "brier": 0.02715
+      },
+      "baseline_time_bin_only": {
+        "auc": 0.83183,
+        "log_loss": 0.11339,
+        "brier": 0.02852
+      },
+      "calibration_5bin": [
+        {
+          "bin": 0,
+          "n": 12134,
+          "mean_pred": 0.0001,
+          "obs_rate": 0.0
+        },
+        {
+          "bin": 1,
+          "n": 12133,
+          "mean_pred": 0.0003,
+          "obs_rate": 0.0
+        },
+        {
+          "bin": 2,
+          "n": 12133,
+          "mean_pred": 0.0031,
+          "obs_rate": 0.0025
+        },
+        {
+          "bin": 3,
+          "n": 12133,
+          "mean_pred": 0.0226,
+          "obs_rate": 0.0275
+        },
+        {
+          "bin": 4,
+          "n": 12133,
+          "mean_pred": 0.13,
+          "obs_rate": 0.1254
+        }
+      ],
+      "test_survival_expected_vs_observed": {
+        "1.5": {
+          "observed_km": 0.99108,
+          "km_lo": 0.98907,
+          "km_hi": 0.99272,
+          "expected_model_mean": 0.9927,
+          "expected_baseline": 0.99272
+        },
+        "2.5": {
+          "observed_km": 0.9105,
+          "km_lo": 0.90402,
+          "km_hi": 0.91656,
+          "expected_model_mean": 0.909,
+          "expected_baseline": 0.91296
+        },
+        "3.5": {
+          "observed_km": 0.72487,
+          "km_lo": 0.71217,
+          "km_hi": 0.73712,
+          "expected_model_mean": 0.69379,
+          "expected_baseline": 0.72498
+        }
+      },
+      "test_expected_vs_observed_breaches_per_pair": {
+        "expected": 0.1837,
+        "observed": 0.18273
+      }
+    }
+  },
+  "validation": {
+    "early_breach_definition": "breach at or before 2.5 s (R=2.5)",
+    "vs_pff_pressure_allowed_by_blocker": {
+      "all_blockers": {
+        "n": 44045,
+        "share_early_breach": 0.07295,
+        "outcome_rate_if_early_breach": 0.32057,
+        "outcome_rate_if_no_early_breach": 0.04692,
+        "relative_risk": 6.83174,
+        "phi": 0.28485,
+        "auc_of_early_breach_flag": 0.64826,
+        "share_of_outcomes_with_early_breach": 0.34963
+      },
+      "te_blockers": {
+        "n": 1274,
+        "share_early_breach": 0.05024,
+        "outcome_rate_if_early_breach": 0.45312,
+        "outcome_rate_if_no_early_breach": 0.07686,
+        "relative_risk": 5.8955,
+        "phi": 0.2793,
+        "auc_of_early_breach_flag": 0.60366,
+        "share_of_outcomes_with_early_breach": 0.2377
+      }
+    },
+    "vs_play_pressure": {
+      "all_blockers": {
+        "n": 44045,
+        "share_early_breach": 0.07295,
+        "outcome_rate_if_early_breach": 0.60598,
+        "outcome_rate_if_no_early_breach": 0.3608,
+        "relative_risk": 1.67955,
+        "phi": 0.13145,
+        "auc_of_early_breach_flag": 0.53524,
+        "share_of_outcomes_with_early_breach": 0.11673
+      },
+      "te_blockers": {
+        "n": 1274,
+        "share_early_breach": 0.05024,
+        "outcome_rate_if_early_breach": 0.625,
+        "outcome_rate_if_no_early_breach": 0.35785,
+        "relative_risk": 1.74654,
+        "phi": 0.12078,
+        "auc_of_early_breach_flag": 0.5273,
+        "share_of_outcomes_with_early_breach": 0.08457
+      }
+    },
+    "te_vs_ot_vs_edge_rushers": {
+      "edge_alignments": [
+        "LE",
+        "LEO",
+        "LOLB",
+        "RE",
+        "REO",
+        "ROLB"
+      ],
+      "TE": {
+        "n": 1195,
+        "km_S_1.5": 0.99833,
+        "km_S_2.5": 0.95252,
+        "km_S_3.5": 0.77693,
+        "km_ci_1.5": [
+          0.99332,
+          0.99958
+        ],
+        "km_ci_2.5": [
+          0.93813,
+          0.96363
+        ],
+        "km_ci_3.5": [
+          0.74617,
+          0.80446
+        ],
+        "expected_S_2.5": 0.95517,
+        "obs_minus_exp_S_2.5": -0.00265
+      },
+      "OT": {
+        "n": 14405,
+        "km_S_1.5": 0.9991,
+        "km_S_2.5": 0.85584,
+        "km_S_3.5": 0.61087,
+        "km_ci_1.5": [
+          0.99844,
+          0.99947
+        ],
+        "km_ci_2.5": [
+          0.84913,
+          0.86227
+        ],
+        "km_ci_3.5": [
+          0.59941,
+          0.62212
+        ],
+        "expected_S_2.5": 0.85593,
+        "obs_minus_exp_S_2.5": -0.0001
+      }
+    }
+  },
+  "reliability": {
+    "split_half_weeks1-6_vs_7-8_exp_minus_obs_breaches": {
+      "spearman": 0.28571,
+      "n_players": 7
+    },
+    "odd_even_games_exp_minus_obs_breaches": {
+      "spearman": 0.09011,
+      "n_players": 14
+    },
+    "split_half_weeks1-6_vs_7-8_value": {
+      "spearman": -0.75,
+      "n_players": 7
+    },
+    "odd_even_games_value": {
+      "spearman": -0.15604,
+      "n_players": 14
+    },
+    "min_snaps_per_half": 10
+  },
+  "sensitivity_radius": {
+    "R=2.5": {
+      "league_all_blockers_km": {
+        "1.5": 0.99219,
+        "2.5": 0.90986,
+        "3.5": 0.72362
+      },
+      "league_te_km": {
+        "1.5": 0.99607,
+        "2.5": 0.94541,
+        "3.5": 0.7743
+      },
+      "test_auc": 0.89709,
+      "test_auc_baseline": 0.83183
+    },
+    "R=2.0": {
+      "league_all_blockers_km": {
+        "1.5": 0.99671,
+        "2.5": 0.93978,
+        "3.5": 0.77743
+      },
+      "league_te_km": {
+        "1.5": 0.99843,
+        "2.5": 0.96311,
+        "3.5": 0.81054
+      },
+      "test_auc": 0.91014,
+      "test_auc_baseline": 0.84384,
+      "spearman_te_value_vs_base": 0.70615,
+      "spearman_te_km_S2.5_vs_base": 0.65367,
+      "n_te": 25
+    },
+    "R=3.0": {
+      "league_all_blockers_km": {
+        "1.5": 0.98751,
+        "2.5": 0.85964,
+        "3.5": 0.6512
+      },
+      "league_te_km": {
+        "1.5": 0.99215,
+        "2.5": 0.93286,
+        "3.5": 0.7446
+      },
+      "test_auc": 0.88582,
+      "test_auc_baseline": 0.8161,
+      "spearman_te_value_vs_base": 0.83154,
+      "spearman_te_km_S2.5_vs_base": 0.81909,
+      "n_te": 25
+    }
+  },
+  "top5_min20": [
+    {
+      "displayName": "Ian Thomas",
+      "team": "CAR",
+      "n": 38,
+      "value": 0.0404,
+      "value_shrunk": 0.00053,
+      "km_S_2.5": 1.0,
+      "exp_S_2.5": 0.9596
+    },
+    {
+      "displayName": "Foster Moreau",
+      "team": "LV",
+      "n": 24,
+      "value": 0.06046,
+      "value_shrunk": 0.00053,
+      "km_S_2.5": 1.0,
+      "exp_S_2.5": 0.93954
+    },
+    {
+      "displayName": "Ricky Seals-Jones",
+      "team": "WAS",
+      "n": 23,
+      "value": 0.05318,
+      "value_shrunk": 0.00053,
+      "km_S_2.5": 1.0,
+      "exp_S_2.5": 0.94682
+    },
+    {
+      "displayName": "Geoff Swaim",
+      "team": "TEN",
+      "n": 32,
+      "value": 0.03164,
+      "value_shrunk": 0.00052,
+      "km_S_2.5": 1.0,
+      "exp_S_2.5": 0.96836
+    },
+    {
+      "displayName": "Chris Manhertz",
+      "team": "JAX",
+      "n": 23,
+      "value": 0.04379,
+      "value_shrunk": 0.00052,
+      "km_S_2.5": 1.0,
+      "exp_S_2.5": 0.95621
+    }
+  ],
+  "caveats": [
+    "dropBackType includes SCRAMBLE labels that are partly a consequence of pressure; it is used as requested but makes the expectation slightly outcome-aware.",
+    "Seal breach is a geometric proxy; a rusher can reach the zone after the blocker passes him off or on a QB drift into him. Assignment comes from a single PFF blocked-player label.",
+    "Tracking ends ~0.5 s after the throw; S(3.5) is estimated from few at-risk pairs on quick games.",
+    "Chip-release rows are short windows (median release ~1.8 s); they are reported separately and do not enter value.",
+    "Expected survival is the mean of per-pair model curves; observed is KM. Both assume censoring independent of seal quality given context.",
+    "lo/hi = KM log-log Greenwood CI minus expected (expectation uncertainty ignored). value_shrunk uses normal EB with a binomial-style SD at league TE S(2.5)."
+  ],
+  "runtime_s": 104.5
+}

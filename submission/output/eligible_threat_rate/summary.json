@@ -1,0 +1,989 @@
+{
+  "metric": "Eligible Threat Rate",
+  "slug": "eligible_threat_rate",
+  "higher_is_better": true,
+  "definition": {
+    "denominator": "every TE dropback snap with tracking (te_plays rows whose play has a snap frame)",
+    "eligible_if_all": [
+      "assignment in {route, chip_release}",
+      "release_t <= T_rel (1.1 s); never-released routes are not eligible",
+      "at some frame from release through the decision window the TE is viable"
+    ],
+    "decision_window": {
+      "throw_plays": "release_t <= t < time_to_throw (frames strictly before the throw frame; no T_cap)",
+      "non_throw_plays": "release_t <= t <= min(time_to_end, T_cap=3.4 s)"
+    },
+    "viable_position": {
+      "min_sep_yd": 2.5,
+      "min_lane_clear_yd": 1.0,
+      "x_rel_range_yd": [
+        -2.0,
+        25.0
+      ],
+      "sideline_buffer_yd": 1.0,
+      "route_direction_rule": "v_away <= 1.0 yd/s, v_away = receiver velocity (vx,vy) projected on the unit vector QB->receiver (QB motion not subtracted); i.e. the TE is settling, working back, or crossing, not running away from the QB"
+    },
+    "value": "k_eligible / n over all snaps; value_shrunk = beta_shrink toward league rate",
+    "etr_route": "conditional rate among route + chip_release snaps",
+    "etr_oe": "mean(eligible - P(eligible | context)) per TE; P from cross-fitted HGB classifier",
+    "release_definition": {
+      "min_disp_yd": 1.5,
+      "min_speed": 2.5,
+      "sustain_frames": 3
+    }
+  },
+  "thresholds": {
+    "T_rel_s": 1.1,
+    "T_rel_rule": "train-week (weeks [1, 2, 3, 4, 5, 6]) p75 of TE release_t on assignment=='route' snaps",
+    "T_rel_ref_n": 6088,
+    "T_cap_s": 3.4,
+    "T_cap_rule": "train-week p75 of plays.time_to_throw (throw plays)",
+    "T_cap_ref_n": 5857,
+    "max_away_speed_yd_s": 1.0,
+    "direction_rule_choice": "1.0 yd/s suggested by the brief; checked on train weeks only: target-rate lift (eligible vs not, route throw snaps) ~1.35x at 1.0 vs ~1.38x at 0.5, ~1.11x at 2.0 and ~1.14x with no direction rule; 0.5 was sparser for similar lift",
+    "min_n_rank": 50
+  },
+  "sample": {
+    "te_rows_total": 10496,
+    "te_rows_used": 10467,
+    "te_rows_dropped_no_tracking": 29,
+    "route_snaps": 9035,
+    "eligible_snaps": 575,
+    "n_tes": 121,
+    "n_tes_min50": 67,
+    "train_rows": 8055,
+    "test_rows": 2412,
+    "test_weeks": [
+      7,
+      8
+    ]
+  },
+  "league": {
+    "etr_all_snaps": 0.0549,
+    "etr_route_snaps": 0.0636,
+    "release_ok_rate_route": 0.695,
+    "viable_any_rate_route": 0.0955,
+    "median_first_viable_t": 2.2,
+    "by_alignment": {
+      "backfield": {
+        "mean": 0.0251,
+        "count": 239
+      },
+      "detached": {
+        "mean": 0.0795,
+        "count": 5160
+      },
+      "inline": {
+        "mean": 0.032,
+        "count": 4344
+      },
+      "wing": {
+        "mean": 0.0276,
+        "count": 724
+      }
+    },
+    "by_assignment": {
+      "chip_release": {
+        "etr": 0.0328,
+        "n": 1096,
+        "release_ok": 0.1378,
+        "viable_any": 0.1077
+      },
+      "pass_block": {
+        "etr": 0.0,
+        "n": 1432,
+        "release_ok": 0.0,
+        "viable_any": 0.0
+      },
+      "route": {
+        "etr": 0.0679,
+        "n": 7939,
+        "release_ok": 0.7719,
+        "viable_any": 0.0938
+      }
+    }
+  },
+  "shrinkage_prior": {
+    "all": {
+      "mean": 0.05493455622432407,
+      "strength": 138.97139780611224,
+      "mom_mean_players_n50": 0.05638615976078599,
+      "between_player_var": 0.00038012595131698887
+    },
+    "route": {
+      "mean": 0.06364139457664637,
+      "strength": 141.2047976946549,
+      "mom_mean_players_n50": 0.06349805104991826,
+      "between_player_var": 0.00041817188679152005
+    }
+  },
+  "expected_model": {
+    "features": [
+      "alignment",
+      "offenseFormation",
+      "personnelO",
+      "pff_passCoverage",
+      "dropBackType",
+      "pff_playAction",
+      "down",
+      "yardsToGo",
+      "red_zone"
+    ],
+    "target": "eligible (all TE snaps)",
+    "estimator": "HistGradientBoostingClassifier (categorical from dtype), cross_fit GroupKFold(gameId) on train weeks",
+    "n_test": 2412,
+    "test_base_rate": 0.05887230514096186,
+    "train_base_rate": 0.05375543140906269,
+    "model": {
+      "auc": 0.70989,
+      "log_loss": 0.2086,
+      "brier": 0.05385
+    },
+    "baseline_train_rate": {
+      "auc": 0.5,
+      "log_loss": 0.2241,
+      "brier": 0.05543
+    },
+    "selected_config": {
+      "learning_rate": 0.05,
+      "max_iter": 400,
+      "max_depth": 2,
+      "min_samples_leaf": 80,
+      "l2_regularization": 1.0
+    },
+    "tuning_train_oof": [
+      {
+        "config": 0,
+        "learning_rate": 0.05,
+        "max_iter": 200,
+        "max_depth": 3,
+        "min_samples_leaf": 40,
+        "l2_regularization": 1.0,
+        "train_oof_logloss": 0.19709
+      },
+      {
+        "config": 1,
+        "learning_rate": 0.05,
+        "max_iter": 400,
+        "max_depth": 2,
+        "min_samples_leaf": 80,
+        "l2_regularization": 1.0,
+        "train_oof_logloss": 0.19614
+      },
+      {
+        "config": 2,
+        "learning_rate": 0.03,
+        "max_iter": 300,
+        "max_depth": 4,
+        "min_samples_leaf": 60,
+        "l2_regularization": 3.0,
+        "train_oof_logloss": 0.19671
+      }
+    ],
+    "calibration_test_5bin": [
+      {
+        "bin": 0,
+        "n": 483,
+        "mean_pred": 0.0087,
+        "obs_rate": 0.0166
+      },
+      {
+        "bin": 1,
+        "n": 482,
+        "mean_pred": 0.0183,
+        "obs_rate": 0.0145
+      },
+      {
+        "bin": 2,
+        "n": 484,
+        "mean_pred": 0.0464,
+        "obs_rate": 0.0661
+      },
+      {
+        "bin": 3,
+        "n": 482,
+        "mean_pred": 0.0684,
+        "obs_rate": 0.0664
+      },
+      {
+        "bin": 4,
+        "n": 481,
+        "mean_pred": 0.125,
+        "obs_rate": 0.131
+      }
+    ]
+  },
+  "validation_target_completion": [
+    {
+      "split": "all",
+      "group": "eligible=True",
+      "n_snaps": 495,
+      "targets": 119,
+      "catches": 83,
+      "target_rate": 0.2404,
+      "target_lo": 0.2048,
+      "target_hi": 0.28,
+      "completion_rate": 0.6975,
+      "completion_lo": 0.6098,
+      "completion_hi": 0.7728,
+      "catch_per_snap": 0.1677
+    },
+    {
+      "split": "all",
+      "group": "eligible=False",
+      "n_snaps": 7520,
+      "targets": 1445,
+      "catches": 962,
+      "target_rate": 0.1922,
+      "target_lo": 0.1834,
+      "target_hi": 0.2012,
+      "completion_rate": 0.6657,
+      "completion_lo": 0.641,
+      "completion_hi": 0.6896,
+      "catch_per_snap": 0.1279
+    },
+    {
+      "split": "train",
+      "group": "eligible=True",
+      "n_snaps": 375,
+      "targets": 96,
+      "catches": 65,
+      "target_rate": 0.256,
+      "target_lo": 0.2145,
+      "target_hi": 0.3025,
+      "completion_rate": 0.6771,
+      "completion_lo": 0.5783,
+      "completion_hi": 0.7622,
+      "catch_per_snap": 0.1733
+    },
+    {
+      "split": "train",
+      "group": "eligible=False",
+      "n_snaps": 5814,
+      "targets": 1107,
+      "catches": 746,
+      "target_rate": 0.1904,
+      "target_lo": 0.1805,
+      "target_hi": 0.2007,
+      "completion_rate": 0.6739,
+      "completion_lo": 0.6457,
+      "completion_hi": 0.7009,
+      "catch_per_snap": 0.1283
+    },
+    {
+      "split": "test",
+      "group": "eligible=True",
+      "n_snaps": 120,
+      "targets": 23,
+      "catches": 18,
+      "target_rate": 0.1917,
+      "target_lo": 0.1312,
+      "target_hi": 0.2712,
+      "completion_rate": 0.7826,
+      "completion_lo": 0.581,
+      "completion_hi": 0.9034,
+      "catch_per_snap": 0.15
+    },
+    {
+      "split": "test",
+      "group": "eligible=False",
+      "n_snaps": 1706,
+      "targets": 338,
+      "catches": 216,
+      "target_rate": 0.1981,
+      "target_lo": 0.1799,
+      "target_hi": 0.2177,
+      "completion_rate": 0.6391,
+      "completion_lo": 0.5866,
+      "completion_hi": 0.6884,
+      "catch_per_snap": 0.1266
+    },
+    {
+      "split": "all",
+      "group": "release_ok & viable=True",
+      "n_snaps": 495,
+      "targets": 119,
+      "catches": 83,
+      "target_rate": 0.2404,
+      "target_lo": NaN,
+      "target_hi": NaN,
+      "completion_rate": 0.6975,
+      "completion_lo": NaN,
+      "completion_hi": NaN,
+      "catch_per_snap": 0.1677
+    },
+    {
+      "split": "all",
+      "group": "release_ok & viable=False",
+      "n_snaps": 5089,
+      "targets": 1009,
+      "catches": 649,
+      "target_rate": 0.1983,
+      "target_lo": NaN,
+      "target_hi": NaN,
+      "completion_rate": 0.6432,
+      "completion_lo": NaN,
+      "completion_hi": NaN,
+      "catch_per_snap": 0.1275
+    }
+  ],
+  "sensitivity_grid": [
+    {
+      "T_rel": 0.8,
+      "min_sep": 2.0,
+      "min_lane": 0.5,
+      "is_default": false,
+      "league_etr": 0.01,
+      "league_etr_route": 0.0116,
+      "spearman_vs_default": 0.2538,
+      "n_players": 67,
+      "target_lift": 1.256
+    },
+    {
+      "T_rel": 0.8,
+      "min_sep": 2.0,
+      "min_lane": 1.0,
+      "is_default": false,
+      "league_etr": 0.0078,
+      "league_etr_route": 0.0091,
+      "spearman_vs_default": 0.3702,
+      "n_players": 67,
+      "target_lift": 1.396
+    },
+    {
+      "T_rel": 0.8,
+      "min_sep": 2.0,
+      "min_lane": 1.5,
+      "is_default": false,
+      "league_etr": 0.0063,
+      "league_etr_route": 0.0073,
+      "spearman_vs_default": 0.4039,
+      "n_players": 67,
+      "target_lift": 1.428
+    },
+    {
+      "T_rel": 0.8,
+      "min_sep": 2.5,
+      "min_lane": 0.5,
+      "is_default": false,
+      "league_etr": 0.0085,
+      "league_etr_route": 0.0099,
+      "spearman_vs_default": 0.2146,
+      "n_players": 67,
+      "target_lift": 1.066
+    },
+    {
+      "T_rel": 0.8,
+      "min_sep": 2.5,
+      "min_lane": 1.0,
+      "is_default": false,
+      "league_etr": 0.0065,
+      "league_etr_route": 0.0075,
+      "spearman_vs_default": 0.2851,
+      "n_players": 67,
+      "target_lift": 1.17
+    },
+    {
+      "T_rel": 0.8,
+      "min_sep": 2.5,
+      "min_lane": 1.5,
+      "is_default": false,
+      "league_etr": 0.0051,
+      "league_etr_route": 0.0059,
+      "spearman_vs_default": 0.3309,
+      "n_players": 67,
+      "target_lift": 1.193
+    },
+    {
+      "T_rel": 0.8,
+      "min_sep": 3.0,
+      "min_lane": 0.5,
+      "is_default": false,
+      "league_etr": 0.0064,
+      "league_etr_route": 0.0074,
+      "spearman_vs_default": 0.1776,
+      "n_players": 67,
+      "target_lift": 0.808
+    },
+    {
+      "T_rel": 0.8,
+      "min_sep": 3.0,
+      "min_lane": 1.0,
+      "is_default": false,
+      "league_etr": 0.005,
+      "league_etr_route": 0.0058,
+      "spearman_vs_default": 0.3157,
+      "n_players": 67,
+      "target_lift": 0.853
+    },
+    {
+      "T_rel": 0.8,
+      "min_sep": 3.0,
+      "min_lane": 1.5,
+      "is_default": false,
+      "league_etr": 0.0039,
+      "league_etr_route": 0.0045,
+      "spearman_vs_default": 0.2883,
+      "n_players": 67,
+      "target_lift": 0.961
+    },
+    {
+      "T_rel": 1.0,
+      "min_sep": 2.0,
+      "min_lane": 0.5,
+      "is_default": false,
+      "league_etr": 0.058,
+      "league_etr_route": 0.0672,
+      "spearman_vs_default": 0.7778,
+      "n_players": 67,
+      "target_lift": 1.223
+    },
+    {
+      "T_rel": 1.0,
+      "min_sep": 2.0,
+      "min_lane": 1.0,
+      "is_default": false,
+      "league_etr": 0.0463,
+      "league_etr_route": 0.0537,
+      "spearman_vs_default": 0.8479,
+      "n_players": 67,
+      "target_lift": 1.277
+    },
+    {
+      "T_rel": 1.0,
+      "min_sep": 2.0,
+      "min_lane": 1.5,
+      "is_default": false,
+      "league_etr": 0.0358,
+      "league_etr_route": 0.0415,
+      "spearman_vs_default": 0.7923,
+      "n_players": 67,
+      "target_lift": 1.394
+    },
+    {
+      "T_rel": 1.0,
+      "min_sep": 2.5,
+      "min_lane": 0.5,
+      "is_default": false,
+      "league_etr": 0.0481,
+      "league_etr_route": 0.0557,
+      "spearman_vs_default": 0.8064,
+      "n_players": 67,
+      "target_lift": 1.217
+    },
+    {
+      "T_rel": 1.0,
+      "min_sep": 2.5,
+      "min_lane": 1.0,
+      "is_default": false,
+      "league_etr": 0.0386,
+      "league_etr_route": 0.0447,
+      "spearman_vs_default": 0.9091,
+      "n_players": 67,
+      "target_lift": 1.234
+    },
+    {
+      "T_rel": 1.0,
+      "min_sep": 2.5,
+      "min_lane": 1.5,
+      "is_default": false,
+      "league_etr": 0.029,
+      "league_etr_route": 0.0336,
+      "spearman_vs_default": 0.8696,
+      "n_players": 67,
+      "target_lift": 1.379
+    },
+    {
+      "T_rel": 1.0,
+      "min_sep": 3.0,
+      "min_lane": 0.5,
+      "is_default": false,
+      "league_etr": 0.0388,
+      "league_etr_route": 0.0449,
+      "spearman_vs_default": 0.76,
+      "n_players": 67,
+      "target_lift": 1.281
+    },
+    {
+      "T_rel": 1.0,
+      "min_sep": 3.0,
+      "min_lane": 1.0,
+      "is_default": false,
+      "league_etr": 0.0301,
+      "league_etr_route": 0.0349,
+      "spearman_vs_default": 0.8254,
+      "n_players": 67,
+      "target_lift": 1.263
+    },
+    {
+      "T_rel": 1.0,
+      "min_sep": 3.0,
+      "min_lane": 1.5,
+      "is_default": false,
+      "league_etr": 0.0226,
+      "league_etr_route": 0.0262,
+      "spearman_vs_default": 0.7953,
+      "n_players": 67,
+      "target_lift": 1.429
+    },
+    {
+      "T_rel": 1.1,
+      "min_sep": 2.0,
+      "min_lane": 0.5,
+      "is_default": false,
+      "league_etr": 0.0823,
+      "league_etr_route": 0.0953,
+      "spearman_vs_default": 0.8519,
+      "n_players": 67,
+      "target_lift": 1.247
+    },
+    {
+      "T_rel": 1.1,
+      "min_sep": 2.0,
+      "min_lane": 1.0,
+      "is_default": false,
+      "league_etr": 0.0664,
+      "league_etr_route": 0.0769,
+      "spearman_vs_default": 0.9381,
+      "n_players": 67,
+      "target_lift": 1.291
+    },
+    {
+      "T_rel": 1.1,
+      "min_sep": 2.0,
+      "min_lane": 1.5,
+      "is_default": false,
+      "league_etr": 0.0507,
+      "league_etr_route": 0.0588,
+      "spearman_vs_default": 0.8835,
+      "n_players": 67,
+      "target_lift": 1.36
+    },
+    {
+      "T_rel": 1.1,
+      "min_sep": 2.5,
+      "min_lane": 0.5,
+      "is_default": false,
+      "league_etr": 0.0675,
+      "league_etr_route": 0.0783,
+      "spearman_vs_default": 0.9173,
+      "n_players": 67,
+      "target_lift": 1.239
+    },
+    {
+      "T_rel": 1.1,
+      "min_sep": 2.5,
+      "min_lane": 1.0,
+      "is_default": true,
+      "league_etr": 0.0549,
+      "league_etr_route": 0.0636,
+      "spearman_vs_default": 1.0,
+      "n_players": 67,
+      "target_lift": 1.251
+    },
+    {
+      "T_rel": 1.1,
+      "min_sep": 2.5,
+      "min_lane": 1.5,
+      "is_default": false,
+      "league_etr": 0.0412,
+      "league_etr_route": 0.0477,
+      "spearman_vs_default": 0.9364,
+      "n_players": 67,
+      "target_lift": 1.344
+    },
+    {
+      "T_rel": 1.1,
+      "min_sep": 3.0,
+      "min_lane": 0.5,
+      "is_default": false,
+      "league_etr": 0.0546,
+      "league_etr_route": 0.0633,
+      "spearman_vs_default": 0.8707,
+      "n_players": 67,
+      "target_lift": 1.316
+    },
+    {
+      "T_rel": 1.1,
+      "min_sep": 3.0,
+      "min_lane": 1.0,
+      "is_default": false,
+      "league_etr": 0.0435,
+      "league_etr_route": 0.0504,
+      "spearman_vs_default": 0.9165,
+      "n_players": 67,
+      "target_lift": 1.321
+    },
+    {
+      "T_rel": 1.1,
+      "min_sep": 3.0,
+      "min_lane": 1.5,
+      "is_default": false,
+      "league_etr": 0.0321,
+      "league_etr_route": 0.0372,
+      "spearman_vs_default": 0.8583,
+      "n_players": 67,
+      "target_lift": 1.386
+    },
+    {
+      "T_rel": 1.2,
+      "min_sep": 2.0,
+      "min_lane": 0.5,
+      "is_default": false,
+      "league_etr": 0.0973,
+      "league_etr_route": 0.1127,
+      "spearman_vs_default": 0.8355,
+      "n_players": 67,
+      "target_lift": 1.219
+    },
+    {
+      "T_rel": 1.2,
+      "min_sep": 2.0,
+      "min_lane": 1.0,
+      "is_default": false,
+      "league_etr": 0.0777,
+      "league_etr_route": 0.09,
+      "spearman_vs_default": 0.8922,
+      "n_players": 67,
+      "target_lift": 1.233
+    },
+    {
+      "T_rel": 1.2,
+      "min_sep": 2.0,
+      "min_lane": 1.5,
+      "is_default": false,
+      "league_etr": 0.0584,
+      "league_etr_route": 0.0676,
+      "spearman_vs_default": 0.836,
+      "n_players": 67,
+      "target_lift": 1.317
+    },
+    {
+      "T_rel": 1.2,
+      "min_sep": 2.5,
+      "min_lane": 0.5,
+      "is_default": false,
+      "league_etr": 0.0801,
+      "league_etr_route": 0.0928,
+      "spearman_vs_default": 0.8772,
+      "n_players": 67,
+      "target_lift": 1.182
+    },
+    {
+      "T_rel": 1.2,
+      "min_sep": 2.5,
+      "min_lane": 1.0,
+      "is_default": false,
+      "league_etr": 0.0646,
+      "league_etr_route": 0.0748,
+      "spearman_vs_default": 0.9469,
+      "n_players": 67,
+      "target_lift": 1.201
+    },
+    {
+      "T_rel": 1.2,
+      "min_sep": 2.5,
+      "min_lane": 1.5,
+      "is_default": false,
+      "league_etr": 0.0482,
+      "league_etr_route": 0.0559,
+      "spearman_vs_default": 0.8832,
+      "n_players": 67,
+      "target_lift": 1.295
+    },
+    {
+      "T_rel": 1.2,
+      "min_sep": 3.0,
+      "min_lane": 0.5,
+      "is_default": false,
+      "league_etr": 0.0636,
+      "league_etr_route": 0.0737,
+      "spearman_vs_default": 0.8168,
+      "n_players": 67,
+      "target_lift": 1.246
+    },
+    {
+      "T_rel": 1.2,
+      "min_sep": 3.0,
+      "min_lane": 1.0,
+      "is_default": false,
+      "league_etr": 0.0507,
+      "league_etr_route": 0.0588,
+      "spearman_vs_default": 0.8717,
+      "n_players": 67,
+      "target_lift": 1.232
+    },
+    {
+      "T_rel": 1.2,
+      "min_sep": 3.0,
+      "min_lane": 1.5,
+      "is_default": false,
+      "league_etr": 0.0375,
+      "league_etr_route": 0.0434,
+      "spearman_vs_default": 0.8179,
+      "n_players": 67,
+      "target_lift": 1.313
+    },
+    {
+      "T_rel": 1.5,
+      "min_sep": 2.0,
+      "min_lane": 0.5,
+      "is_default": false,
+      "league_etr": 0.1104,
+      "league_etr_route": 0.1279,
+      "spearman_vs_default": 0.801,
+      "n_players": 67,
+      "target_lift": 1.235
+    },
+    {
+      "T_rel": 1.5,
+      "min_sep": 2.0,
+      "min_lane": 1.0,
+      "is_default": false,
+      "league_etr": 0.0875,
+      "league_etr_route": 0.1014,
+      "spearman_vs_default": 0.8787,
+      "n_players": 67,
+      "target_lift": 1.25
+    },
+    {
+      "T_rel": 1.5,
+      "min_sep": 2.0,
+      "min_lane": 1.5,
+      "is_default": false,
+      "league_etr": 0.0653,
+      "league_etr_route": 0.0757,
+      "spearman_vs_default": 0.8042,
+      "n_players": 67,
+      "target_lift": 1.352
+    },
+    {
+      "T_rel": 1.5,
+      "min_sep": 2.5,
+      "min_lane": 0.5,
+      "is_default": false,
+      "league_etr": 0.0908,
+      "league_etr_route": 0.1051,
+      "spearman_vs_default": 0.8689,
+      "n_players": 67,
+      "target_lift": 1.204
+    },
+    {
+      "T_rel": 1.5,
+      "min_sep": 2.5,
+      "min_lane": 1.0,
+      "is_default": false,
+      "league_etr": 0.0728,
+      "league_etr_route": 0.0843,
+      "spearman_vs_default": 0.9267,
+      "n_players": 67,
+      "target_lift": 1.22
+    },
+    {
+      "T_rel": 1.5,
+      "min_sep": 2.5,
+      "min_lane": 1.5,
+      "is_default": false,
+      "league_etr": 0.054,
+      "league_etr_route": 0.0625,
+      "spearman_vs_default": 0.8571,
+      "n_players": 67,
+      "target_lift": 1.301
+    },
+    {
+      "T_rel": 1.5,
+      "min_sep": 3.0,
+      "min_lane": 0.5,
+      "is_default": false,
+      "league_etr": 0.0721,
+      "league_etr_route": 0.0836,
+      "spearman_vs_default": 0.7994,
+      "n_players": 67,
+      "target_lift": 1.254
+    },
+    {
+      "T_rel": 1.5,
+      "min_sep": 3.0,
+      "min_lane": 1.0,
+      "is_default": false,
+      "league_etr": 0.0574,
+      "league_etr_route": 0.0665,
+      "spearman_vs_default": 0.8518,
+      "n_players": 67,
+      "target_lift": 1.24
+    },
+    {
+      "T_rel": 1.5,
+      "min_sep": 3.0,
+      "min_lane": 1.5,
+      "is_default": false,
+      "league_etr": 0.0428,
+      "league_etr_route": 0.0496,
+      "spearman_vs_default": 0.7853,
+      "n_players": 67,
+      "target_lift": 1.284
+    }
+  ],
+  "sensitivity_extra": [
+    {
+      "variant": "max_away_speed=0.5",
+      "league_etr": 0.0378,
+      "league_etr_route": 0.0438,
+      "spearman_vs_default": 0.8786,
+      "n_players": 67,
+      "target_lift": 1.273
+    },
+    {
+      "variant": "max_away_speed=1.0",
+      "league_etr": 0.0549,
+      "league_etr_route": 0.0636,
+      "spearman_vs_default": 1.0,
+      "n_players": 67,
+      "target_lift": 1.251
+    },
+    {
+      "variant": "max_away_speed=2.0",
+      "league_etr": 0.1056,
+      "league_etr_route": 0.1223,
+      "spearman_vs_default": 0.8067,
+      "n_players": 67,
+      "target_lift": 1.143
+    },
+    {
+      "variant": "max_away_speed=3.0",
+      "league_etr": 0.1709,
+      "league_etr_route": 0.198,
+      "spearman_vs_default": 0.655,
+      "n_players": 67,
+      "target_lift": 1.123
+    },
+    {
+      "variant": "max_away_speed=inf",
+      "league_etr": 0.3857,
+      "league_etr_route": 0.4468,
+      "spearman_vs_default": 0.4444,
+      "n_players": 67,
+      "target_lift": 1.142
+    },
+    {
+      "variant": "T_cap applied to throw plays too",
+      "league_etr": 0.0466,
+      "league_etr_route": 0.054,
+      "spearman_vs_default": 0.943,
+      "n_players": 67,
+      "target_lift": 1.328
+    }
+  ],
+  "sensitivity_summary": {
+    "league_etr_range": [
+      0.0039,
+      0.1104
+    ],
+    "spearman_min": 0.1776,
+    "spearman_median": 0.836
+  },
+  "split_half_reliability": {
+    "etr_all_snaps_min10": {
+      "spearman": 0.2324,
+      "n_players": 67
+    },
+    "etr_all_snaps_min25": {
+      "spearman": 0.1934,
+      "n_players": 42
+    },
+    "etr_oe_min10": {
+      "spearman": 0.1661,
+      "n_players": 67
+    },
+    "etr_oe_min25": {
+      "spearman": 0.1524,
+      "n_players": 42
+    },
+    "etr_route_snaps_min10": {
+      "spearman": 0.3258,
+      "n_players": 58
+    },
+    "etr_route_snaps_min25": {
+      "spearman": 0.1682,
+      "n_players": 34
+    }
+  },
+  "top5_min50": [
+    {
+      "nflId": 40011,
+      "displayName": "Travis Kelce",
+      "team": "KC",
+      "n": 303,
+      "value": 0.1089,
+      "value_shrunk": 0.0919,
+      "lo": 0.0786,
+      "hi": 0.149,
+      "etr_route": 0.1119,
+      "etr_oe": 0.0375
+    },
+    {
+      "nflId": 39983,
+      "displayName": "Zach Ertz",
+      "team": "PHI",
+      "n": 168,
+      "value": 0.1131,
+      "value_shrunk": 0.0868,
+      "lo": 0.0736,
+      "hi": 0.1699,
+      "etr_route": 0.1173,
+      "etr_oe": 0.0473
+    },
+    {
+      "nflId": 53433,
+      "displayName": "Kyle Pitts",
+      "team": "ATL",
+      "n": 244,
+      "value": 0.0943,
+      "value_shrunk": 0.08,
+      "lo": 0.0636,
+      "hi": 0.1375,
+      "etr_route": 0.0962,
+      "etr_oe": 0.0282
+    },
+    {
+      "nflId": 52942,
+      "displayName": "Juwan Johnson",
+      "team": "NO",
+      "n": 59,
+      "value": 0.1356,
+      "value_shrunk": 0.079,
+      "lo": 0.0703,
+      "hi": 0.2454,
+      "etr_route": 0.1379,
+      "etr_oe": 0.0713
+    },
+    {
+      "nflId": 42500,
+      "displayName": "C.J. Uzomah",
+      "team": "CIN",
+      "n": 216,
+      "value": 0.0926,
+      "value_shrunk": 0.0778,
+      "lo": 0.0607,
+      "hi": 0.1387,
+      "etr_route": 0.101,
+      "etr_oe": 0.0504
+    }
+  ],
+  "caveats": [
+    "chip_release snaps rarely pass T_rel (median chip release ~1.8 s vs T_rel), so ETR penalizes chip duty by design; see etr_route/release_ok_rate_route components",
+    "a single 0.1 s frame of viability suffices; no dwell-time requirement",
+    "viability uses nearest-defender separation and a straight QB->TE lane only; no ball-flight or defender-closing-speed model",
+    "direction rule excludes vertical stems while running (only settling/working-back/crossing frames qualify)",
+    "throw-play window is uncapped, so long-developing throws give more chances to be viable",
+    "assignment (route vs block) is a play-call choice and is NOT in the expected model; etr_oe partly reflects deployment",
+    "test weeks are only 2 weeks, so split-half reliability is based on small test-week samples",
+    "29 TE rows on plays without a snap frame (no tracking) were dropped from the denominator",
+    "validity is modest: target-rate lift of eligible vs non-eligible route snaps is train: 0.256 vs 0.190, test: 0.192 vs 0.198 (direction rule was checked on train weeks; test-week lift does not replicate)",
+    "T_rel=0.8 s cells cut most releases (median TE release 1.0 s) and reshuffle ranks (Spearman ~0.2-0.4)",
+    "split-half reliability is low; treat player ETR as descriptive, not a stable trait"
+  ],
+  "shared_code_notes": [
+    "plays.time_to_throw is NaN for throw plays lacking a snap frame; such plays are dropped here"
+  ]
+}

@@ -1,0 +1,1009 @@
+{
+  "metric": "Coverage Gravity",
+  "slug": "coverage_gravity",
+  "higher_is_better": true,
+  "definition": "Per TE: mean over NON-targeted route snaps of (observed - expected) attention index at landmark t* = min(2.0 s, end of dropback); attention index = sum over the 11 defenders of exp(-d/3), d = yards from receiver. Expectation from a position-blind HistGradientBoosting model fit on all route runners (all positions) in train weeks using alignment/formation/coverage/situation context and receiver location at t*; cross-fit (GroupKFold by game) for train weeks, train-fit predictions for test weeks.",
+  "value_column": "value = raw mean residual (non-target routes); value_shrunk = normal-normal EB; lo/hi = 95% normal CI on raw mean",
+  "parameters": {
+    "t_star_s": 2.0,
+    "decay_yd": 3.0,
+    "decay_sensitivity": [
+      2.0,
+      5.0
+    ],
+    "n_def_radii_yd": [
+      3,
+      5
+    ],
+    "bracket_radius_yd": 4.0,
+    "bracket_min_offset_yd": 0.5,
+    "bracket_rule": ">=2 defenders within 4 yd with one inside & one outside (toward/away from ball_y) OR one over & one under (dx>=+0.5 / dx<=-0.5)",
+    "safety_positions": [
+      "FS",
+      "FSL",
+      "FSR",
+      "SS",
+      "SSL",
+      "SSR"
+    ],
+    "safety_pull": "d(receiver, nearest safety) at snap - at t* (yd; + = safety closer)",
+    "saf_depth_chg": "x_rel(t*) - x_rel(snap) of safety nearest at t* (+ = deeper; two-sided, descriptive)",
+    "throw_frame": "last receiver_frames frame (throw, or end of dropback on sacks/scrambles)",
+    "eb_shrinkage": "stats.eb_shrink_mean with pooled within-TE SD (0.2926) for every player",
+    "min_routes_leaderboard": 40,
+    "split_half_min_n": 10,
+    "red_zone_yards": 20,
+    "train_weeks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "test_weeks": [
+      7,
+      8
+    ],
+    "hgb": {
+      "max_iter": 250,
+      "learning_rate": 0.05,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 40,
+      "l2_regularization": 1.0,
+      "random_state": 42
+    },
+    "features_t_star": [
+      "x_rel_snap",
+      "abs_lat",
+      "receiver_num",
+      "n_rec_side",
+      "side",
+      "offenseFormation",
+      "personnelO",
+      "defendersInBox",
+      "pff_passCoverage",
+      "pff_passCoverageType",
+      "red_zone",
+      "yards_to_goal",
+      "down",
+      "yardsToGo",
+      "x_rel_star",
+      "lat_star",
+      "sideline_star",
+      "t_star"
+    ],
+    "features_throw": [
+      "x_rel_snap",
+      "abs_lat",
+      "receiver_num",
+      "n_rec_side",
+      "side",
+      "offenseFormation",
+      "personnelO",
+      "defendersInBox",
+      "pff_passCoverage",
+      "pff_passCoverageType",
+      "red_zone",
+      "yards_to_goal",
+      "down",
+      "yardsToGo",
+      "x_rel_end",
+      "lat_end",
+      "sideline_end",
+      "t_end"
+    ],
+    "inline_split": "inline = alignment inline or wing; detached = detached; backfield reported only in all-routes"
+  },
+  "sample_sizes": {
+    "route_runners": 39398,
+    "te_routes": 9035,
+    "te_nontarget_routes": 7471,
+    "tes": 118,
+    "tes_min_n": 63,
+    "te_nontarget_red_zone": 1068,
+    "te_nontarget_inline": 3123,
+    "te_nontarget_detached": 4189,
+    "te_routes_with_safety": 8528
+  },
+  "consistency_with_shared_routes_table": {
+    "n_def_3_end_max_abs_diff_vs_routes": 0.0,
+    "n_def_5_end_max_abs_diff_vs_routes": 0.0,
+    "sep_end_max_abs_diff_vs_routes": 4.093960964901555e-06,
+    "sep_snap_max_abs_diff_vs_routes": 4.0814815780443325e-06
+  },
+  "test_set_model_metrics": {
+    "att_star": {
+      "n": 8957,
+      "model": {
+        "rmse": 0.2630136966936849,
+        "mae": 0.19941765601012976,
+        "r2": 0.6421446471740535
+      },
+      "baseline_train_mean": {
+        "rmse": 0.43974479598864225,
+        "mae": 0.33762235730278,
+        "r2": -0.0003505248458999244
+      },
+      "te_rows_only": {
+        "n": 2066,
+        "model": {
+          "rmse": 0.29253439573884427,
+          "mae": 0.22111179688589383,
+          "r2": 0.5945941807809978
+        },
+        "baseline_train_mean": {
+          "rmse": 0.4778586307097485,
+          "mae": 0.3476215389189936,
+          "r2": -0.0817700982459022
+        }
+      },
+      "tag": "primary"
+    },
+    "negsep_star": {
+      "n": 8957,
+      "model": {
+        "rmse": 1.4453559472312743,
+        "mae": 1.123843442565163,
+        "r2": 0.41570414537086564
+      },
+      "baseline_train_mean": {
+        "rmse": 1.8916352145421267,
+        "mae": 1.499140728815429,
+        "r2": -0.0008245685165060301
+      },
+      "te_rows_only": {
+        "n": 2066,
+        "model": {
+          "rmse": 1.365421895286664,
+          "mae": 1.0867627793227022,
+          "r2": 0.35599527053380886
+        },
+        "baseline_train_mean": {
+          "rmse": 1.7197068530365063,
+          "mae": 1.4010145289125613,
+          "r2": -0.02156069564952845
+        }
+      },
+      "tag": "component"
+    },
+    "bracket_star": {
+      "n": 8957,
+      "base_rate_test": 0.14257005693870717,
+      "model": {
+        "auc": 0.8380844080364135,
+        "log_loss": 0.3078869962419288,
+        "brier": 0.09473776295046146
+      },
+      "baseline_train_rate": {
+        "auc": 0.5,
+        "log_loss": 0.4096097187723891,
+        "brier": 0.12224583346443986
+      },
+      "calibration_5bin": [
+        {
+          "bin": 0,
+          "mean_pred": 0.0083,
+          "obs_rate": 0.0028,
+          "n": 1792
+        },
+        {
+          "bin": 1,
+          "mean_pred": 0.0365,
+          "obs_rate": 0.0285,
+          "n": 1791
+        },
+        {
+          "bin": 2,
+          "mean_pred": 0.0845,
+          "obs_rate": 0.0893,
+          "n": 1791
+        },
+        {
+          "bin": 3,
+          "mean_pred": 0.162,
+          "obs_rate": 0.1753,
+          "n": 1791
+        },
+        {
+          "bin": 4,
+          "mean_pred": 0.4116,
+          "obs_rate": 0.4169,
+          "n": 1792
+        }
+      ],
+      "te_rows_only": {
+        "n": 2066,
+        "base_rate_test": 0.1829622458857696,
+        "model": {
+          "auc": 0.7665861104842148,
+          "log_loss": 0.40392564092132477,
+          "brier": 0.12824894828961006
+        },
+        "baseline_train_rate": {
+          "auc": 0.5,
+          "log_loss": 0.48161248747088764,
+          "brier": 0.15100640951081087
+        },
+        "calibration_5bin": [
+          {
+            "bin": 0,
+            "mean_pred": 0.03,
+            "obs_rate": 0.0145,
+            "n": 414
+          },
+          {
+            "bin": 1,
+            "mean_pred": 0.0822,
+            "obs_rate": 0.0993,
+            "n": 413
+          },
+          {
+            "bin": 2,
+            "mean_pred": 0.1395,
+            "obs_rate": 0.1525,
+            "n": 413
+          },
+          {
+            "bin": 3,
+            "mean_pred": 0.2214,
+            "obs_rate": 0.2349,
+            "n": 413
+          },
+          {
+            "bin": 4,
+            "mean_pred": 0.4284,
+            "obs_rate": 0.414,
+            "n": 413
+          }
+        ]
+      },
+      "tag": "component"
+    },
+    "n_def_5_star": {
+      "n": 8957,
+      "model": {
+        "rmse": 0.6911679990333525,
+        "mae": 0.5104416895322436,
+        "r2": 0.48921784312449246
+      },
+      "baseline_train_mean": {
+        "rmse": 0.96726858827781,
+        "mae": 0.747575769602056,
+        "r2": -0.0003745676327899794
+      },
+      "te_rows_only": {
+        "n": 2066,
+        "model": {
+          "rmse": 0.7797745178292577,
+          "mae": 0.5995232048506515,
+          "r2": 0.4249565501696094
+        },
+        "baseline_train_mean": {
+          "rmse": 1.0424797511312074,
+          "mae": 0.7828035334598822,
+          "r2": -0.027774502810897994
+        }
+      },
+      "tag": "component"
+    },
+    "n_def_3_star": {
+      "n": 8957,
+      "model": {
+        "rmse": 0.5656683025604051,
+        "mae": 0.45502108592424834,
+        "r2": 0.29813002559752544
+      },
+      "baseline_train_mean": {
+        "rmse": 0.6753826354556854,
+        "mae": 0.5786047296692768,
+        "r2": -0.0005360880209066554
+      },
+      "te_rows_only": {
+        "n": 2066,
+        "model": {
+          "rmse": 0.6041764118866576,
+          "mae": 0.4818493502294656,
+          "r2": 0.254495990248667
+        },
+        "baseline_train_mean": {
+          "rmse": 0.7036855814672852,
+          "mae": 0.5839824950764899,
+          "r2": -0.011299417805760603
+        }
+      },
+      "tag": "component"
+    },
+    "safety_pull_star": {
+      "n": 8478,
+      "model": {
+        "rmse": 2.3887272904967114,
+        "mae": 1.7934396084805613,
+        "r2": 0.5500951422871052
+      },
+      "baseline_train_mean": {
+        "rmse": 3.561623898224906,
+        "mae": 2.8212648895479875,
+        "r2": -0.0001926374251643992
+      },
+      "te_rows_only": {
+        "n": 1940,
+        "model": {
+          "rmse": 2.3919106442869227,
+          "mae": 1.798544417334504,
+          "r2": 0.5636053424236906
+        },
+        "baseline_train_mean": {
+          "rmse": 3.623818503033651,
+          "mae": 2.9019412343158963,
+          "r2": -0.0016647683764590138
+        }
+      },
+      "tag": "component"
+    },
+    "saf_depth_chg": {
+      "n": 8478,
+      "model": {
+        "rmse": 2.3133772837475104,
+        "mae": 1.736353997391899,
+        "r2": 0.16879657954624527
+      },
+      "baseline_train_mean": {
+        "rmse": 2.537540179634623,
+        "mae": 1.9828886455397303,
+        "r2": -9.266851311329205e-05
+      },
+      "te_rows_only": {
+        "n": 1940,
+        "model": {
+          "rmse": 2.2972487303039504,
+          "mae": 1.7069150536837197,
+          "r2": 0.15875541136154792
+        },
+        "baseline_train_mean": {
+          "rmse": 2.509079101158654,
+          "mae": 1.9360448788121805,
+          "r2": -0.003540604932390057
+        }
+      },
+      "tag": "component"
+    },
+    "att_end": {
+      "n": 8957,
+      "model": {
+        "rmse": 0.2586743604429069,
+        "mae": 0.1993403862444305,
+        "r2": 0.48166105655596203
+      },
+      "baseline_train_mean": {
+        "rmse": 0.35931381209903573,
+        "mae": 0.2758559481958598,
+        "r2": -0.00012640829213350635
+      },
+      "te_rows_only": {
+        "n": 2066,
+        "model": {
+          "rmse": 0.2811746167230196,
+          "mae": 0.2181290951672176,
+          "r2": 0.4797948510388521
+        },
+        "baseline_train_mean": {
+          "rmse": 0.39645765388515414,
+          "mae": 0.30203113546050286,
+          "r2": -0.03422739207130232
+        }
+      },
+      "tag": "throw_frame"
+    },
+    "negsep_end": {
+      "n": 8957,
+      "model": {
+        "rmse": 1.864926489381455,
+        "mae": 1.3978330868044047,
+        "r2": 0.3880633018013976
+      },
+      "baseline_train_mean": {
+        "rmse": 2.384602872320705,
+        "mae": 1.8399840521550244,
+        "r2": -0.0004956136020006774
+      },
+      "te_rows_only": {
+        "n": 2066,
+        "model": {
+          "rmse": 1.9026693273699178,
+          "mae": 1.4190484093796112,
+          "r2": 0.3621122181239168
+        },
+        "baseline_train_mean": {
+          "rmse": 2.384490196831824,
+          "mae": 1.8448370188882386,
+          "r2": -0.0018639097195676246
+        }
+      },
+      "tag": "throw_frame"
+    },
+    "bracket_end": {
+      "n": 8957,
+      "base_rate_test": 0.0746901864463548,
+      "model": {
+        "auc": 0.7962501659250538,
+        "log_loss": 0.22023965712735732,
+        "brier": 0.06082548666822336
+      },
+      "baseline_train_rate": {
+        "auc": 0.5,
+        "log_loss": 0.2656234459671033,
+        "brier": 0.06911408588001111
+      },
+      "calibration_5bin": [
+        {
+          "bin": 0,
+          "mean_pred": 0.0062,
+          "obs_rate": 0.0039,
+          "n": 1792
+        },
+        {
+          "bin": 1,
+          "mean_pred": 0.0214,
+          "obs_rate": 0.0207,
+          "n": 1791
+        },
+        {
+          "bin": 2,
+          "mean_pred": 0.0474,
+          "obs_rate": 0.0536,
+          "n": 1791
+        },
+        {
+          "bin": 3,
+          "mean_pred": 0.0828,
+          "obs_rate": 0.0888,
+          "n": 1791
+        },
+        {
+          "bin": 4,
+          "mean_pred": 0.2113,
+          "obs_rate": 0.2065,
+          "n": 1792
+        }
+      ],
+      "te_rows_only": {
+        "n": 2066,
+        "base_rate_test": 0.10309777347531461,
+        "model": {
+          "auc": 0.750246396529926,
+          "log_loss": 0.29086621092459325,
+          "brier": 0.08433916181177656
+        },
+        "baseline_train_rate": {
+          "auc": 0.5,
+          "log_loss": 0.33647244018428624,
+          "brier": 0.09318788511742367
+        },
+        "calibration_5bin": [
+          {
+            "bin": 0,
+            "mean_pred": 0.0127,
+            "obs_rate": 0.0072,
+            "n": 414
+          },
+          {
+            "bin": 1,
+            "mean_pred": 0.0391,
+            "obs_rate": 0.0436,
+            "n": 413
+          },
+          {
+            "bin": 2,
+            "mean_pred": 0.0704,
+            "obs_rate": 0.0993,
+            "n": 413
+          },
+          {
+            "bin": 3,
+            "mean_pred": 0.1112,
+            "obs_rate": 0.1186,
+            "n": 413
+          },
+          {
+            "bin": 4,
+            "mean_pred": 0.2293,
+            "obs_rate": 0.247,
+            "n": 413
+          }
+        ]
+      },
+      "tag": "throw_frame"
+    },
+    "n_def_5_end": {
+      "n": 8957,
+      "model": {
+        "rmse": 0.6175700589584898,
+        "mae": 0.44626256225607996,
+        "r2": 0.33351256480975155
+      },
+      "baseline_train_mean": {
+        "rmse": 0.7565751418465814,
+        "mae": 0.4850684664140937,
+        "r2": -0.0002847264774117342
+      },
+      "te_rows_only": {
+        "n": 2066,
+        "model": {
+          "rmse": 0.6736839888184148,
+          "mae": 0.5028976901827107,
+          "r2": 0.30625906245746115
+        },
+        "baseline_train_mean": {
+          "rmse": 0.8134329978767166,
+          "mae": 0.5317148660098299,
+          "r2": -0.01141279531292727
+        }
+      },
+      "tag": "throw_frame"
+    },
+    "att_2_star": {
+      "n": 8957,
+      "model": {
+        "rmse": 0.22583423236327127,
+        "mae": 0.17150902732474005,
+        "r2": 0.4896826151232764
+      },
+      "baseline_train_mean": {
+        "rmse": 0.3161854536476457,
+        "mae": 0.25017459637873785,
+        "r2": -0.0003329819884718699
+      },
+      "te_rows_only": {
+        "n": 2066,
+        "model": {
+          "rmse": 0.2491191826043043,
+          "mae": 0.19002815809083462,
+          "r2": 0.4476400505654866
+        },
+        "baseline_train_mean": {
+          "rmse": 0.34203126749323665,
+          "mae": 0.2594875920052698,
+          "r2": -0.04121270861197601
+        }
+      },
+      "tag": "sensitivity_decay2"
+    },
+    "att_5_star": {
+      "n": 8957,
+      "model": {
+        "rmse": 0.3034187978074897,
+        "mae": 0.22768422842442546,
+        "r2": 0.791049097948759
+      },
+      "baseline_train_mean": {
+        "rmse": 0.6638627242362919,
+        "mae": 0.5253240228978373,
+        "r2": -0.0002667931979403182
+      },
+      "te_rows_only": {
+        "n": 2066,
+        "model": {
+          "rmse": 0.34026675736931317,
+          "mae": 0.25680636231020476,
+          "r2": 0.7281937165772752
+        },
+        "baseline_train_mean": {
+          "rmse": 0.7050306845695902,
+          "mae": 0.5171193736025157,
+          "r2": -0.16690764513143663
+        }
+      },
+      "tag": "sensitivity_decay5"
+    },
+    "att_star_ctxonly": {
+      "n": 8957,
+      "model": {
+        "rmse": 0.34047381477751054,
+        "mae": 0.256859771560024,
+        "r2": 0.40032185632120776
+      },
+      "baseline_train_mean": {
+        "rmse": 0.43974479598864225,
+        "mae": 0.33762235730278,
+        "r2": -0.0003505248458999244
+      },
+      "te_rows_only": {
+        "n": 2066,
+        "model": {
+          "rmse": 0.3653754882073669,
+          "mae": 0.27590322568301134,
+          "r2": 0.3675664199252363
+        },
+        "baseline_train_mean": {
+          "rmse": 0.4778586307097485,
+          "mae": 0.3476215389189936,
+          "r2": -0.0817700982459022
+        }
+      },
+      "tag": "sensitivity_no_location"
+    }
+  },
+  "split_half_reliability": {
+    "gravity_nontarget": {
+      "spearman": -0.12020202020202024,
+      "n_players": 55
+    },
+    "gravity_all_routes": {
+      "spearman": -0.016887631117536685,
+      "n_players": 58
+    },
+    "gravity_throw_nontarget": {
+      "spearman": 0.20209235209235213,
+      "n_players": 55
+    },
+    "bracket_oe_nontarget": {
+      "spearman": -0.11024531024531026,
+      "n_players": 55
+    },
+    "safety_pull_oe_nontarget": {
+      "spearman": -0.032817287534268665,
+      "n_players": 53
+    },
+    "raw_att_star_nontarget": {
+      "spearman": 0.12712842712842715,
+      "n_players": 55
+    },
+    "gravity_ctxonly_nontarget": {
+      "spearman": 0.07142857142857144,
+      "n_players": 55
+    },
+    "gravity_play_relative_nontarget": {
+      "spearman": -0.12121212121212124,
+      "n_players": 55
+    },
+    "negsep_oe_nontarget": {
+      "spearman": 0.038383838383838395,
+      "n_players": 55
+    },
+    "n_def_5_oe_nontarget": {
+      "spearman": -0.055339105339105354,
+      "n_players": 55
+    },
+    "gravity_nontarget_odd_even_games": {
+      "spearman": -0.07018633540372671,
+      "n_players": 69
+    }
+  },
+  "sensitivity_rank_corr_vs_value_min_n": {
+    "gravity_all": {
+      "spearman_vs_value": 0.8452380952380952,
+      "n_players": 63
+    },
+    "gravity_throw": {
+      "spearman_vs_value": 0.5583717357910906,
+      "n_players": 63
+    },
+    "gravity_decay2": {
+      "spearman_vs_value": 0.9167626728110599,
+      "n_players": 63
+    },
+    "gravity_decay5": {
+      "spearman_vs_value": 0.9145545314900153,
+      "n_players": 63
+    },
+    "gravity_ctxonly": {
+      "spearman_vs_value": 0.73267089093702,
+      "n_players": 63
+    },
+    "gravity_rel": {
+      "spearman_vs_value": 0.672715053763441,
+      "n_players": 63
+    },
+    "bracket_oe": {
+      "spearman_vs_value": 0.4503648233486943,
+      "n_players": 63
+    },
+    "safety_pull_oe": {
+      "spearman_vs_value": 0.07814900153609831,
+      "n_players": 63
+    },
+    "negsep_oe": {
+      "spearman_vs_value": 0.6563460061443933,
+      "n_players": 63
+    },
+    "n_def_5_oe": {
+      "spearman_vs_value": 0.6668586789554531,
+      "n_players": 63
+    },
+    "gravity_inline": {
+      "spearman_vs_value": 0.6962845622119815,
+      "n_players": 63
+    },
+    "gravity_detached": {
+      "spearman_vs_value": 0.5518433179723502,
+      "n_players": 63
+    },
+    "gravity_rz": {
+      "spearman_vs_value": -0.004752304147465438,
+      "n_players": 63
+    }
+  },
+  "mean_att_residual_by_position_all_runners": {
+    "FB": {
+      "mean": 0.0302,
+      "count": 385
+    },
+    "RB": {
+      "mean": -0.0069,
+      "count": 6975
+    },
+    "TE": {
+      "mean": 0.0056,
+      "count": 9035
+    },
+    "WR": {
+      "mean": 0.0002,
+      "count": 22966
+    }
+  },
+  "te_gravity_by_alignment_and_target": [
+    {
+      "inline_detached": "backfield",
+      "is_target": false,
+      "mean": 0.0719,
+      "count": 159
+    },
+    {
+      "inline_detached": "backfield",
+      "is_target": true,
+      "mean": -0.0351,
+      "count": 24
+    },
+    {
+      "inline_detached": "detached",
+      "is_target": false,
+      "mean": 0.0104,
+      "count": 4189
+    },
+    {
+      "inline_detached": "detached",
+      "is_target": true,
+      "mean": -0.051,
+      "count": 817
+    },
+    {
+      "inline_detached": "inline",
+      "is_target": false,
+      "mean": 0.026,
+      "count": 3123
+    },
+    {
+      "inline_detached": "inline",
+      "is_target": true,
+      "mean": -0.0587,
+      "count": 723
+    }
+  ],
+  "sanity_check_other_receiver_separation": {
+    "play_level_te_not_targeted": {
+      "te_gravity_vs_max_sep_end_other_raw": {
+        "n": 5063,
+        "pearson": -0.025943443027515164,
+        "pearson_p": 0.06491335848528557,
+        "pearson_ci95": [
+          -0.05345202847451924,
+          0.0016044890253545416
+        ],
+        "spearman": -0.03799182040149753
+      },
+      "te_gravity_vs_max_sep_end_other_adj_n_receivers": {
+        "n": 5063,
+        "pearson": -0.021899280617422186,
+        "pearson_p": 0.11922373066242958,
+        "pearson_ci95": [
+          -0.049416255416183094,
+          0.005650913714524574
+        ],
+        "spearman": -0.03740924269084978
+      },
+      "te_gravity_vs_mean_sep_over_expected_other": {
+        "n": 5063,
+        "pearson": -0.0780321227985658,
+        "pearson_p": 2.7060409670655154e-08,
+        "pearson_ci95": [
+          -0.10535244950280763,
+          -0.050594091133539555
+        ],
+        "spearman": -0.07769219202161512
+      },
+      "te_gravity_vs_max_sep_over_expected_other": {
+        "n": 5063,
+        "pearson": -0.04610139808771836,
+        "pearson_p": 0.001033412994984855,
+        "pearson_ci95": [
+          -0.07355477293932561,
+          -0.01857820600225504
+        ],
+        "spearman": -0.055731680193098966
+      },
+      "te_gravity_throw_vs_mean_sep_over_expected_other": {
+        "n": 5063,
+        "pearson": -0.06056024927804051,
+        "pearson_p": 1.6175222665152487e-05,
+        "pearson_ci95": [
+          -0.08796029576872391,
+          -0.03306863030492882
+        ],
+        "spearman": -0.06461757815541914
+      },
+      "te_gravity_play_relative_vs_mean_sep_over_expected_other_MECHANICALLY_COUPLED": {
+        "n": 5063,
+        "pearson": 0.11035071979345676,
+        "pearson_p": 3.4321077294369656e-15,
+        "pearson_ci95": [
+          0.08305640990796663,
+          0.13747959367154838
+        ],
+        "spearman": 0.12857970999417093
+      }
+    },
+    "play_level_all_throws": {
+      "te_gravity_vs_max_sep_end_other_raw": {
+        "n": 6620,
+        "pearson": -0.027295038895696365,
+        "pearson_p": 0.02636376218707151,
+        "pearson_ci95": [
+          -0.05135153201804718,
+          -0.003206888525040123
+        ],
+        "spearman": -0.03507115632176163
+      },
+      "te_gravity_vs_mean_sep_over_expected_other": {
+        "n": 6620,
+        "pearson": -0.07274020790007645,
+        "pearson_p": 3.12066338036678e-09,
+        "pearson_ci95": [
+          -0.09666108478052829,
+          -0.04873534929393834
+        ],
+        "spearman": -0.07062435608348779
+      }
+    },
+    "team_level": {
+      "te_gravity_vs_mean_max_sep_end_other": {
+        "n": 32,
+        "pearson": -0.2687681355360649,
+        "pearson_p": 0.13690472352783511,
+        "pearson_ci95": [
+          -0.5645579444955281,
+          0.08819752945930795
+        ],
+        "spearman": -0.15909090909090906
+      },
+      "te_gravity_vs_mean_sep_over_expected_other": {
+        "n": 32,
+        "pearson": -0.47460932288579827,
+        "pearson_p": 0.006058626887162718,
+        "pearson_ci95": [
+          -0.7064022771215235,
+          -0.15087945393132754
+        ],
+        "spearman": -0.4820381231671554
+      }
+    },
+    "te_player_level_min40": {
+      "te_gravity_shrunk_vs_teammates_sep_over_expected": {
+        "n": 53,
+        "pearson": -0.2655428104039852,
+        "pearson_p": 0.054638405619281544,
+        "pearson_ci95": [
+          -0.4999565464497824,
+          0.005123463674050604
+        ],
+        "spearman": -0.2842283502660861
+      }
+    },
+    "quintiles_te_gravity": [
+      {
+        "q": 0,
+        "te_gravity": -0.3239,
+        "max_sep_end_other": 5.4474,
+        "mean_sep_oe_other": 0.2025,
+        "n": 1013
+      },
+      {
+        "q": 1,
+        "te_gravity": -0.1287,
+        "max_sep_end_other": 5.6236,
+        "mean_sep_oe_other": 0.103,
+        "n": 1012
+      },
+      {
+        "q": 2,
+        "te_gravity": -0.0036,
+        "max_sep_end_other": 5.573,
+        "mean_sep_oe_other": 0.0893,
+        "n": 1013
+      },
+      {
+        "q": 3,
+        "te_gravity": 0.1321,
+        "max_sep_end_other": 5.334,
+        "mean_sep_oe_other": -0.0123,
+        "n": 1012
+      },
+      {
+        "q": 4,
+        "te_gravity": 0.4259,
+        "max_sep_end_other": 5.2623,
+        "mean_sep_oe_other": -0.0579,
+        "n": 1013
+      }
+    ]
+  },
+  "top5_min_n": [
+    {
+      "displayName": "Kaden Smith",
+      "team": "NYG",
+      "n": 40,
+      "value": 0.1725,
+      "value_shrunk": 0.0468,
+      "lo": 0.0436,
+      "hi": 0.3014,
+      "bracket_oe": 0.0524,
+      "safety_pull_oe": -0.0815
+    },
+    {
+      "displayName": "C.J. Uzomah",
+      "team": "CIN",
+      "n": 178,
+      "value": 0.0722,
+      "value_shrunk": 0.0454,
+      "lo": 0.0292,
+      "hi": 0.1151,
+      "bracket_oe": 0.0148,
+      "safety_pull_oe": -0.039
+    },
+    {
+      "displayName": "MyCole Pruitt",
+      "team": "TEN",
+      "n": 53,
+      "value": 0.1018,
+      "value_shrunk": 0.0376,
+      "lo": -0.0024,
+      "hi": 0.2061,
+      "bracket_oe": 0.0494,
+      "safety_pull_oe": -0.363
+    },
+    {
+      "displayName": "Travis Kelce",
+      "team": "KC",
+      "n": 224,
+      "value": 0.0523,
+      "value_shrunk": 0.0373,
+      "lo": 0.0165,
+      "hi": 0.0881,
+      "bracket_oe": 0.0367,
+      "safety_pull_oe": 0.0408
+    },
+    {
+      "displayName": "Cameron Brate",
+      "team": "TB",
+      "n": 134,
+      "value": 0.0565,
+      "value_shrunk": 0.0348,
+      "lo": 0.0075,
+      "hi": 0.1056,
+      "bracket_oe": 0.0378,
+      "safety_pull_oe": -0.1746
+    }
+  ],
+  "caveats": [
+    "Attention is proximity-based; it cannot distinguish a defender assigned to the TE from one passing through the same zone.",
+    "Receiver location at t* is a model feature, so gravity measures attention beyond what a comparable receiver at the same spot gets; route choice that takes the TE into traffic is absorbed (see gravity_ctxonly sensitivity).",
+    "Inline TEs at t* are often near the box, where expected attention is high; inline and detached splits should be compared within split.",
+    "Safety measures exist only on plays with PFF-labelled safeties; depth change is two-sided and not signed as good/bad.",
+    "Throw frame = last tracked frame of dropback; no ball-flight tracking exists.",
+    "Non-target restriction relies on targetNflId parsed from playDescription (unmatched attempts are treated as non-targets).",
+    "8 weeks of data: per-TE samples are small; use shrunk values and CIs.",
+    "Targeted routes have lower residual attention than non-targeted ones (QBs throw to open receivers), so the non-target restriction mechanically raises TE values; compare TEs to each other, not to zero.",
+    "Play-level residuals share a play-wide 'coverage tightness' component (tight man coverage puts defenders near everyone), so TE gravity correlates NEGATIVELY with teammates' separation-over-expected; the sanity check does not support a 'TE attention frees teammates' interpretation in this data. gravity_rel nets out the play-wide component but is mechanically coupled to teammates' attention.",
+    "Split-half reliability is near zero: at this sample size Coverage Gravity is not demonstrably a stable player trait; weight it lightly in any composite."
+  ]
+}

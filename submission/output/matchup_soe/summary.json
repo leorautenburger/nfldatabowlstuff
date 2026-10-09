@@ -1,0 +1,1672 @@
+{
+  "metric": "Matchup Separation Over Expected (SOE)",
+  "slug": "matchup_soe",
+  "higher_is_better": true,
+  "definition": "For each route runner and landmark (t = 1.0/1.5/2.0/2.5/3.0 s after snap, only if at or before the end of the dropback, plus the throw frame on plays ending in a throw), SOE = observed nearest-defender separation (receiver_frames.sep) - expected separation from a HistGradientBoostingRegressor fit on all route runners (all positions) in train weeks, cross-fit by game (OOF for weeks 1-6, full-train refit for weeks 7-8). Player value = mean SOE over all landmark rows on the TE's route + chip_release plays; CI is play-clustered (cluster-robust SE of the row mean); value_shrunk = normal-normal EB toward the TE grand mean with n = plays and per-play SD = cluster SE * sqrt(n_plays).",
+  "parameters": {
+    "landmarks": [
+      "t1.0",
+      "t1.5",
+      "t2.0",
+      "t2.5",
+      "t3.0",
+      "throw"
+    ],
+    "landmark_rule": "t rounded to 0.1 s; throw = last receiver_frames frame on plays with end_event == 'throw' (coincides with a fixed landmark when the throw is at that t; both kept)",
+    "te_assignments": [
+      "route",
+      "chip_release"
+    ],
+    "min_plays_top5": 40,
+    "min_plays_player_distribution": 40,
+    "sep_cap_sensitivity": 10.0,
+    "eb_min_plays_own_sd": 5,
+    "features_numeric": [
+      "x_rel_snap",
+      "abs_lat",
+      "receiver_num",
+      "n_rec_side",
+      "sep_snap",
+      "nd_dx_snap",
+      "nd_dy_out_snap",
+      "x_rel",
+      "lat_out",
+      "dist_sideline",
+      "t",
+      "pff_playAction",
+      "down",
+      "yardsToGo",
+      "red_zone"
+    ],
+    "features_categorical": [
+      "alignment",
+      "pff_passCoverage",
+      "pff_passCoverageType",
+      "landmark",
+      "dropBackType",
+      "offenseFormation"
+    ],
+    "feature_notes": {
+      "nd_dy_out_snap": "nd_dy_snap * side (+ = nearest defender toward receiver's sideline)",
+      "lat_out": "(y - ball_y) * side at landmark (+ = outside of ball on alignment side)",
+      "dist_sideline": "min(y, 53.3 - y) at landmark",
+      "x_rel": "route depth past LOS at landmark",
+      "excluded": "receiver speed/accel/velocity, officialPosition, player identity, nearest-defender offset at the landmark (outcome)"
+    },
+    "param_grid": [
+      {
+        "learning_rate": 0.05,
+        "max_iter": 300,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 100,
+        "l2_regularization": 1.0
+      },
+      {
+        "learning_rate": 0.05,
+        "max_iter": 600,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 100,
+        "l2_regularization": 1.0
+      },
+      {
+        "learning_rate": 0.05,
+        "max_iter": 400,
+        "max_leaf_nodes": 63,
+        "min_samples_leaf": 200,
+        "l2_regularization": 1.0
+      }
+    ],
+    "chosen_params": {
+      "learning_rate": 0.05,
+      "max_iter": 400,
+      "max_leaf_nodes": 63,
+      "min_samples_leaf": 200,
+      "l2_regularization": 1.0
+    },
+    "tuning_metric": "train OOF RMSE",
+    "train_weeks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "test_weeks": [
+      7,
+      8
+    ],
+    "n_folds": 5
+  },
+  "sample_sizes": {
+    "landmark_rows_all_positions": 193211,
+    "landmark_rows_train": 149568,
+    "landmark_rows_test": 43643,
+    "route_plays_all_positions": 39398,
+    "landmark_rows_by_landmark": {
+      "t1.0": 39398,
+      "t1.5": 39209,
+      "t2.0": 35351,
+      "throw": 35032,
+      "t2.5": 26885,
+      "t3.0": 17336
+    },
+    "te_route_chip_assignments_in_te_plays": 9064,
+    "te_route_chip_plays_with_landmarks": 9035,
+    "te_landmark_rows": 44037,
+    "n_te_players": 118,
+    "n_te_players_min_plays": 66
+  },
+  "model_tuning": [
+    {
+      "params": {
+        "learning_rate": 0.05,
+        "max_iter": 300,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 100,
+        "l2_regularization": 1.0
+      },
+      "train_oof": {
+        "rmse": 1.3329479584008745,
+        "mae": 0.9789181686754931,
+        "r2": 0.5728479588732578,
+        "n": 149568
+      }
+    },
+    {
+      "params": {
+        "learning_rate": 0.05,
+        "max_iter": 600,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 100,
+        "l2_regularization": 1.0
+      },
+      "train_oof": {
+        "rmse": 1.321423845412367,
+        "mae": 0.9661718200114698,
+        "r2": 0.5802019882673821,
+        "n": 149568
+      }
+    },
+    {
+      "params": {
+        "learning_rate": 0.05,
+        "max_iter": 400,
+        "max_leaf_nodes": 63,
+        "min_samples_leaf": 200,
+        "l2_regularization": 1.0
+      },
+      "train_oof": {
+        "rmse": 1.31869602817836,
+        "mae": 0.9612984742252187,
+        "r2": 0.5819333787006065,
+        "n": 149568
+      }
+    }
+  ],
+  "model_eval": {
+    "test_overall": {
+      "model": {
+        "rmse": 1.325143820478599,
+        "mae": 0.9622135639887431,
+        "r2": 0.5976175745869003,
+        "n": 43643
+      },
+      "baseline_train_mean_by_landmark": {
+        "rmse": 2.0744576691578245,
+        "mae": 1.6379174118854976,
+        "r2": 0.01389734740519799,
+        "n": 43643
+      }
+    },
+    "test_by_landmark": {
+      "t1.0": {
+        "model": {
+          "rmse": 0.6828195271537768,
+          "mae": 0.5140915765103777,
+          "r2": 0.8938042715322154,
+          "n": 8957
+        },
+        "baseline": {
+          "rmse": 2.096457869471593,
+          "mae": 1.6805011549403635,
+          "r2": -0.0010769501374594537,
+          "n": 8957
+        }
+      },
+      "t1.5": {
+        "model": {
+          "rmse": 1.1481201841124464,
+          "mae": 0.8735263826308443,
+          "r2": 0.6538159568658457,
+          "n": 8899
+        },
+        "baseline": {
+          "rmse": 1.9517850980412634,
+          "mae": 1.5837346752192112,
+          "r2": -0.00045218604101537885,
+          "n": 8899
+        }
+      },
+      "t2.0": {
+        "model": {
+          "rmse": 1.2956617721158334,
+          "mae": 0.986726669053379,
+          "r2": 0.5144077450571481,
+          "n": 7922
+        },
+        "baseline": {
+          "rmse": 1.8600766862737608,
+          "mae": 1.467022933064402,
+          "r2": -0.0008065972840560764,
+          "n": 7922
+        }
+      },
+      "t2.5": {
+        "model": {
+          "rmse": 1.4454830672916699,
+          "mae": 1.1059493339742548,
+          "r2": 0.47614374335010057,
+          "n": 6019
+        },
+        "baseline": {
+          "rmse": 1.9975036172617993,
+          "mae": 1.559126635056029,
+          "r2": -0.0003713997467651442,
+          "n": 6019
+        }
+      },
+      "t3.0": {
+        "model": {
+          "rmse": 1.6849157816654106,
+          "mae": 1.2775328908702301,
+          "r2": 0.43449035507998,
+          "n": 3898
+        },
+        "baseline": {
+          "rmse": 2.2405789375119753,
+          "mae": 1.771988830704089,
+          "r2": -9.482779179448286e-06,
+          "n": 3898
+        }
+      },
+      "throw": {
+        "model": {
+          "rmse": 1.7300653117198144,
+          "mae": 1.2785953851637282,
+          "r2": 0.4534480134115645,
+          "n": 7948
+        },
+        "baseline": {
+          "rmse": 2.340822206508605,
+          "mae": 1.8148432980774032,
+          "r2": -0.0005604629708899633,
+          "n": 7948
+        }
+      }
+    },
+    "test_by_position": {
+      "TE": {
+        "model": {
+          "rmse": 1.3824641288427557,
+          "mae": 1.024646415984167,
+          "r2": 0.47097857894647577,
+          "n": 10008
+        },
+        "baseline": {
+          "rmse": 1.9697334651161003,
+          "mae": 1.5919801151140471,
+          "r2": -0.07394104747714758,
+          "n": 10008
+        },
+        "mean_residual": -0.0017917433445145898
+      },
+      "WR": {
+        "model": {
+          "rmse": 1.2851751070623505,
+          "mae": 0.9330780831721611,
+          "r2": 0.6136553469496893,
+          "n": 25432
+        },
+        "baseline": {
+          "rmse": 2.042178702107202,
+          "mae": 1.6415480852216806,
+          "r2": 0.024476397839844344,
+          "n": 25432
+        },
+        "mean_residual": 0.01522369669033521
+      },
+      "RB": {
+        "model": {
+          "rmse": 1.3752711515516443,
+          "mae": 0.9734936386645264,
+          "r2": 0.624565494597372,
+          "n": 7851
+        },
+        "baseline": {
+          "rmse": 2.3051931744842697,
+          "mae": 1.6926229291532908,
+          "r2": -0.054804973932420564,
+          "n": 7851
+        },
+        "mean_residual": -0.005734959597360266
+      }
+    },
+    "test_calibration_deciles": [
+      {
+        "decile": 0,
+        "mean_pred": 1.3132,
+        "mean_obs": 1.3196,
+        "n": 4365
+      },
+      {
+        "decile": 1,
+        "mean_pred": 1.7394,
+        "mean_obs": 1.6862,
+        "n": 4364
+      },
+      {
+        "decile": 2,
+        "mean_pred": 2.1474,
+        "mean_obs": 2.0963,
+        "n": 4364
+      },
+      {
+        "decile": 3,
+        "mean_pred": 2.5152,
+        "mean_obs": 2.472,
+        "n": 4364
+      },
+      {
+        "decile": 4,
+        "mean_pred": 2.8299,
+        "mean_obs": 2.8022,
+        "n": 4365
+      },
+      {
+        "decile": 5,
+        "mean_pred": 3.1371,
+        "mean_obs": 3.1453,
+        "n": 4364
+      },
+      {
+        "decile": 6,
+        "mean_pred": 3.4743,
+        "mean_obs": 3.4875,
+        "n": 4364
+      },
+      {
+        "decile": 7,
+        "mean_pred": 3.9194,
+        "mean_obs": 4.017,
+        "n": 4364
+      },
+      {
+        "decile": 8,
+        "mean_pred": 4.6803,
+        "mean_obs": 4.7311,
+        "n": 4364
+      },
+      {
+        "decile": 9,
+        "mean_pred": 6.8343,
+        "mean_obs": 6.8941,
+        "n": 4365
+      }
+    ]
+  },
+  "league_te": {
+    "overall": [
+      {
+        "value": -0.0231,
+        "se": 0.0102,
+        "n_rows": 44037.0,
+        "n_plays": 7472.0,
+        "value_playmean": -0.0075,
+        "lo": -0.0432,
+        "hi": -0.0031,
+        "sep": 2.7709,
+        "exp_sep": 2.794
+      }
+    ],
+    "by_landmark": [
+      {
+        "landmark": "t1.0",
+        "value": -0.0044,
+        "se": 0.0073,
+        "n_rows": 9035.0,
+        "n_plays": 7472.0,
+        "value_playmean": -0.0017,
+        "lo": -0.0187,
+        "hi": 0.0099,
+        "sep": 2.3863,
+        "exp_sep": 2.3907
+      },
+      {
+        "landmark": "t1.5",
+        "value": 0.0037,
+        "se": 0.0126,
+        "n_rows": 8992.0,
+        "n_plays": 7435.0,
+        "value_playmean": 0.0189,
+        "lo": -0.021,
+        "hi": 0.0284,
+        "sep": 2.6847,
+        "exp_sep": 2.681
+      },
+      {
+        "landmark": "t2.0",
+        "value": -0.0346,
+        "se": 0.0148,
+        "n_rows": 8051.0,
+        "n_plays": 6677.0,
+        "value_playmean": -0.0218,
+        "lo": -0.0635,
+        "hi": -0.0056,
+        "sep": 2.6321,
+        "exp_sep": 2.6666
+      },
+      {
+        "landmark": "t2.5",
+        "value": -0.0444,
+        "se": 0.0193,
+        "n_rows": 6065.0,
+        "n_plays": 5042.0,
+        "value_playmean": -0.0342,
+        "lo": -0.0822,
+        "hi": -0.0065,
+        "sep": 2.9019,
+        "exp_sep": 2.9462
+      },
+      {
+        "landmark": "t3.0",
+        "value": -0.023,
+        "se": 0.0283,
+        "n_rows": 3879.0,
+        "n_plays": 3212.0,
+        "value_playmean": -0.0053,
+        "lo": -0.0784,
+        "hi": 0.0324,
+        "sep": 3.2788,
+        "exp_sep": 3.3018
+      },
+      {
+        "landmark": "throw",
+        "value": -0.0468,
+        "se": 0.0199,
+        "n_rows": 8015.0,
+        "n_plays": 6627.0,
+        "value_playmean": -0.0277,
+        "lo": -0.0858,
+        "hi": -0.0078,
+        "sep": 3.0955,
+        "exp_sep": 3.1423
+      }
+    ],
+    "by_coverage_type": [
+      {
+        "pff_passCoverageType": "Man",
+        "value": -0.0448,
+        "se": 0.017,
+        "n_rows": 12296.0,
+        "n_plays": 2167.0,
+        "value_playmean": -0.0273,
+        "lo": -0.078,
+        "hi": -0.0115,
+        "sep": 2.0817,
+        "exp_sep": 2.1265
+      },
+      {
+        "pff_passCoverageType": "Other",
+        "value": 0.0696,
+        "se": 0.0372,
+        "n_rows": 2824.0,
+        "n_plays": 451.0,
+        "value_playmean": 0.0617,
+        "lo": -0.0033,
+        "hi": 0.1426,
+        "sep": 2.3346,
+        "exp_sep": 2.265
+      },
+      {
+        "pff_passCoverageType": "Zone",
+        "value": -0.023,
+        "se": 0.0133,
+        "n_rows": 28917.0,
+        "n_plays": 4854.0,
+        "value_playmean": -0.005,
+        "lo": -0.0491,
+        "hi": 0.0031,
+        "sep": 3.1065,
+        "exp_sep": 3.1295
+      }
+    ],
+    "by_alignment": [
+      {
+        "alignment": "backfield",
+        "value": -0.0651,
+        "se": 0.0676,
+        "n_rows": 973.0,
+        "n_plays": 182.0,
+        "value_playmean": -0.0556,
+        "lo": -0.1975,
+        "hi": 0.0674,
+        "sep": 3.1926,
+        "exp_sep": 3.2577
+      },
+      {
+        "alignment": "detached",
+        "value": -0.0354,
+        "se": 0.014,
+        "n_rows": 23952.0,
+        "n_plays": 4502.0,
+        "value_playmean": -0.0225,
+        "lo": -0.0628,
+        "hi": -0.008,
+        "sep": 2.8535,
+        "exp_sep": 2.8889
+      },
+      {
+        "alignment": "inline",
+        "value": -0.0022,
+        "se": 0.0168,
+        "n_rows": 16384.0,
+        "n_plays": 3087.0,
+        "value_playmean": 0.0031,
+        "lo": -0.0352,
+        "hi": 0.0307,
+        "sep": 2.6819,
+        "exp_sep": 2.6841
+      },
+      {
+        "alignment": "wing",
+        "value": -0.0257,
+        "se": 0.0367,
+        "n_rows": 2728.0,
+        "n_plays": 531.0,
+        "value_playmean": -0.0215,
+        "lo": -0.0976,
+        "hi": 0.0463,
+        "sep": 2.4292,
+        "exp_sep": 2.4549
+      }
+    ],
+    "by_assignment": [
+      {
+        "assignment": "chip_release",
+        "value": 0.0534,
+        "se": 0.0291,
+        "n_rows": 5940.0,
+        "n_plays": 1059.0,
+        "value_playmean": 0.0564,
+        "lo": -0.0037,
+        "hi": 0.1105,
+        "sep": 3.0249,
+        "exp_sep": 2.9715
+      },
+      {
+        "assignment": "route",
+        "value": -0.0351,
+        "se": 0.0109,
+        "n_rows": 38097.0,
+        "n_plays": 6639.0,
+        "value_playmean": -0.0203,
+        "lo": -0.0565,
+        "hi": -0.0136,
+        "sep": 2.7312,
+        "exp_sep": 2.7663
+      }
+    ]
+  },
+  "position_comparison": {
+    "by_position_row_level": [
+      {
+        "pos": "FB",
+        "value": -0.1543,
+        "se": 0.0547,
+        "n_rows": 1916.0,
+        "n_plays": 385.0,
+        "value_playmean": -0.1483,
+        "lo": -0.2616,
+        "hi": -0.0471,
+        "sep": 3.2353,
+        "exp_sep": 3.3897
+      },
+      {
+        "pos": "RB",
+        "value": 0.0064,
+        "se": 0.011,
+        "n_rows": 34391.0,
+        "n_plays": 6834.0,
+        "value_playmean": 0.0038,
+        "lo": -0.0152,
+        "hi": 0.0281,
+        "sep": 3.8809,
+        "exp_sep": 3.8745
+      },
+      {
+        "pos": "TE",
+        "value": -0.0231,
+        "se": 0.0102,
+        "n_rows": 44037.0,
+        "n_plays": 7472.0,
+        "value_playmean": -0.0075,
+        "lo": -0.0432,
+        "hi": -0.0031,
+        "sep": 2.7709,
+        "exp_sep": 2.794
+      },
+      {
+        "pos": "WR",
+        "value": 0.0151,
+        "se": 0.0066,
+        "n_rows": 112684.0,
+        "n_plays": 8496.0,
+        "value_playmean": 0.0177,
+        "lo": 0.0023,
+        "hi": 0.0279,
+        "sep": 3.2071,
+        "exp_sep": 3.192
+      }
+    ],
+    "per_position": {
+      "TE": {
+        "row_level": {
+          "value": -0.0231,
+          "se": 0.0102,
+          "n_rows": 44037.0,
+          "n_plays": 7472.0,
+          "value_playmean": -0.0075,
+          "lo": -0.0432,
+          "hi": -0.0031,
+          "sep": 2.7709,
+          "exp_sep": 2.794
+        },
+        "by_landmark": [
+          {
+            "landmark": "t1.0",
+            "value": -0.0044,
+            "se": 0.0073,
+            "n_rows": 9035.0,
+            "n_plays": 7472.0,
+            "value_playmean": -0.0017,
+            "lo": -0.0187,
+            "hi": 0.0099,
+            "sep": 2.3863,
+            "exp_sep": 2.3907
+          },
+          {
+            "landmark": "t1.5",
+            "value": 0.0037,
+            "se": 0.0126,
+            "n_rows": 8992.0,
+            "n_plays": 7435.0,
+            "value_playmean": 0.0189,
+            "lo": -0.021,
+            "hi": 0.0284,
+            "sep": 2.6847,
+            "exp_sep": 2.681
+          },
+          {
+            "landmark": "t2.0",
+            "value": -0.0346,
+            "se": 0.0148,
+            "n_rows": 8051.0,
+            "n_plays": 6677.0,
+            "value_playmean": -0.0218,
+            "lo": -0.0635,
+            "hi": -0.0056,
+            "sep": 2.6321,
+            "exp_sep": 2.6666
+          },
+          {
+            "landmark": "t2.5",
+            "value": -0.0444,
+            "se": 0.0193,
+            "n_rows": 6065.0,
+            "n_plays": 5042.0,
+            "value_playmean": -0.0342,
+            "lo": -0.0822,
+            "hi": -0.0065,
+            "sep": 2.9019,
+            "exp_sep": 2.9462
+          },
+          {
+            "landmark": "t3.0",
+            "value": -0.023,
+            "se": 0.0283,
+            "n_rows": 3879.0,
+            "n_plays": 3212.0,
+            "value_playmean": -0.0053,
+            "lo": -0.0784,
+            "hi": 0.0324,
+            "sep": 3.2788,
+            "exp_sep": 3.3018
+          },
+          {
+            "landmark": "throw",
+            "value": -0.0468,
+            "se": 0.0199,
+            "n_rows": 8015.0,
+            "n_plays": 6627.0,
+            "value_playmean": -0.0277,
+            "lo": -0.0858,
+            "hi": -0.0078,
+            "sep": 3.0955,
+            "exp_sep": 3.1423
+          }
+        ],
+        "by_coverage_type": [
+          {
+            "pff_passCoverageType": "Man",
+            "value": -0.0448,
+            "se": 0.017,
+            "n_rows": 12296.0,
+            "n_plays": 2167.0,
+            "value_playmean": -0.0273,
+            "lo": -0.078,
+            "hi": -0.0115,
+            "sep": 2.0817,
+            "exp_sep": 2.1265
+          },
+          {
+            "pff_passCoverageType": "Other",
+            "value": 0.0696,
+            "se": 0.0372,
+            "n_rows": 2824.0,
+            "n_plays": 451.0,
+            "value_playmean": 0.0617,
+            "lo": -0.0033,
+            "hi": 0.1426,
+            "sep": 2.3346,
+            "exp_sep": 2.265
+          },
+          {
+            "pff_passCoverageType": "Zone",
+            "value": -0.023,
+            "se": 0.0133,
+            "n_rows": 28917.0,
+            "n_plays": 4854.0,
+            "value_playmean": -0.005,
+            "lo": -0.0491,
+            "hi": 0.0031,
+            "sep": 3.1065,
+            "exp_sep": 3.1295
+          }
+        ],
+        "player_distribution_min_plays": 40,
+        "player_distribution": {
+          "n_players": 66,
+          "mean_value": -0.015968446959527777,
+          "sd_value": 0.12088346125321132,
+          "sd_value_shrunk": 0.06984769305797235,
+          "p10": -0.16873055997904893,
+          "p25": -0.09901252344805633,
+          "p50": -0.021896980073965976,
+          "p75": 0.06514205424955209,
+          "p90": 0.11121018606198149,
+          "share_ci_above_0": 0.030303030303030304,
+          "share_ci_below_0": 0.09090909090909091
+        }
+      },
+      "WR": {
+        "row_level": {
+          "value": 0.0151,
+          "se": 0.0066,
+          "n_rows": 112684.0,
+          "n_plays": 8496.0,
+          "value_playmean": 0.0177,
+          "lo": 0.0023,
+          "hi": 0.0279,
+          "sep": 3.2071,
+          "exp_sep": 3.192
+        },
+        "by_landmark": [
+          {
+            "landmark": "t1.0",
+            "value": 0.0096,
+            "se": 0.005,
+            "n_rows": 22966.0,
+            "n_plays": 8496.0,
+            "value_playmean": 0.0079,
+            "lo": -0.0002,
+            "hi": 0.0194,
+            "sep": 3.8718,
+            "exp_sep": 3.8622
+          },
+          {
+            "landmark": "t1.5",
+            "value": 0.0072,
+            "se": 0.0084,
+            "n_rows": 22857.0,
+            "n_plays": 8457.0,
+            "value_playmean": 0.0039,
+            "lo": -0.0092,
+            "hi": 0.0236,
+            "sep": 3.3895,
+            "exp_sep": 3.3823
+          },
+          {
+            "landmark": "t2.0",
+            "value": 0.0161,
+            "se": 0.0093,
+            "n_rows": 20647.0,
+            "n_plays": 7654.0,
+            "value_playmean": 0.0172,
+            "lo": -0.0021,
+            "hi": 0.0343,
+            "sep": 2.9119,
+            "exp_sep": 2.8958
+          },
+          {
+            "landmark": "t2.5",
+            "value": 0.0284,
+            "se": 0.0113,
+            "n_rows": 15691.0,
+            "n_plays": 5859.0,
+            "value_playmean": 0.0322,
+            "lo": 0.0063,
+            "hi": 0.0505,
+            "sep": 2.8137,
+            "exp_sep": 2.7853
+          },
+          {
+            "landmark": "t3.0",
+            "value": 0.0001,
+            "se": 0.0163,
+            "n_rows": 10108.0,
+            "n_plays": 3825.0,
+            "value_playmean": -0.0011,
+            "lo": -0.0318,
+            "hi": 0.0319,
+            "sep": 2.9216,
+            "exp_sep": 2.9215
+          },
+          {
+            "landmark": "throw",
+            "value": 0.0262,
+            "se": 0.0118,
+            "n_rows": 20415.0,
+            "n_plays": 7549.0,
+            "value_playmean": 0.0238,
+            "lo": 0.0032,
+            "hi": 0.0493,
+            "sep": 2.9971,
+            "exp_sep": 2.9709
+          }
+        ],
+        "by_coverage_type": [
+          {
+            "pff_passCoverageType": "Man",
+            "value": 0.0284,
+            "se": 0.0092,
+            "n_rows": 32662.0,
+            "n_plays": 2471.0,
+            "value_playmean": 0.0326,
+            "lo": 0.0103,
+            "hi": 0.0465,
+            "sep": 2.3197,
+            "exp_sep": 2.2913
+          },
+          {
+            "pff_passCoverageType": "Other",
+            "value": 0.0229,
+            "se": 0.0311,
+            "n_rows": 6361.0,
+            "n_plays": 464.0,
+            "value_playmean": 0.0168,
+            "lo": -0.0381,
+            "hi": 0.0838,
+            "sep": 2.7879,
+            "exp_sep": 2.7651
+          },
+          {
+            "pff_passCoverageType": "Zone",
+            "value": 0.0085,
+            "se": 0.0087,
+            "n_rows": 73661.0,
+            "n_plays": 5561.0,
+            "value_playmean": 0.0112,
+            "lo": -0.0086,
+            "hi": 0.0257,
+            "sep": 3.6368,
+            "exp_sep": 3.6282
+          }
+        ],
+        "player_distribution_min_plays": 40,
+        "player_distribution": {
+          "n_players": 147,
+          "mean_value": 0.012692517112236465,
+          "sd_value": 0.10378262134272646,
+          "sd_value_shrunk": 0.07441925237030256,
+          "p10": -0.12032316040275257,
+          "p25": -0.06720440158858074,
+          "p50": 0.017364174033729717,
+          "p75": 0.08564314616018365,
+          "p90": 0.13744469794820433,
+          "share_ci_above_0": 0.08163265306122448,
+          "share_ci_below_0": 0.047619047619047616
+        }
+      },
+      "RB": {
+        "row_level": {
+          "value": 0.0064,
+          "se": 0.011,
+          "n_rows": 34391.0,
+          "n_plays": 6834.0,
+          "value_playmean": 0.0038,
+          "lo": -0.0152,
+          "hi": 0.0281,
+          "sep": 3.8809,
+          "exp_sep": 3.8745
+        },
+        "by_landmark": [
+          {
+            "landmark": "t1.0",
+            "value": 0.0022,
+            "se": 0.0073,
+            "n_rows": 6975.0,
+            "n_plays": 6834.0,
+            "value_playmean": 0.0011,
+            "lo": -0.012,
+            "hi": 0.0164,
+            "sep": 4.5125,
+            "exp_sep": 4.5103
+          },
+          {
+            "landmark": "t1.5",
+            "value": -0.014,
+            "se": 0.011,
+            "n_rows": 6940.0,
+            "n_plays": 6801.0,
+            "value_playmean": -0.0146,
+            "lo": -0.0356,
+            "hi": 0.0076,
+            "sep": 3.2866,
+            "exp_sep": 3.3006
+          },
+          {
+            "landmark": "t2.0",
+            "value": 0.0295,
+            "se": 0.0152,
+            "n_rows": 6278.0,
+            "n_plays": 6151.0,
+            "value_playmean": 0.0294,
+            "lo": -0.0002,
+            "hi": 0.0593,
+            "sep": 3.2951,
+            "exp_sep": 3.2656
+          },
+          {
+            "landmark": "t2.5",
+            "value": 0.0039,
+            "se": 0.0217,
+            "n_rows": 4829.0,
+            "n_plays": 4724.0,
+            "value_playmean": 0.0021,
+            "lo": -0.0387,
+            "hi": 0.0465,
+            "sep": 3.6972,
+            "exp_sep": 3.6933
+          },
+          {
+            "landmark": "t3.0",
+            "value": 0.0025,
+            "se": 0.0347,
+            "n_rows": 3145.0,
+            "n_plays": 3083.0,
+            "value_playmean": 0.0027,
+            "lo": -0.0656,
+            "hi": 0.0706,
+            "sep": 4.2,
+            "exp_sep": 4.1975
+          },
+          {
+            "landmark": "throw",
+            "value": 0.0145,
+            "se": 0.0249,
+            "n_rows": 6224.0,
+            "n_plays": 6093.0,
+            "value_playmean": 0.0141,
+            "lo": -0.0342,
+            "hi": 0.0632,
+            "sep": 4.4081,
+            "exp_sep": 4.3937
+          }
+        ],
+        "by_coverage_type": [
+          {
+            "pff_passCoverageType": "Man",
+            "value": -0.06,
+            "se": 0.02,
+            "n_rows": 9019.0,
+            "n_plays": 1825.0,
+            "value_playmean": -0.0647,
+            "lo": -0.0992,
+            "hi": -0.0208,
+            "sep": 3.2922,
+            "exp_sep": 3.3522
+          },
+          {
+            "pff_passCoverageType": "Other",
+            "value": -0.006,
+            "se": 0.0503,
+            "n_rows": 1934.0,
+            "n_plays": 387.0,
+            "value_playmean": -0.0197,
+            "lo": -0.1047,
+            "hi": 0.0927,
+            "sep": 3.6877,
+            "exp_sep": 3.6937
+          },
+          {
+            "pff_passCoverageType": "Zone",
+            "value": 0.033,
+            "se": 0.0136,
+            "n_rows": 23438.0,
+            "n_plays": 4622.0,
+            "value_playmean": 0.0328,
+            "lo": 0.0063,
+            "hi": 0.0597,
+            "sep": 4.1234,
+            "exp_sep": 4.0904
+          }
+        ],
+        "player_distribution_min_plays": 40,
+        "player_distribution": {
+          "n_players": 66,
+          "mean_value": -0.00025838883918256455,
+          "sd_value": 0.1430093003222163,
+          "sd_value_shrunk": 0.10111948127026651,
+          "p10": -0.17500326992703089,
+          "p25": -0.10233687825044777,
+          "p50": -0.009569009513884934,
+          "p75": 0.12014985547230182,
+          "p90": 0.1718656742772069,
+          "share_ci_above_0": 0.07575757575757576,
+          "share_ci_below_0": 0.07575757575757576
+        }
+      },
+      "FB": {
+        "row_level": {
+          "value": -0.1543,
+          "se": 0.0547,
+          "n_rows": 1916.0,
+          "n_plays": 385.0,
+          "value_playmean": -0.1483,
+          "lo": -0.2616,
+          "hi": -0.0471,
+          "sep": 3.2353,
+          "exp_sep": 3.3897
+        },
+        "by_landmark": [
+          {
+            "landmark": "t1.0",
+            "value": 0.0336,
+            "se": 0.0354,
+            "n_rows": 385.0,
+            "n_plays": 385.0,
+            "value_playmean": 0.0336,
+            "lo": -0.0358,
+            "hi": 0.103,
+            "sep": 3.3136,
+            "exp_sep": 3.28
+          },
+          {
+            "landmark": "t1.5",
+            "value": -0.1235,
+            "se": 0.0516,
+            "n_rows": 383.0,
+            "n_plays": 383.0,
+            "value_playmean": -0.1235,
+            "lo": -0.2246,
+            "hi": -0.0225,
+            "sep": 2.731,
+            "exp_sep": 2.8546
+          },
+          {
+            "landmark": "t2.0",
+            "value": -0.2122,
+            "se": 0.0798,
+            "n_rows": 343.0,
+            "n_plays": 343.0,
+            "value_playmean": -0.2122,
+            "lo": -0.3686,
+            "hi": -0.0557,
+            "sep": 2.889,
+            "exp_sep": 3.1012
+          },
+          {
+            "landmark": "t2.5",
+            "value": -0.2457,
+            "se": 0.1071,
+            "n_rows": 271.0,
+            "n_plays": 271.0,
+            "value_playmean": -0.2457,
+            "lo": -0.4555,
+            "hi": -0.0358,
+            "sep": 3.2573,
+            "exp_sep": 3.503
+          },
+          {
+            "landmark": "t3.0",
+            "value": -0.3291,
+            "se": 0.1441,
+            "n_rows": 187.0,
+            "n_plays": 187.0,
+            "value_playmean": -0.3291,
+            "lo": -0.6116,
+            "hi": -0.0466,
+            "sep": 3.5316,
+            "exp_sep": 3.8608
+          },
+          {
+            "landmark": "throw",
+            "value": -0.1741,
+            "se": 0.1053,
+            "n_rows": 347.0,
+            "n_plays": 347.0,
+            "value_playmean": -0.1741,
+            "lo": -0.3804,
+            "hi": 0.0322,
+            "sep": 3.8705,
+            "exp_sep": 4.0446
+          }
+        ],
+        "by_coverage_type": [
+          {
+            "pff_passCoverageType": "Man",
+            "value": -0.0205,
+            "se": 0.1313,
+            "n_rows": 354.0,
+            "n_plays": 72.0,
+            "value_playmean": -0.007,
+            "lo": -0.2779,
+            "hi": 0.2369,
+            "sep": 3.0646,
+            "exp_sep": 3.085
+          },
+          {
+            "pff_passCoverageType": "Other",
+            "value": -0.2329,
+            "se": 0.1436,
+            "n_rows": 165.0,
+            "n_plays": 32.0,
+            "value_playmean": -0.1981,
+            "lo": -0.5144,
+            "hi": 0.0485,
+            "sep": 2.4896,
+            "exp_sep": 2.7225
+          },
+          {
+            "pff_passCoverageType": "Zone",
+            "value": -0.179,
+            "se": 0.0651,
+            "n_rows": 1397.0,
+            "n_plays": 281.0,
+            "value_playmean": -0.1788,
+            "lo": -0.3066,
+            "hi": -0.0513,
+            "sep": 3.3667,
+            "exp_sep": 3.5456
+          }
+        ],
+        "player_distribution_min_plays": 40,
+        "player_distribution": {
+          "n_players": 2,
+          "mean_value": -0.1993234449882584,
+          "sd_value": 0.29085342800376923,
+          "sd_value_shrunk": 0.07273391220744435,
+          "p10": -0.3638549900065132,
+          "p25": -0.30215566062466764,
+          "p50": -0.19932344498825844,
+          "p75": -0.09649122935184917,
+          "p90": -0.03479189997000362,
+          "share_ci_above_0": 0.0,
+          "share_ci_below_0": 0.5
+        }
+      }
+    },
+    "tests": {
+      "kruskal_TE_WR_RB_player_values": {
+        "H": 2.8003920993058955,
+        "p": 0.24654862343113274
+      },
+      "mannwhitney_TE_vs_WR": {
+        "U": 4143.0,
+        "p": 0.0889612044912698
+      }
+    }
+  },
+  "split_half_reliability": {
+    "TE": [
+      {
+        "spearman": 0.027838444738380142,
+        "n_players": 58,
+        "min_plays_each_half": 10
+      },
+      {
+        "spearman": -0.05505226480836238,
+        "n_players": 41,
+        "min_plays_each_half": 20
+      }
+    ],
+    "WR": [
+      {
+        "spearman": 0.22643317972350224,
+        "n_players": 125,
+        "min_plays_each_half": 10
+      },
+      {
+        "spearman": 0.219045904590459,
+        "n_players": 100,
+        "min_plays_each_half": 20
+      }
+    ],
+    "RB": [
+      {
+        "spearman": 0.21915820029027575,
+        "n_players": 52,
+        "min_plays_each_half": 10
+      }
+    ],
+    "TE_raw_separation_for_reference": {
+      "spearman": 0.08105447722169247,
+      "n_players": 58,
+      "min_plays_each_half": 10
+    }
+  },
+  "target_check": {
+    "TE": {
+      "sample": "TE route/chip_release, throw landmark",
+      "n_rows": 7726,
+      "base_target_rate": 0.20243334196220553,
+      "by_soe_quintile": [
+        {
+          "quintile": 1,
+          "n": 1546,
+          "k": 157,
+          "lo_val": -7.7454,
+          "hi_val": -1.3734,
+          "mean_val": -2.1537,
+          "target_rate": 0.1016,
+          "ci_lo": 0.0875,
+          "ci_hi": 0.1176
+        },
+        {
+          "quintile": 2,
+          "n": 1545,
+          "k": 246,
+          "lo_val": -1.3732,
+          "hi_val": -0.6417,
+          "mean_val": -0.9849,
+          "target_rate": 0.1592,
+          "ci_lo": 0.1418,
+          "ci_hi": 0.1783
+        },
+        {
+          "quintile": 3,
+          "n": 1545,
+          "k": 309,
+          "lo_val": -0.6416,
+          "hi_val": 0.1029,
+          "mean_val": -0.2855,
+          "target_rate": 0.2,
+          "ci_lo": 0.1808,
+          "ci_hi": 0.2207
+        },
+        {
+          "quintile": 4,
+          "n": 1545,
+          "k": 368,
+          "lo_val": 0.1031,
+          "hi_val": 1.2099,
+          "mean_val": 0.6028,
+          "target_rate": 0.2382,
+          "ci_lo": 0.2176,
+          "ci_hi": 0.2601
+        },
+        {
+          "quintile": 5,
+          "n": 1545,
+          "k": 484,
+          "lo_val": 1.2101,
+          "hi_val": 19.9202,
+          "mean_val": 2.597,
+          "target_rate": 0.3133,
+          "ci_lo": 0.2906,
+          "ci_hi": 0.3368
+        }
+      ],
+      "by_sep_quintile": [
+        {
+          "quintile": 1,
+          "n": 1546,
+          "k": 184,
+          "lo_val": 0.1703,
+          "hi_val": 1.1463,
+          "mean_val": 0.8372,
+          "target_rate": 0.119,
+          "ci_lo": 0.1038,
+          "ci_hi": 0.1361
+        },
+        {
+          "quintile": 2,
+          "n": 1545,
+          "k": 251,
+          "lo_val": 1.1473,
+          "hi_val": 2.0096,
+          "mean_val": 1.5542,
+          "target_rate": 0.1625,
+          "ci_lo": 0.1449,
+          "ci_hi": 0.1817
+        },
+        {
+          "quintile": 3,
+          "n": 1545,
+          "k": 302,
+          "lo_val": 2.0096,
+          "hi_val": 3.1338,
+          "mean_val": 2.5593,
+          "target_rate": 0.1955,
+          "ci_lo": 0.1765,
+          "ci_hi": 0.216
+        },
+        {
+          "quintile": 4,
+          "n": 1545,
+          "k": 348,
+          "lo_val": 3.1346,
+          "hi_val": 4.7275,
+          "mean_val": 3.8568,
+          "target_rate": 0.2252,
+          "ci_lo": 0.2051,
+          "ci_hi": 0.2467
+        },
+        {
+          "quintile": 5,
+          "n": 1545,
+          "k": 479,
+          "lo_val": 4.7276,
+          "hi_val": 25.29,
+          "mean_val": 6.6946,
+          "target_rate": 0.31,
+          "ci_lo": 0.2875,
+          "ci_hi": 0.3335
+        }
+      ],
+      "auc_soe": 0.6302024577664772,
+      "auc_soe_test": 0.6389387750252951,
+      "auc_sep": 0.6152675190985755,
+      "auc_sep_test": 0.626951581957037,
+      "auc_exp_sep": 0.518124035525052,
+      "auc_exp_sep_test": 0.5472527864184746
+    },
+    "all_route_runners": {
+      "sample": "all route runners, throw landmark",
+      "n_rows": 33721,
+      "base_target_rate": 0.21550369206132677,
+      "by_soe_quintile": [
+        {
+          "quintile": 1,
+          "n": 6745,
+          "k": 944,
+          "lo_val": -8.8157,
+          "hi_val": -1.2556,
+          "mean_val": -2.0693,
+          "target_rate": 0.14,
+          "ci_lo": 0.1319,
+          "ci_hi": 0.1484
+        },
+        {
+          "quintile": 2,
+          "n": 6744,
+          "k": 1191,
+          "lo_val": -1.2556,
+          "hi_val": -0.5055,
+          "mean_val": -0.8569,
+          "target_rate": 0.1766,
+          "ci_lo": 0.1677,
+          "ci_hi": 0.1859
+        },
+        {
+          "quintile": 3,
+          "n": 6744,
+          "k": 1467,
+          "lo_val": -0.5054,
+          "hi_val": 0.1703,
+          "mean_val": -0.1813,
+          "target_rate": 0.2175,
+          "ci_lo": 0.2078,
+          "ci_hi": 0.2275
+        },
+        {
+          "quintile": 4,
+          "n": 6744,
+          "k": 1674,
+          "lo_val": 0.1704,
+          "hi_val": 1.2126,
+          "mean_val": 0.643,
+          "target_rate": 0.2482,
+          "ci_lo": 0.2381,
+          "ci_hi": 0.2587
+        },
+        {
+          "quintile": 5,
+          "n": 6744,
+          "k": 1991,
+          "lo_val": 1.2129,
+          "hi_val": 19.9202,
+          "mean_val": 2.5315,
+          "target_rate": 0.2952,
+          "ci_lo": 0.2845,
+          "ci_hi": 0.3062
+        }
+      ],
+      "by_sep_quintile": [
+        {
+          "quintile": 1,
+          "n": 6745,
+          "k": 1066,
+          "lo_val": 0.1345,
+          "hi_val": 1.2748,
+          "mean_val": 0.9191,
+          "target_rate": 0.158,
+          "ci_lo": 0.1495,
+          "ci_hi": 0.1669
+        },
+        {
+          "quintile": 2,
+          "n": 6744,
+          "k": 1295,
+          "lo_val": 1.2748,
+          "hi_val": 2.2006,
+          "mean_val": 1.7129,
+          "target_rate": 0.192,
+          "ci_lo": 0.1828,
+          "ci_hi": 0.2016
+        },
+        {
+          "quintile": 3,
+          "n": 6744,
+          "k": 1333,
+          "lo_val": 2.2006,
+          "hi_val": 3.3793,
+          "mean_val": 2.7688,
+          "target_rate": 0.1977,
+          "ci_lo": 0.1883,
+          "ci_hi": 0.2073
+        },
+        {
+          "quintile": 4,
+          "n": 6744,
+          "k": 1627,
+          "lo_val": 3.3801,
+          "hi_val": 4.9894,
+          "mean_val": 4.1152,
+          "target_rate": 0.2413,
+          "ci_lo": 0.2312,
+          "ci_hi": 0.2516
+        },
+        {
+          "quintile": 5,
+          "n": 6744,
+          "k": 1946,
+          "lo_val": 4.9895,
+          "hi_val": 25.29,
+          "mean_val": 6.9396,
+          "target_rate": 0.2886,
+          "ci_lo": 0.2779,
+          "ci_hi": 0.2995
+        }
+      ],
+      "auc_soe": 0.5946279376985637,
+      "auc_soe_test": 0.6017200080515298,
+      "auc_sep": 0.5773753342532402,
+      "auc_sep_test": 0.5834129428341385,
+      "auc_exp_sep": 0.5100266738842656,
+      "auc_exp_sep_test": 0.5163054549114332
+    },
+    "within_play_all_route_runners": {
+      "n_plays": 7267,
+      "target_is_max_soe": 0.3122333837897344,
+      "target_is_max_sep": 0.3050777487271226,
+      "random_baseline": 0.22238429429842674
+    }
+  },
+  "sensitivity": {
+    "route_only_no_chip": {
+      "spearman_vs_main_value": 0.9354973384824132,
+      "n_players": 66,
+      "league_mean_soe": -0.03505142424389096,
+      "split_half_reliability": {
+        "spearman": -0.0020923520923520926,
+        "n_players": 55,
+        "min_plays_each_half": 10
+      },
+      "top5": [
+        "Josh Oliver",
+        "Adam Shaheen",
+        "Evan Engram",
+        "Mark Andrews",
+        "Dan Arnold"
+      ]
+    },
+    "fixed_time_landmarks_only": {
+      "spearman_vs_main_value": 0.9217618202692831,
+      "n_players": 66,
+      "league_mean_soe": -0.017860793582402577,
+      "split_half_reliability": {
+        "spearman": 0.08007013442431327,
+        "n_players": 58,
+        "min_plays_each_half": 10
+      },
+      "top5": [
+        "Josh Oliver",
+        "Noah Fant",
+        "Dan Arnold",
+        "Jesse James",
+        "Evan Engram"
+      ]
+    },
+    "throw_landmark_only": {
+      "spearman_vs_main_value": 0.714894061162718,
+      "n_players": 66,
+      "league_mean_soe": -0.046761348239338335,
+      "split_half_reliability": {
+        "spearman": 0.04718614718614719,
+        "n_players": 55,
+        "min_plays_each_half": 10
+      },
+      "top5": [
+        "Ryan Griffin",
+        "Noah Fant",
+        "Mark Andrews",
+        "Dan Arnold",
+        "Jonnu Smith"
+      ]
+    },
+    "sep_capped_10yd_refit": {
+      "spearman_vs_main_value": 0.9833420311032253,
+      "n_players": 66,
+      "league_mean_soe": -0.026147520497391257,
+      "split_half_reliability": {
+        "spearman": 0.02543910916976837,
+        "n_players": 58,
+        "min_plays_each_half": 10
+      },
+      "top5": [
+        "Josh Oliver",
+        "Noah Fant",
+        "Dan Arnold",
+        "Adam Shaheen",
+        "Juwan Johnson"
+      ],
+      "test": {
+        "rmse": 1.2924676056865227,
+        "mae": 0.9514962991138844,
+        "r2": 0.5992649223500941,
+        "n": 43643
+      }
+    },
+    "presnap_context_only_refit": {
+      "spearman_vs_main_value": 0.8483665588143202,
+      "n_players": 66,
+      "league_mean_soe": -0.033655342460516324,
+      "split_half_reliability": {
+        "spearman": 0.09255898366606172,
+        "n_players": 58,
+        "min_plays_each_half": 10
+      },
+      "top5": [
+        "Evan Engram",
+        "Noah Fant",
+        "Dawson Knox",
+        "Mark Andrews",
+        "Josh Oliver"
+      ],
+      "test": {
+        "rmse": 1.4917820047623351,
+        "mae": 1.0854216463955755,
+        "r2": 0.4900545739759954,
+        "n": 43643
+      }
+    },
+    "play_weighted_mean": {
+      "spearman_vs_main_value": 0.9799185888738129,
+      "n_players": 66
+    },
+    "shrunk_vs_raw_value": {
+      "spearman": 0.9842605156037993
+    }
+  },
+  "top5_min_plays": [
+    {
+      "nflId": 47852,
+      "displayName": "Josh Oliver",
+      "team": "BAL",
+      "n_plays": 57,
+      "n_rows": 297,
+      "value": 0.4256,
+      "value_shrunk": 0.18,
+      "lo": 0.1539,
+      "hi": 0.6973
+    },
+    {
+      "nflId": 47803,
+      "displayName": "Noah Fant",
+      "team": "DEN",
+      "n_plays": 233,
+      "n_rows": 1155,
+      "value": 0.1478,
+      "value_shrunk": 0.1136,
+      "lo": 0.0245,
+      "hi": 0.2712
+    },
+    {
+      "nflId": 45785,
+      "displayName": "Dan Arnold",
+      "team": "JAX/CAR",
+      "n_plays": 154,
+      "n_rows": 751,
+      "value": 0.1472,
+      "value_shrunk": 0.0921,
+      "lo": -0.0233,
+      "hi": 0.3177
+    },
+    {
+      "nflId": 44857,
+      "displayName": "Adam Shaheen",
+      "team": "MIA",
+      "n_plays": 73,
+      "n_rows": 344,
+      "value": 0.1401,
+      "value_shrunk": 0.0797,
+      "lo": -0.0487,
+      "hi": 0.3289
+    },
+    {
+      "nflId": 46155,
+      "displayName": "Mark Andrews",
+      "team": "BAL",
+      "n_plays": 213,
+      "n_rows": 1084,
+      "value": 0.0931,
+      "value_shrunk": 0.07,
+      "lo": -0.0294,
+      "hi": 0.2155
+    }
+  ],
+  "caveats": [
+    "Landmark-location features (route depth, lateral position, distance to sideline at the landmark) are partly receiver-controlled; they are included per spec so SOE compares receivers at the same spot. The pre-snap-only refit in sensitivity shows how much this matters.",
+    "Separation = distance to nearest defender only; it ignores leverage, defender closing speed and the ball; tracking stops at the throw so no catch-point separation exists.",
+    "Fixed landmarks after the end of the dropback are dropped, so long-developing routes are only observed on long dropbacks (selection toward quick-game at late landmarks).",
+    "Chip-release plays include pre-release frames where the TE is engaged with a rusher; the model has no assignment feature, so chip plays can carry negative early SOE (see by_assignment).",
+    "Expected model is position-blind; position-level mean SOE differences reflect what context features do not explain (e.g., TEs drawing linebackers, WRs on the boundary).",
+    "Coverage labels (PFF) are play-level, not receiver-level; man vs zone splits are play-level.",
+    "Throw landmark target check is descriptive: QBs target open receivers, and separation at the throw frame partly reflects the QB's read; no causal claim.",
+    "29 TE route/chip assignments in te_plays have no routes/receiver_frames row and are excluded.",
+    "8 weeks only; split-half reliability compares weeks 1-6 vs 7-8 (unequal halves). TE SOE split-half Spearman = 0.028 (n=58); if near zero, player SOE over this window is mostly noise: treat rankings as descriptive and rely on value_shrunk + CIs."
+  ],
+  "runtime_sec": 512.8
+}

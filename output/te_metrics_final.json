@@ -1,0 +1,101 @@
+{
+  "metrics": {
+    "release_tax_s": {
+      "slug": "route_release_tax",
+      "column": "value_shrunk",
+      "higher_is_better": false
+    },
+    "csr_yd": {
+      "slug": "chip_to_separation_return",
+      "column": "value",
+      "higher_is_better": true
+    },
+    "eligible_threat_rate": {
+      "slug": "eligible_threat_rate",
+      "column": "value_shrunk",
+      "higher_is_better": true
+    },
+    "coverage_gravity": {
+      "slug": "coverage_gravity",
+      "column": "value_shrunk",
+      "higher_is_better": true
+    },
+    "soe_yd": {
+      "slug": "matchup_soe",
+      "column": "value_shrunk",
+      "higher_is_better": true
+    },
+    "mof_access": {
+      "slug": "middle_of_field_access",
+      "column": "value_shrunk",
+      "higher_is_better": true
+    },
+    "yac_runway_yd": {
+      "slug": "yac_runway",
+      "column": "value",
+      "higher_is_better": true
+    },
+    "pva_per_snap": {
+      "slug": "protection_value_added",
+      "column": "value",
+      "higher_is_better": true
+    },
+    "edge_seal_oe": {
+      "slug": "edge_seal_sustainability",
+      "column": "value",
+      "higher_is_better": true
+    },
+    "deployment_index": {
+      "slug": "deployment_index",
+      "column": "value_shrunk",
+      "higher_is_better": true
+    },
+    "constraint_box": {
+      "slug": "constraint_value",
+      "column": "value_shrunk",
+      "higher_is_better": true
+    },
+    "rz_conflict": {
+      "slug": "red_zone_conflict",
+      "column": "value_shrunk",
+      "higher_is_better": true
+    }
+  },
+  "missing_metrics": [],
+  "composite_groups": {
+    "route_value": [
+      "soe_yd",
+      "eligible_threat_rate",
+      "mof_access",
+      "release_tax_s",
+      "yac_runway_yd"
+    ],
+    "protection_value": [
+      "pva_per_snap",
+      "edge_seal_oe"
+    ],
+    "chip_value": [
+      "csr_yd"
+    ],
+    "gravity_value": [
+      "coverage_gravity"
+    ],
+    "versatility_value": [
+      "deployment_index"
+    ]
+  },
+  "composite_weights": {
+    "route_value": 0.35,
+    "protection_value": 0.25,
+    "chip_value": 0.2,
+    "gravity_value": 0.1,
+    "versatility_value": 0.1
+  },
+  "min_snaps_for_z_and_rank": 100,
+  "notes": [
+    "z-scores computed among TEs with >= MIN_SNAPS snaps, sign-aligned (higher = better)",
+    "release_tax_s is lower-is-better, so its z is negated",
+    "missing group components are filled with 0 (league average)",
+    "composite is secondary; component metrics are primary (see tight-end-metrics.md)"
+  ]
+}

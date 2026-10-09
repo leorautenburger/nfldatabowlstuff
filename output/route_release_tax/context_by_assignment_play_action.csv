@@ -1,0 +1,5 @@
+assignment,play_action,n,mean_tax,median_tax,sd_tax,never_released_rate,mean_release_t_released,mean_max_depth,targets,catches,target_rate,target_lo,target_hi,catch_rate,catch_per_target
+chip_release,PA,409,1.8064,1.7,0.7972,0.1051,1.6902,2.194,93,73,0.2274,0.1894,0.2704,0.1785,0.7849
+chip_release,no_PA,687,1.9044,1.8,0.5566,0.0786,1.8648,2.4834,83,65,0.1208,0.0985,0.1473,0.0946,0.7831
+route,PA,1555,1.1694,1.0,0.555,0.0199,1.1294,7.5995,353,249,0.227,0.2069,0.2485,0.1601,0.7054
+route,no_PA,6384,1.0569,1.0,0.347,0.0053,1.0679,7.5048,1035,658,0.1621,0.1533,0.1714,0.1031,0.6357

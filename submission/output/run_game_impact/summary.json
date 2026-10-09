@@ -1,0 +1,33 @@
+{
+  "metric": "Run-Game Impact",
+  "status": "provisional",
+  "source": {
+    "file": "te_run_metrics.csv",
+    "provenance": "Undocumented uploaded table from the repository main branch.",
+    "warning": "The upstream methodology is not available in this repository. This score is a transparent integration layer, not validated tracking evidence."
+  },
+  "player_matching": {
+    "method": "exact normalized player name + team, with unique-name fallback for multi-team source rows",
+    "source_rows": 84,
+    "matched_rows": 84,
+    "unmatched_rows": 0,
+    "match_methods": {
+      "exact_name_team": 84
+    },
+    "audit_file": "matches.csv"
+  },
+  "score": {
+    "formula": "0.40 * rush EPA on/off percentile + 0.25 * rush success on/off percentile + 0.20 * edge-run EPA percentile + 0.15 * short-yardage conversion percentile; available weights are renormalized.",
+    "minimums": {
+      "offensive_runs": 30,
+      "edge_runs": 20,
+      "short_yardage_plays": 5
+    },
+    "shrinkage": "score shrunk toward 50 with n_off_runs / (n_off_runs + 50)"
+  },
+  "usage_context_not_scored": [
+    "run_tilt",
+    "heavy_share",
+    "avg_box_on"
+  ]
+}

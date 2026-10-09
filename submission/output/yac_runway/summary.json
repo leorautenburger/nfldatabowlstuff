@@ -1,0 +1,337 @@
+{
+  "metric": "YAC Runway",
+  "slug": "yac_runway",
+  "definition": "Completions with a parsed target. Flight time = QB-target distance at throw / calibrated ball speed; target and defenders projected at constant velocity from the last tracked frame (throw+~0.5 s) for the remaining flight time. catch_depth = projected target x_rel; yac_est = prePenaltyPlayResult - catch_depth. Runway = E[YAC | space at catch]; Runway+ = E[YAC | space + receiver s/vx/a]. TE value = mean Runway (expected YAC from space); momentum = Runway+ - Runway; yacoe = clipped yac_est - Runway+.",
+  "parameters": {
+    "ball_speed_yd_per_s": 21.029,
+    "arrival_events": [
+      "pass_arrived",
+      "pass_outcome_caught"
+    ],
+    "yac_implausible_below": -3.0,
+    "yac_target_clip": [
+      -5.0,
+      30.0
+    ],
+    "cone_half_angle_deg": 45.0,
+    "cone_radius_yd": 10.0,
+    "def_radii_yd": [
+      5.0,
+      10.0
+    ],
+    "min_catches_top5": 10,
+    "space_features": [
+      "catch_depth",
+      "nd_dist",
+      "nd_dx",
+      "n_def_5",
+      "n_def_10",
+      "n_cone",
+      "sideline_dist",
+      "ytg_catch",
+      "nd_closing"
+    ],
+    "speed_features": [
+      "rec_s",
+      "rec_vx",
+      "rec_a"
+    ],
+    "model": "HistGradientBoostingRegressor",
+    "model_params": {
+      "loss": "squared_error",
+      "max_iter": 300,
+      "learning_rate": 0.05,
+      "max_leaf_nodes": 15,
+      "min_samples_leaf": 40,
+      "l2_regularization": 1.0,
+      "random_state": 42
+    },
+    "loss_choice": "squared_error on yac_est clipped to [-5, 30] (keeps E[.] a mean while limiting long-run outliers); no tuning grid",
+    "position_used_as_feature": false,
+    "train_weeks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "test_weeks": [
+      7,
+      8
+    ]
+  },
+  "projection_calibration": {
+    "n_calibration_plays": 378,
+    "n_caught_event_plays": 323,
+    "ball_speed_yd_per_s": 21.029,
+    "calibration_d_throw_yd": {
+      "mean": 10.2,
+      "max": 23.99
+    },
+    "calibration_flight_t_s": {
+      "mean": 0.482,
+      "max": 0.5
+    },
+    "flight_time_mae_s": 0.088,
+    "catch_point_error_yd_const_velocity": {
+      "mean": 0.608,
+      "p50": 0.535,
+      "p90": 1.025
+    },
+    "catch_point_error_yd_no_projection": {
+      "mean": 2.142,
+      "p50": 2.093,
+      "p90": 3.658
+    },
+    "catch_depth_bias_yd (proj - actual x)": 0.131,
+    "catch_depth_mae_yd": 0.312,
+    "receiver_to_ball_at_arrival_yd_p50": 1.626,
+    "note": "Calibration plays are ONLY quick throws whose arrival falls inside the ~0.5 s of post-throw tracking (flight <= 0.5 s, short distance). Errors on longer throws (longer projection horizon) will be larger.",
+    "tracked_ball_ground_speed_median_all_throws": 21.875
+  },
+  "sample_sizes": {
+    "completions_with_target_and_tracking": 4591,
+    "dropped_no_defender_rows": 0,
+    "train": 3563,
+    "test": 1028,
+    "te_catches": 1045,
+    "te_players": 91,
+    "te_players_n_ge_10": 44,
+    "implausible_flagged_all": 152,
+    "implausible_flagged_te": 35,
+    "tau_s (projection beyond tracking)": {
+      "median": 0.264,
+      "p90": 0.706,
+      "share_zero": 0.131
+    }
+  },
+  "model_test_metrics": {
+    "runway": {
+      "test_vs_clipped_target": {
+        "rmse": 4.94,
+        "mae": 3.261,
+        "r2": 0.4028,
+        "baseline_rmse": 6.393,
+        "baseline_mae": 4.783,
+        "baseline_r2": -0.0
+      },
+      "test_vs_raw_yac_est": {
+        "rmse": 5.911,
+        "mae": 3.438,
+        "r2": 0.3387,
+        "baseline_rmse": 7.269,
+        "baseline_mae": 4.96,
+        "baseline_r2": -0.0002
+      },
+      "test_TE_only_vs_clipped": {
+        "rmse": 3.753,
+        "mae": 2.652,
+        "r2": 0.5026,
+        "baseline_rmse": 5.336,
+        "baseline_mae": 4.041,
+        "baseline_r2": -0.0052
+      }
+    },
+    "runway_plus": {
+      "test_vs_clipped_target": {
+        "rmse": 4.617,
+        "mae": 2.955,
+        "r2": 0.4783,
+        "baseline_rmse": 6.393,
+        "baseline_mae": 4.783,
+        "baseline_r2": -0.0
+      },
+      "test_vs_raw_yac_est": {
+        "rmse": 5.57,
+        "mae": 3.133,
+        "r2": 0.4128,
+        "baseline_rmse": 7.269,
+        "baseline_mae": 4.96,
+        "baseline_r2": -0.0002
+      },
+      "test_TE_only_vs_clipped": {
+        "rmse": 3.617,
+        "mae": 2.374,
+        "r2": 0.538,
+        "baseline_rmse": 5.336,
+        "baseline_mae": 4.041,
+        "baseline_r2": -0.0052
+      }
+    },
+    "train_mean_baseline": 4.498
+  },
+  "eb_pooled_within_sd": {
+    "runway": 3.7684,
+    "yacoe": 4.0638
+  },
+  "eb_tau2_runway_raw_moment": -0.0691,
+  "eb_note": "tau^2 <= 0 means between-TE spread of mean Runway (n>=10) is no larger than sampling noise, so value_shrunk collapses to the grand mean for everyone; the players.csv order then falls back to the raw mean.",
+  "reliability": {
+    "TE": {
+      "runway": {
+        "min_n_10": {
+          "split_half_weeks": [
+            null,
+            1
+          ],
+          "odd_even_games": [
+            0.291,
+            13
+          ]
+        },
+        "min_n_5": {
+          "split_half_weeks": [
+            -0.278,
+            18
+          ],
+          "odd_even_games": [
+            -0.004,
+            32
+          ]
+        }
+      },
+      "momentum": {
+        "min_n_10": {
+          "split_half_weeks": [
+            null,
+            1
+          ],
+          "odd_even_games": [
+            0.637,
+            13
+          ]
+        },
+        "min_n_5": {
+          "split_half_weeks": [
+            0.232,
+            18
+          ],
+          "odd_even_games": [
+            0.429,
+            32
+          ]
+        }
+      },
+      "yacoe": {
+        "min_n_10": {
+          "split_half_weeks": [
+            null,
+            1
+          ],
+          "odd_even_games": [
+            0.154,
+            13
+          ]
+        },
+        "min_n_5": {
+          "split_half_weeks": [
+            -0.04,
+            18
+          ],
+          "odd_even_games": [
+            0.008,
+            32
+          ]
+        }
+      }
+    },
+    "all_receivers_context": {
+      "runway": {
+        "min_n_10": {
+          "split_half_weeks": [
+            0.073,
+            11
+          ],
+          "odd_even_games": [
+            0.299,
+            59
+          ]
+        },
+        "min_n_5": {
+          "split_half_weeks": [
+            0.416,
+            74
+          ],
+          "odd_even_games": [
+            0.293,
+            151
+          ]
+        }
+      },
+      "yacoe": {
+        "min_n_10": {
+          "split_half_weeks": [
+            0.045,
+            11
+          ],
+          "odd_even_games": [
+            0.22,
+            59
+          ]
+        },
+        "min_n_5": {
+          "split_half_weeks": [
+            -0.022,
+            74
+          ],
+          "odd_even_games": [
+            0.104,
+            151
+          ]
+        }
+      }
+    }
+  },
+  "top5_min10": [
+    {
+      "displayName": "Durham Smythe",
+      "n": 13,
+      "value": 6.036,
+      "value_shrunk": 4.233,
+      "momentum": 0.169,
+      "yacoe": -2.892
+    },
+    {
+      "displayName": "Ricky Seals-Jones",
+      "n": 19,
+      "value": 5.75,
+      "value_shrunk": 4.233,
+      "momentum": -1.043,
+      "yacoe": -0.054
+    },
+    {
+      "displayName": "MyCole Pruitt",
+      "n": 10,
+      "value": 5.477,
+      "value_shrunk": 4.233,
+      "momentum": 1.02,
+      "yacoe": -0.81
+    },
+    {
+      "displayName": "Rob Gronkowski",
+      "n": 15,
+      "value": 5.364,
+      "value_shrunk": 4.233,
+      "momentum": 1.09,
+      "yacoe": -0.908
+    },
+    {
+      "displayName": "Albert Okwuegbunam",
+      "n": 11,
+      "value": 5.257,
+      "value_shrunk": 4.233,
+      "momentum": -0.96,
+      "yacoe": 0.469
+    }
+  ],
+  "caveats": [
+    "No catch point, air yards or YAC exist in the data: catch depth and YAC are projections, so every number inherits projection error (see projection_calibration).",
+    "Ball speed is calibrated only on quick throws (<=0.5 s flight) whose arrival is tracked; longer throws extrapolate both the speed and constant-velocity paths.",
+    "Constant-velocity projection ignores route breaks and defender reactions after throw+0.5 s.",
+    "Small samples: most TEs have well under 30 catches in 8 weeks; per-TE CIs are wide and split-half reliability uses few players (weeks 7-8 hold ~1/4 of the data). Treat ranks as descriptive, not as a stable trait estimate, unless reliability says otherwise.",
+    "Runway mixes scheme and player: space at the catch reflects play design, coverage AND the receiver's route; momentum/yacoe isolate the player's speed and finishing only partially.",
+    "yac_est includes fumbles/laterals and any penalty-free play result quirks; implausible values (< -3) are flagged and kept (bounded by the target clip)."
+  ],
+  "runtime_s": 17.7
+}

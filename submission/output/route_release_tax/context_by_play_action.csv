@@ -1,0 +1,3 @@
+play_action,n,mean_tax,median_tax,sd_tax,never_released_rate,mean_release_t_released,mean_max_depth,targets,catches,target_rate,target_lo,target_hi,catch_rate,catch_per_target
+PA,1964,1.302,1.1,0.6655,0.0377,1.238,6.4738,446,322,0.2271,0.2091,0.2461,0.164,0.722
+no_PA,7071,1.1393,1.0,0.4492,0.0124,1.1401,7.0169,1118,723,0.1581,0.1498,0.1668,0.1022,0.6467

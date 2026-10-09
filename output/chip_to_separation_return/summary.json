@@ -1,0 +1,607 @@
+{
+  "metric": "Chip-to-Separation Return (CSR)",
+  "slug": "chip_to_separation_return",
+  "definition": "Per TE chip_release play: sep_end (nearest-defender distance at the throw frame) minus expected sep_end from a model fit on all TE route-running plays (route + chip_release) with no chip indicator. Player CSR = mean residual over the TE's chip_release plays.",
+  "plays_included": "TE assignment chip_release (PFF Pass Route with blockType CH or SR) or route; released (release_t not NaN); play ended in a throw (end_event == 'throw'); tracking present.",
+  "exclusions": {
+    "te_route_running_plays": 9064,
+    "chip_release_plays": 1101,
+    "route_plays": 7963,
+    "missing_route_tracking": 29,
+    "chip_missing_tracking": 5,
+    "never_released_chip": 97,
+    "never_released_route": 65,
+    "released_chip_no_throw_(sack/scramble)": 161,
+    "released_route_no_throw_(sack/scramble)": 850,
+    "model_rows": 7862,
+    "model_rows_train": 6067,
+    "model_rows_test": 1795,
+    "chip_csr_plays": 838,
+    "chip_csr_plays_train": 630,
+    "chip_csr_plays_test": 208
+  },
+  "features": {
+    "gbm": [
+      "release_t",
+      "x_rel_end",
+      "max_depth",
+      "t_rel_to_throw",
+      "t_end",
+      "receiver_num",
+      "n_rec_side",
+      "pff_playAction",
+      "lat_from_qb_end",
+      "lat_from_ball_end",
+      "sideline_dist_end",
+      "alignment",
+      "pff_passCoverageType",
+      "pff_passCoverage",
+      "dropBackType"
+    ],
+    "gbm_categorical": [
+      "alignment",
+      "pff_passCoverageType",
+      "pff_passCoverage",
+      "dropBackType"
+    ],
+    "linear": [
+      "release_t",
+      "x_rel_end",
+      "max_depth",
+      "t_rel_to_throw"
+    ],
+    "derived": {
+      "t_rel_to_throw": "t_end - release_t",
+      "lat_from_qb_end": "|y_end - QB y at throw frame|",
+      "lat_from_ball_end": "|y_end - ball_y at snap| (off-field ball_y set NaN)",
+      "sideline_dist_end": "min(y_end, 53.3 - y_end)"
+    }
+  },
+  "parameters": {
+    "train_weeks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "test_weeks": [
+      7,
+      8
+    ],
+    "min_chip_top": 8,
+    "gbm_grid": [
+      {
+        "max_iter": 300,
+        "learning_rate": 0.05,
+        "max_leaf_nodes": 15,
+        "min_samples_leaf": 40,
+        "l2_regularization": 1.0
+      },
+      {
+        "max_iter": 500,
+        "learning_rate": 0.03,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 30,
+        "l2_regularization": 1.0
+      },
+      {
+        "max_iter": 250,
+        "learning_rate": 0.05,
+        "max_depth": 4,
+        "min_samples_leaf": 60,
+        "l2_regularization": 2.0
+      }
+    ],
+    "gbm_selected": {
+      "max_iter": 250,
+      "learning_rate": 0.05,
+      "max_depth": 4,
+      "min_samples_leaf": 60,
+      "l2_regularization": 2.0
+    },
+    "pd_grid": [
+      0.5,
+      0.75,
+      1.0,
+      1.25,
+      1.5,
+      1.75,
+      2.0,
+      2.25,
+      2.5,
+      2.75,
+      3.0
+    ],
+    "pd_min_t_end": 3.5,
+    "shrinkage": "normal-normal EB (stats.eb_shrink_mean) with pooled chip-residual SD",
+    "ci": "mean +/- 1.96 * pooled_sd / sqrt(n) (pooled SD because per-player chip n is small)",
+    "pooled_sd_chip_resid": 2.4607498786445055,
+    "pooled_sd_route_resid": 1.7555531943424263,
+    "eb_tau2_chip_implied": 0.017149206339253098
+  },
+  "model": {
+    "primary": "gbm",
+    "gbm_tuning_train_oof": [
+      {
+        "params": {
+          "max_iter": 300,
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 40,
+          "l2_regularization": 1.0
+        },
+        "train_oof_rmse": 1.8494502023935566
+      },
+      {
+        "params": {
+          "max_iter": 500,
+          "learning_rate": 0.03,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 30,
+          "l2_regularization": 1.0
+        },
+        "train_oof_rmse": 1.8776453061188199
+      },
+      {
+        "params": {
+          "max_iter": 250,
+          "learning_rate": 0.05,
+          "max_depth": 4,
+          "min_samples_leaf": 60,
+          "l2_regularization": 2.0
+        },
+        "train_oof_rmse": 1.838947553732791
+      }
+    ],
+    "test_gbm": {
+      "all_te_routes": {
+        "rmse": 1.866535692803047,
+        "mae": 1.4057716962722808,
+        "r2": 0.3684678062542477,
+        "n": 1795
+      },
+      "chip_only": {
+        "rmse": 2.5950510938995865,
+        "mae": 1.7966375100808045,
+        "r2": 0.4177506913572998,
+        "n": 208
+      },
+      "route_only": {
+        "rmse": 1.7486997152609434,
+        "mae": 1.3545429065607664,
+        "r2": 0.27772022754303227,
+        "n": 1587
+      },
+      "baseline_all": {
+        "rmse": 2.349881354131736,
+        "mae": 1.7849117925252442,
+        "r2": -0.0009554919770429215,
+        "n": 1795
+      },
+      "baseline_chip": {
+        "rmse": 3.89116037152026,
+        "mae": 2.7411189056272467,
+        "r2": -0.30910781659621334,
+        "n": 208
+      }
+    },
+    "test_linear": {
+      "all_te_routes": {
+        "rmse": 2.246002375959187,
+        "mae": 1.725438568925828,
+        "r2": 0.08558504752933593,
+        "n": 1795
+      },
+      "chip_only": {
+        "rmse": 3.5097360865510554,
+        "mae": 2.470949937155763,
+        "r2": -0.06504038867921658,
+        "n": 208
+      },
+      "route_only": {
+        "rmse": 2.022670802795511,
+        "mae": 1.6277281942617912,
+        "r2": 0.03367017285299889,
+        "n": 1587
+      }
+    },
+    "train_mean_baseline": 3.0828780198585863
+  },
+  "league": {
+    "chip_mean_csr": {
+      "mean": 0.24430756661269842,
+      "lo": 0.07769738629838516,
+      "hi": 0.41091774692701166,
+      "n": 838.0
+    },
+    "chip_mean_csr_test_weeks": {
+      "mean": 0.13794095356038708,
+      "lo": -0.2150815534019848,
+      "hi": 0.49096346052275897,
+      "n": 208.0
+    },
+    "route_mean_resid": {
+      "mean": -0.03309971066911238,
+      "lo": -0.07415582208846665,
+      "hi": 0.007956400750241885,
+      "n": 7024.0
+    },
+    "chip_mean_sep": 5.002036079814128,
+    "chip_mean_exp_sep": 4.75772851320143,
+    "route_mean_sep": 2.8724661723243097,
+    "route_mean_exp_sep": 2.9055658829934217,
+    "chip_mean_release_t": 1.786634844868735,
+    "route_mean_release_t": 1.0839265375854215,
+    "chip_mean_depth_x_rel_end": 2.064021479713604,
+    "route_mean_depth_x_rel_end": 7.069904612756265,
+    "chip_csr_by_blocktype": {
+      "CH": {
+        "mean": 0.252,
+        "count": 601
+      },
+      "SR": {
+        "mean": 0.225,
+        "count": 237
+      }
+    },
+    "chip_csr_by_alignment": {
+      "backfield": {
+        "mean": -0.116,
+        "count": 21
+      },
+      "detached": {
+        "mean": 0.208,
+        "count": 272
+      },
+      "inline": {
+        "mean": 0.313,
+        "count": 491
+      },
+      "wing": {
+        "mean": -0.057,
+        "count": 54
+      }
+    },
+    "rates": {
+      "chip_all_assignments_incl_unreleased_and_sacks": {
+        "n": 1101,
+        "targets": 177,
+        "catches": 138,
+        "target_rate": 0.16076294277929154,
+        "target_rate_ci": [
+          0.1402512475244905,
+          0.18363373291071391
+        ],
+        "catch_rate_given_target": 0.7796610169491526,
+        "catch_rate_ci": [
+          0.7130192590157752,
+          0.8344211529248403
+        ]
+      },
+      "chip_csr_plays": {
+        "n": 838,
+        "targets": 159,
+        "catches": 125,
+        "target_rate": 0.18973747016706444,
+        "target_rate_ci": [
+          0.16462863624199248,
+          0.21767796395452904
+        ],
+        "catch_rate_given_target": 0.7861635220125787,
+        "catch_rate_ci": [
+          0.7160764507143362,
+          0.8427488126090408
+        ]
+      },
+      "route_plays": {
+        "n": 7024,
+        "targets": 1386,
+        "catches": 906,
+        "target_rate": 0.1973234624145786,
+        "target_rate_ci": [
+          0.18818269178419084,
+          0.2067951346938562
+        ],
+        "catch_rate_given_target": 0.6536796536796536,
+        "catch_rate_ci": [
+          0.6282365908065775,
+          0.6782731582180594
+        ]
+      },
+      "chip_csr_positive": {
+        "n": 423,
+        "targets": 108,
+        "catches": 90,
+        "target_rate": 0.2553191489361702,
+        "target_rate_ci": [
+          0.21609614957900877,
+          0.29894643296214923
+        ],
+        "catch_rate_given_target": 0.8333333333333334,
+        "catch_rate_ci": [
+          0.7518714683136942,
+          0.8918961458835275
+        ]
+      },
+      "chip_csr_nonpositive": {
+        "n": 415,
+        "targets": 51,
+        "catches": 35,
+        "target_rate": 0.12289156626506025,
+        "target_rate_ci": [
+          0.09471809154502457,
+          0.15798269080324268
+        ],
+        "catch_rate_given_target": 0.6862745098039216,
+        "catch_rate_ci": [
+          0.5497274248374967,
+          0.7967249033221485
+        ]
+      },
+      "route_resid_positive": {
+        "n": 2982,
+        "targets": 815,
+        "catches": 618,
+        "target_rate": 0.2733065057008719,
+        "target_rate_ci": [
+          0.257610117469741,
+          0.2895862240910437
+        ],
+        "catch_rate_given_target": 0.758282208588957,
+        "catch_rate_ci": [
+          0.7277212720925306,
+          0.786419680199097
+        ]
+      },
+      "route_resid_nonpositive": {
+        "n": 4042,
+        "targets": 571,
+        "catches": 288,
+        "target_rate": 0.1412666996536368,
+        "target_rate_ci": [
+          0.13086942473215527,
+          0.1523452221289576
+        ],
+        "catch_rate_given_target": 0.5043782837127846,
+        "catch_rate_ci": [
+          0.46347612522566617,
+          0.5452219230714647
+        ]
+      }
+    },
+    "release_t_partial_dependence": {
+      "note": "GBM, release_t varied with t_end fixed (t_rel_to_throw = t_end - release_t); populations restricted to t_end >= 3.5s",
+      "n_chip_pop": 321,
+      "n_all_pop": 1621,
+      "table": [
+        {
+          "release_t": 0.5,
+          "exp_sep_chip_pop": 4.343,
+          "delta_chip_pop": 0.0,
+          "exp_sep_all_pop": 3.392,
+          "delta_all_pop": 0.0
+        },
+        {
+          "release_t": 0.75,
+          "exp_sep_chip_pop": 4.418,
+          "delta_chip_pop": 0.075,
+          "exp_sep_all_pop": 3.447,
+          "delta_all_pop": 0.054
+        },
+        {
+          "release_t": 1.0,
+          "exp_sep_chip_pop": 4.258,
+          "delta_chip_pop": -0.086,
+          "exp_sep_all_pop": 3.259,
+          "delta_all_pop": -0.133
+        },
+        {
+          "release_t": 1.25,
+          "exp_sep_chip_pop": 4.299,
+          "delta_chip_pop": -0.044,
+          "exp_sep_all_pop": 3.27,
+          "delta_all_pop": -0.123
+        },
+        {
+          "release_t": 1.5,
+          "exp_sep_chip_pop": 4.896,
+          "delta_chip_pop": 0.553,
+          "exp_sep_all_pop": 3.708,
+          "delta_all_pop": 0.316
+        },
+        {
+          "release_t": 1.75,
+          "exp_sep_chip_pop": 5.217,
+          "delta_chip_pop": 0.874,
+          "exp_sep_all_pop": 4.033,
+          "delta_all_pop": 0.641
+        },
+        {
+          "release_t": 2.0,
+          "exp_sep_chip_pop": 5.185,
+          "delta_chip_pop": 0.841,
+          "exp_sep_all_pop": 3.995,
+          "delta_all_pop": 0.603
+        },
+        {
+          "release_t": 2.25,
+          "exp_sep_chip_pop": 5.126,
+          "delta_chip_pop": 0.783,
+          "exp_sep_all_pop": 3.939,
+          "delta_all_pop": 0.547
+        },
+        {
+          "release_t": 2.5,
+          "exp_sep_chip_pop": 5.252,
+          "delta_chip_pop": 0.909,
+          "exp_sep_all_pop": 4.064,
+          "delta_all_pop": 0.672
+        },
+        {
+          "release_t": 2.75,
+          "exp_sep_chip_pop": 5.26,
+          "delta_chip_pop": 0.917,
+          "exp_sep_all_pop": 4.083,
+          "delta_all_pop": 0.691
+        },
+        {
+          "release_t": 3.0,
+          "exp_sep_chip_pop": 5.216,
+          "delta_chip_pop": 0.872,
+          "exp_sep_all_pop": 4.06,
+          "delta_all_pop": 0.668
+        }
+      ],
+      "chip_pop_change_per_sec_0.5_to_3.0": 0.3488970797325607,
+      "all_pop_change_per_sec_0.5_to_3.0": 0.26706736744455756,
+      "linear_model_coefficients": {
+        "release_t": 0.3237522565343945,
+        "x_rel_end": -0.04100936015892453,
+        "max_depth": -0.0706425821128732,
+        "t_rel_to_throw": 0.28924278604636633,
+        "intercept": 2.9347970645949646
+      },
+      "linear_note": "linear: one extra second of release delay at fixed throw time changes E[sep] by coef(release_t) - coef(t_rel_to_throw)",
+      "linear_delay_effect_per_sec_fixed_throw": 0.03450947048802816
+    }
+  },
+  "reliability": {
+    "chip_csr_min_n_10": {
+      "spearman": null,
+      "n_players": 0
+    },
+    "chip_csr_min_n_6": {
+      "spearman": 0.3571428571428572,
+      "n_players": 8
+    },
+    "chip_csr_min_n_4": {
+      "spearman": 0.16911764705882354,
+      "n_players": 17
+    },
+    "route_resid_min_n_10": {
+      "spearman": 0.04850678733031674,
+      "n_players": 51
+    },
+    "route_resid_min_n_20": {
+      "spearman": 0.0975073313782991,
+      "n_players": 32
+    },
+    "chip_csr_oddeven_games_min_n_6": {
+      "spearman": -0.1929824561403509,
+      "n_players": 18
+    },
+    "chip_csr_oddeven_games_min_n_4": {
+      "spearman": 0.14805194805194805,
+      "n_players": 34
+    }
+  },
+  "sensitivity": {
+    "gbm_vs_linear_player_csr_spearman_qualified": 0.872093023255814,
+    "gbm_vs_linear_league_chip_mean": {
+      "gbm": 0.24430756661269842,
+      "linear": 1.241082986958562
+    },
+    "incl_sack_scramble_plays": {
+      "n_chip": 999,
+      "chip_mean_csr": 0.2770121883730514,
+      "player_spearman_vs_primary_qualified": 0.9025974025974025
+    },
+    "top5_by_min_n": {
+      "5": [
+        "Gerald Everett",
+        "Dan Arnold",
+        "Cole Kmet",
+        "Josh Oliver",
+        "Hayden Hurst"
+      ],
+      "8": [
+        "Gerald Everett",
+        "Dan Arnold",
+        "Cole Kmet",
+        "Hayden Hurst",
+        "Donald Parham"
+      ],
+      "12": [
+        "Cole Kmet",
+        "Ryan Griffin",
+        "Mo Alie-Cox",
+        "Ian Thomas",
+        "David Njoku"
+      ]
+    },
+    "n_players_by_min_n": {
+      "1": 102,
+      "4": 70,
+      "5": 62,
+      "8": 43,
+      "12": 26
+    }
+  },
+  "top5_min_n": [
+    {
+      "displayName": "Gerald Everett",
+      "team": "SEA",
+      "n": 8,
+      "value": 2.651,
+      "value_shrunk": 0.298,
+      "lo": 0.946,
+      "hi": 4.357,
+      "route_resid_mean": 0.394,
+      "chip_minus_route": 2.257
+    },
+    {
+      "displayName": "Dan Arnold",
+      "team": "JAX",
+      "n": 10,
+      "value": 1.791,
+      "value_shrunk": 0.287,
+      "lo": 0.266,
+      "hi": 3.316,
+      "route_resid_mean": 0.175,
+      "chip_minus_route": 1.616
+    },
+    {
+      "displayName": "Cole Kmet",
+      "team": "CHI",
+      "n": 14,
+      "value": 1.326,
+      "value_shrunk": 0.286,
+      "lo": 0.037,
+      "hi": 2.615,
+      "route_resid_mean": 0.012,
+      "chip_minus_route": 1.314
+    },
+    {
+      "displayName": "Hayden Hurst",
+      "team": "ATL",
+      "n": 11,
+      "value": 1.347,
+      "value_shrunk": 0.278,
+      "lo": -0.107,
+      "hi": 2.802,
+      "route_resid_mean": 0.128,
+      "chip_minus_route": 1.22
+    },
+    {
+      "displayName": "Donald Parham",
+      "team": "LAC",
+      "n": 8,
+      "value": 1.712,
+      "value_shrunk": 0.277,
+      "lo": 0.007,
+      "hi": 3.417,
+      "route_resid_mean": 0.132,
+      "chip_minus_route": 1.58
+    }
+  ],
+  "caveats": [
+    "Separation = distance to nearest defender at the throw frame; ball flight/catch point is untracked.",
+    "Chip plays are scarce per TE (43 TEs with >= 8); CIs are wide. Implied between-player variance (tau2 ~0.02 yd^2) is tiny vs sampling noise, so EB shrinks nearly everyone to the league chip mean; rank on value_shrunk is weakly informative and split-half reliability is low.",
+    "Model includes no chip flag by design, so league mean CSR on chips measures the chip-vs-general-TE difference after context; it may partly reflect route types chips lead to (flats/checkdowns) that depth/lateral features do not fully capture.",
+    "chip_release relies on PFF blockType CH/SR on a Pass Route role; release time uses the shared 1.5 yd / 2.5 yd/s / 3-frame rule.",
+    "Sack/scramble plays (no throw frame) are excluded from the primary metric; see sensitivity.",
+    "dropBackType includes post-snap QB behaviour (scramble), kept per spec as non-player context."
+  ]
+}
