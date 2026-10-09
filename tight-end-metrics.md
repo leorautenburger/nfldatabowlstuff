@@ -120,6 +120,32 @@ time since snap. Evaluate the metric against PFF hurry, hit, and sack labels.
 **Interpretation:** Measures the protection benefit of the tight end while
 accounting for the offensive line, quarterback movement, and opponent.
 
+### Protection-to-Availability Value
+
+**Definition:** The additional time a tight end creates for the quarterback
+while still becoming a viable receiving option.
+
+```text
+PAV =
+  (expected time to QB threat without TE assistance
+   - observed time to QB threat with TE assistance)
+  * receiving availability score
+```
+
+The full metric is counterfactual: it needs an expected-pressure model to
+estimate the no-assistance outcome. The repository's `pav_prototype.py`
+implements a transparent descriptive precursor instead:
+
+```text
+dualThreatWindowSeconds =
+  max(protectionWindowSeconds - releaseTimeSeconds, 0)
+  * availabilityScore
+```
+
+It measures the time remaining after the TE's release before a threat reaches
+the QB, weighted by the TE's separation at the pass, threat, or play-end
+frame. It should not be described as causal added time.
+
 ### Edge Seal Sustainability
 
 **Definition:** During a TE pass-block assignment, the time the assigned rusher
