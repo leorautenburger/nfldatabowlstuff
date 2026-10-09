@@ -50,6 +50,19 @@ filters, and nearest-player comparisons:
 Similarity modes are `performance` (the profile axes), `role` (context-adjusted
 deployment shares), and `combined` (70% performance, 30% role).
 
+## Interactive visualization
+
+Run the profile generator, then serve the local web app:
+
+```bash
+.venv/bin/python -m src.coach_report
+.venv/bin/python -m src.serve_visualization
+```
+
+Open [http://127.0.0.1:8000/web/](http://127.0.0.1:8000/web/) to search,
+filter, rank, compare similar players, and inspect a live performance radar.
+Use `Ctrl+C` in the serving terminal to stop it.
+
 ## Coach profile axes
 
 | Axis | Football interpretation |

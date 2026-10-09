@@ -252,6 +252,7 @@ def main() -> None:
     ]
     profiles[output_columns].to_csv(OUT / "players.csv", index=False, float_format="%.2f")
     profiles[output_columns].to_csv(OUT / "search_index.csv", index=False, float_format="%.2f")
+    profiles[output_columns].to_json(OUT / "search_index.json", orient="records", indent=2)
     if args.render_spider_charts:
         chart_dir = OUT / "spider_charts"
         chart_dir.mkdir(exist_ok=True)
@@ -265,6 +266,7 @@ def main() -> None:
     metadata["output_files"] = {
         "players": "players.csv",
         "search_index": "search_index.csv",
+        "search_index_json": "search_index.json",
         "spider_charts": "spider_charts/<nflId>_<player>.svg",
     }
     (OUT / "summary.json").write_text(json.dumps(metadata, indent=2) + "\n")

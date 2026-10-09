@@ -108,6 +108,7 @@
   "output_files": {
     "players": "players.csv",
     "search_index": "search_index.csv",
+    "search_index_json": "search_index.json",
     "spider_charts": "spider_charts/<nflId>_<player>.svg"
   }
 }

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TE Versatility Scout</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="#">TE<span>+</span> Scout</a>
+      <p>2021 Weeks 1–8 · Tight End Versatility Profiles</p>
+      <a class="methodology" href="../IMPLEMENTATION_HANDOFF.md" target="_blank">Methodology ↗</a>
+    </header>
+    <main>
+      <section class="intro">
+        <div>
+          <span class="eyebrow">PLAYER DISCOVERY</span>
+          <h1>Tight End Versatility Scout</h1>
+          <p>Explore how a tight end protects, releases, wins routes, stresses coverage, and creates after the catch.</p>
+        </div>
+        <div class="snapshot">
+          <strong id="eligible-count">—</strong><span>qualified TEs</span>
+          <strong>5</strong><span>validated axes</span>
+          <strong id="snap-count">—</strong><span>snaps analyzed</span>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <aside class="explorer">
+          <h2>Explore players</h2>
+          <label>Search <input id="search" type="search" placeholder="Player or team"></label>
+          <label>Performance archetype <select id="performance-filter"><option value="">All</option></select></label>
+          <label>Deployment archetype <select id="deployment-filter"><option value="">All</option></select></label>
+          <label>Minimum snaps <input id="min-snaps" type="number" min="0" value="100"></label>
+          <label>Rank by <select id="sort-by"></select></label>
+          <div id="player-list" class="player-list"></div>
+        </aside>
+
+        <section class="profile">
+          <div id="empty-state" class="empty-state">Select a player to inspect their profile.</div>
+          <div id="profile-content" hidden>
+            <div class="profile-heading">
+              <div>
+                <span id="team" class="eyebrow"></span>
+                <h2 id="player-name"></h2>
+                <p id="profile-subtitle"></p>
+              </div>
+              <div class="score">
+                <span>PROFILE SCORE</span>
+                <strong id="overall-score"></strong>
+                <small>/100</small>
+              </div>
+            </div>
+
+            <div class="profile-grid">
+              <article class="panel radar-panel">
+                <h3>Performance profile</h3>
+                <canvas id="radar" width="520" height="430" aria-label="Player performance radar chart"></canvas>
+                <p class="caption">Player percentile in blue · league median in dashed gray</p>
+              </article>
+              <article class="panel">
+                <h3>Axis breakdown</h3>
+                <div id="axis-bars"></div>
+              </article>
+            </div>
+
+            <div class="profile-grid">
+              <article class="panel">
+                <h3>Deployment context</h3>
+                <p id="deployment-summary"></p>
+                <div id="role-bars"></div>
+              </article>
+              <article class="panel">
+                <div class="panel-title-row">
+                  <h3>Similar players</h3>
+                  <select id="similarity-mode">
+                    <option value="combined">Combined profile</option>
+                    <option value="performance">Performance only</option>
+                    <option value="role">Role only</option>
+                  </select>
+                </div>
+                <div id="similar-list"></div>
+              </article>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
