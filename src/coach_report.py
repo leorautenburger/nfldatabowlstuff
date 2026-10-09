@@ -47,6 +47,13 @@ METRICS = (
     Metric("yac_runway", "Open-Field Creation", 1.00, value_column="yacoe_shrunk"),
 )
 AXES = tuple(dict.fromkeys(metric.axis for metric in METRICS))
+ROLE_SHARE_COLUMNS = [
+    "wshare_shrunk_inline_route",
+    "wshare_shrunk_detached_route",
+    "wshare_shrunk_chip_release",
+    "wshare_shrunk_stay_in_block",
+    "wshare_shrunk_standard_pass_block",
+]
 
 
 def metric_score(metric: Metric) -> pd.DataFrame:
@@ -76,6 +83,16 @@ def build_profiles() -> tuple[pd.DataFrame, dict[str, object]]:
     profiles = base[["nflId", "displayName", "team", "snaps", "route_snaps", "chip_snaps", "block_snaps"]].copy()
     for metric in METRICS:
         profiles = profiles.merge(metric_score(metric), on="nflId", how="left")
+    deployment = pd.read_csv("output/deployment_index/players.csv")
+    deployment = deployment[
+        ["nflId", "value_shrunk", *ROLE_SHARE_COLUMNS, "archetype", "archetype_reliable"]
+    ].rename(
+        columns={
+            "value_shrunk": "deployment_breadth",
+            "archetype": "deployment_archetype",
+        }
+    )
+    profiles = profiles.merge(deployment, on="nflId", how="left")
 
     for axis in AXES:
         axis_metrics = [metric for metric in METRICS if metric.axis == axis]
@@ -91,7 +108,7 @@ def build_profiles() -> tuple[pd.DataFrame, dict[str, object]]:
         profiles[f"{axis}_components"] = available.sum(axis=1)
 
     profiles["profile_eligible"] = profiles.snaps.ge(MIN_PROFILE_SNAPS)
-    profiles["archetype"] = profiles.apply(assign_archetype, axis=1)
+    profiles["performance_archetype"] = profiles.apply(assign_archetype, axis=1)
     profiles["versatility_profile_score"] = profiles[list(AXES)].mean(axis=1)
     profiles["profile_rank"] = (
         profiles.loc[profiles.profile_eligible, "versatility_profile_score"]
@@ -120,6 +137,13 @@ def build_profiles() -> tuple[pd.DataFrame, dict[str, object]]:
             "Percentile among all TEs with a non-missing component score. "
             "Where supplied, empirical-Bayes shrunk values are used."
         ),
+        "deployment_context": {
+            "definition": (
+                "Deployment Breadth is the context-adjusted Dual-Threat Deployment Index. "
+                "It is shown for archetyping and comparison but excluded from the performance score."
+            ),
+            "role_share_columns": ROLE_SHARE_COLUMNS,
+        },
     }
     return profiles, metadata
 
@@ -177,7 +201,7 @@ def svg_for_player(player: pd.Series) -> str:
     profile = [point(value, angle, center, radius) for value, angle in zip(values, angles)]
     title = f"{player.displayName} ({player.team})"
     subtitle = (
-        f"{player.archetype} | {int(player.snaps)} snaps | "
+        f"{player.performance_archetype} | {int(player.snaps)} snaps | "
         f"Profile score: {player.versatility_profile_score:.0f}"
     )
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 {size} {size}">
@@ -217,12 +241,17 @@ def main() -> None:
         "chip_snaps",
         "block_snaps",
         "profile_eligible",
-        "archetype",
+        "performance_archetype",
+        "deployment_archetype",
+        "archetype_reliable",
+        "deployment_breadth",
+        *ROLE_SHARE_COLUMNS,
         "versatility_profile_score",
         *AXES,
         *[f"{axis}_components" for axis in AXES],
     ]
     profiles[output_columns].to_csv(OUT / "players.csv", index=False, float_format="%.2f")
+    profiles[output_columns].to_csv(OUT / "search_index.csv", index=False, float_format="%.2f")
     if args.render_spider_charts:
         chart_dir = OUT / "spider_charts"
         chart_dir.mkdir(exist_ok=True)
@@ -235,6 +264,7 @@ def main() -> None:
     metadata["spider_charts_rendered"] = args.render_spider_charts
     metadata["output_files"] = {
         "players": "players.csv",
+        "search_index": "search_index.csv",
         "spider_charts": "spider_charts/<nflId>_<player>.svg",
     }
     (OUT / "summary.json").write_text(json.dumps(metadata, indent=2) + "\n")

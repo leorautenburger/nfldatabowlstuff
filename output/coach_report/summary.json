@@ -92,11 +92,22 @@
   },
   "min_profile_snaps": 100,
   "percentile_definition": "Percentile among all TEs with a non-missing component score. Where supplied, empirical-Bayes shrunk values are used.",
+  "deployment_context": {
+    "definition": "Deployment Breadth is the context-adjusted Dual-Threat Deployment Index. It is shown for archetyping and comparison but excluded from the performance score.",
+    "role_share_columns": [
+      "wshare_shrunk_inline_route",
+      "wshare_shrunk_detached_route",
+      "wshare_shrunk_chip_release",
+      "wshare_shrunk_stay_in_block",
+      "wshare_shrunk_standard_pass_block"
+    ]
+  },
   "eligible_profiles": 47,
   "total_tes": 121,
   "spider_charts_rendered": false,
   "output_files": {
     "players": "players.csv",
+    "search_index": "search_index.csv",
     "spider_charts": "spider_charts/<nflId>_<player>.svg"
   }
 }

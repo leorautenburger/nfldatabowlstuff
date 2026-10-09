@@ -252,6 +252,32 @@ The final player table should include:
 The overall score should be secondary. If retained, use an unweighted mean of
 the six performance axes. Never include DDI in that score.
 
+### Discovery and comparison requirements
+
+The final tool must support:
+
+- name and team search;
+- ranking by any performance axis or component metric;
+- filters for minimum snaps, performance archetype, deployment archetype, and
+  role usage;
+- similar-player search in three modes:
+  - **performance:** distance over performance axes;
+  - **role:** distance over DDI-adjusted role shares;
+  - **combined:** 70% performance similarity and 30% role similarity.
+
+Current implementation:
+
+```bash
+.venv/bin/python -m src.player_search --search kelce
+.venv/bin/python -m src.player_search --rank-by chip-to-route --top 10
+.venv/bin/python -m src.player_search --similar-to "Travis Kelce" --similarity-mode combined
+```
+
+`output/coach_report/search_index.csv` is the machine-readable index for a
+future UI. It currently contains the five validated pass-game axes, deployment
+breadth, adjusted role shares, and both archetype types. Extend it with the
+run-game axis only after the run-data requirements above are met.
+
 Spider charts can be valuable in a presentation, but only after metric
 composition is frozen. They should show player percentile versus a dashed
 league-median baseline and always display opportunity counts.

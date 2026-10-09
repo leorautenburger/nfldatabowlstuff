@@ -35,6 +35,21 @@ Spider charts are intentionally opt-in while profiles are reviewed:
 .venv/bin/python -m src.coach_report --render-spider-charts
 ```
 
+## Discover players
+
+The profile output supports player lookup, category rankings, team/archetype
+filters, and nearest-player comparisons:
+
+```bash
+.venv/bin/python -m src.player_search --search kelce
+.venv/bin/python -m src.player_search --rank-by chip-to-route --top 10
+.venv/bin/python -m src.player_search --archetype "receiving specialist"
+.venv/bin/python -m src.player_search --similar-to "Travis Kelce" --similarity-mode combined
+```
+
+Similarity modes are `performance` (the profile axes), `role` (context-adjusted
+deployment shares), and `combined` (70% performance, 30% role).
+
 ## Coach profile axes
 
 | Axis | Football interpretation |
@@ -48,6 +63,9 @@ Spider charts are intentionally opt-in while profiles are reviewed:
 Scores are league-relative percentiles. Where available, empirical-Bayes
 shrunk estimates are used; all component metrics, sample sizes, and play-level
 evidence remain available in their own `output/<metric>/` directories.
+
+Deployment Breadth and its role shares are shown as context and used for
+archetypes/similarity, but are excluded from the performance score.
 
 ## Caveat
 
