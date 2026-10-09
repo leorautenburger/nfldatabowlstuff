@@ -107,6 +107,9 @@ function selectPlayer(id) {
   $("#team").textContent = `${selected.team} · ${number(selected.snaps)} snaps`;
   $("#player-name").textContent = selected.displayName;
   $("#profile-subtitle").textContent = `${selected.performance_archetype} · ${selected.deployment_archetype} deployment`;
+  $("#profile-note").textContent = selected["Run-Game Impact"] === null || selected["Run-Game Impact"] === undefined
+    ? "Run-Game Impact is unavailable for this player: the provisional source table has no matching row. The radar therefore shows the five validated pass-game axes."
+    : "† Run-Game Impact is provisional and does not affect the overall score or performance-similarity results.";
   $("#overall-score").textContent = number(selected.versatility_profile_score).toFixed(0);
   $("#deployment-summary").textContent = `Deployment Breadth: ${(number(selected.deployment_breadth) * 100).toFixed(0)}th percentile-style index · ${selected.deployment_archetype}. This is role context, not part of the performance score.`;
   drawRadar(selected); renderBars(selected); renderSimilar(); renderList();
