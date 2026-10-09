@@ -1,0 +1,9 @@
+split,group,n_snaps,targets,catches,target_rate,target_lo,target_hi,completion_rate,completion_lo,completion_hi,catch_per_snap
+all,eligible=True,495,119,83,0.2404,0.2048,0.28,0.6975,0.6098,0.7728,0.1677
+all,eligible=False,7520,1445,962,0.1922,0.1834,0.2012,0.6657,0.641,0.6896,0.1279
+train,eligible=True,375,96,65,0.256,0.2145,0.3025,0.6771,0.5783,0.7622,0.1733
+train,eligible=False,5814,1107,746,0.1904,0.1805,0.2007,0.6739,0.6457,0.7009,0.1283
+test,eligible=True,120,23,18,0.1917,0.1312,0.2712,0.7826,0.581,0.9034,0.15
+test,eligible=False,1706,338,216,0.1981,0.1799,0.2177,0.6391,0.5866,0.6884,0.1266
+all,release_ok & viable=True,495,119,83,0.2404,,,0.6975,,,0.1677
+all,release_ok & viable=False,5089,1009,649,0.1983,,,0.6432,,,0.1275

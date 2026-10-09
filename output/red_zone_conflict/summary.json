@@ -1,0 +1,397 @@
+{
+  "metric": "Red-Zone Conflict Score",
+  "slug": "red_zone_conflict",
+  "higher_is_better": true,
+  "definition": "Red-Zone Conflict Score (RZCS): does the defense have to account for the TE as a route threat,\na run-fit player and a protector at the same time, in red-zone / goal-to-go snaps?\n\nPopulation: TE snaps (te_plays) where plays.red_zone or plays.goal_to_go is True.\n\nComponents per TE\n  1. Role ambiguity RA = H(assignment | alignment) / log(3)\n       H = sum_l (n_l / N) * H_l,   H_l = -sum_a p(a|l) log p(a|l)\n       p(a|l) = (n_la + K * q_la) / (n_l + K),  q_la = league RZ P(assignment=a | alignment=l), K = 5\n       assignment in {route, chip_release, pass_block}; alignment in {inline, wing, detached, backfield}\n  2. Route threat RT = mean( z(target share on RZ route snaps, beta-shrunk),\n                              z(mean RZ coverage gravity on non-targeted route snaps, EB-shrunk) )\n       gravity read (read-only) from output/coverage_gravity/plays.csv\n  3. Protector PR = share of RZ snaps that are pass_block or chip_release (beta-shrunk)\n  4. Run-fit proxy RF = mean( z(inline/wing share, beta-shrunk),\n                               z(defendersInBox - league RZ train-week mean for offenseFormation, EB) )\n       (no designed runs exist: this is a pre-snap proxy, not observed run-fit value)\n  z() uses the mean / SD of the qualified TEs (>= 15 RZ snaps).\n\nScore\n  RZCS = 0.5 * RA + 0.5 * (pct(RT) * pct(PR) * pct(RF)) ** (1/3)\n  pct(x) = (#ref < x + 0.5 * #ref == x + 0.5) / (N_ref + 1), ref = qualified TEs (in (0, 1)).\n  value        = RZCS from raw (unshrunk / unsmoothed) components\n  value_shrunk = RZCS from shrunk components (headline)\n  lo / hi      = 95% percentile bootstrap (plays resampled within player; league params fixed)",
+  "population": "te_plays rows where plays.red_zone OR plays.goal_to_go (all weeks)",
+  "formulas": {
+    "role_ambiguity": "RA = [sum_l (n_l/N) * -sum_a p(a|l) ln p(a|l)] / ln 3; p(a|l) = (n_la + 5*q_la)/(n_l + 5); q = league RZ P(a|l)",
+    "route_threat": "RT = 0.5*z(tgt_share_shrunk) + 0.5*z(gravity_shrunk)",
+    "protector": "PR = beta-shrunk share of RZ snaps with assignment in {pass_block, chip_release}",
+    "run_fit": "RF = 0.5*z(inline_wing_share_shrunk) + 0.5*z(box_resid_shrunk); box_resid = defendersInBox - train-week league RZ mean for offenseFormation",
+    "score": "RZCS = 0.5*RA + 0.5*cbrt(pct(RT)*pct(PR)*pct(RF))",
+    "z_and_pct_reference": "qualified TEs (n >= 15); missing component -> reference mean",
+    "percentile": "(#ref<x + 0.5*#ref==x + 0.5)/(N_ref+1)"
+  },
+  "parameters": {
+    "dirichlet_prior_strength": 5.0,
+    "min_rz_snaps_qualified": 15,
+    "min_n_hyper": 10,
+    "beta_strength_clip": [
+      2.0,
+      200.0
+    ],
+    "min_formation_train_plays": 10,
+    "n_boot": 1000,
+    "seed": 42,
+    "weight_role_ambiguity": 0.5,
+    "half_min_snaps": 8,
+    "league_rz_p_assignment_given_alignment": {
+      "inline": {
+        "route": 0.7077,
+        "chip_release": 0.1159,
+        "pass_block": 0.1765
+      },
+      "wing": {
+        "route": 0.7815,
+        "chip_release": 0.084,
+        "pass_block": 0.1345
+      },
+      "detached": {
+        "route": 0.9614,
+        "chip_release": 0.012,
+        "pass_block": 0.0266
+      },
+      "backfield": {
+        "route": 0.84,
+        "chip_release": 0.0,
+        "pass_block": 0.16
+      }
+    },
+    "beta_priors_mean_strength": {
+      "tgt": [
+        0.1845,
+        200.0
+      ],
+      "prot": [
+        0.1532,
+        67.74
+      ],
+      "inl": [
+        0.467,
+        9.28
+      ],
+      "pa": [
+        0.2562,
+        17.9
+      ]
+    },
+    "eb_priors_sd_grand_tau2": {
+      "grav": [
+        0.32908,
+        0.01552,
+        0.0
+      ],
+      "box": [
+        0.92404,
+        0.0803,
+        0.02298
+      ]
+    },
+    "z_reference_mean_sd": {
+      "tgt": [
+        0.18639,
+        0.00941
+      ],
+      "grav": [
+        0.01552,
+        1e-05
+      ],
+      "inl": [
+        0.44372,
+        0.13195
+      ],
+      "box": [
+        0.07621,
+        0.0996
+      ]
+    }
+  },
+  "sources": {
+    "gravity": "output/coverage_gravity/plays.csv (read-only; Coverage Gravity metric) columns gameId, playId, nflId, red_zone, gravity, is_target; mean over non-targeted RZ route snaps, matching that metric's definition",
+    "gravity_red_zone_flag_mismatches_vs_plays": 0
+  },
+  "sample": {
+    "rz_te_snaps": 1456,
+    "rz_tes": 111,
+    "qualified_tes": 42,
+    "rz_train_snaps": 1092,
+    "rz_test_snaps": 364,
+    "rz_snaps_goal_to_go_only": 9,
+    "rz_route_snaps": 1317,
+    "rz_targets": 243,
+    "median_rz_snaps_per_te": 10.0
+  },
+  "box_expectation_test_metrics": {
+    "n_train_plays": 847,
+    "n_test_plays": 274,
+    "formation_means_train": {
+      "EMPTY": 5.509,
+      "I_FORM": 7.633,
+      "JUMBO": 10.214,
+      "PISTOL": 6.421,
+      "SHOTGUN": 6.253,
+      "SINGLEBACK": 7.304
+    },
+    "fallback_mean_train": 6.349,
+    "formation_mean": {
+      "rmse": 0.9456,
+      "mae": 0.7431,
+      "r2": 0.4478
+    },
+    "naive_train_mean": {
+      "rmse": 1.2761,
+      "mae": 0.9835,
+      "r2": -0.0057
+    }
+  },
+  "league_rz_vs_non_rz": {
+    "red_zone": {
+      "n_te_snaps": 1456,
+      "n_route_snaps": 1317,
+      "role_ambiguity_pooled": 0.4255,
+      "target_share_on_routes": 0.1845,
+      "protector_share": 0.1532,
+      "inline_wing_share": 0.467,
+      "play_action_share": 0.2562,
+      "mean_gravity_nontarget_routes": {
+        "mean": 0.0193,
+        "lo": -0.0004,
+        "hi": 0.0389,
+        "n": 1074
+      },
+      "mean_defenders_in_box": {
+        "mean": 6.6022,
+        "lo": 6.5338,
+        "hi": 6.6706,
+        "n": 1453
+      },
+      "box_resid_vs_all_situation_formation_mean": {
+        "mean": 0.3836,
+        "lo": 0.334,
+        "hi": 0.4332,
+        "n": 1453
+      }
+    },
+    "non_red_zone": {
+      "n_te_snaps": 9040,
+      "n_route_snaps": 7747,
+      "role_ambiguity_pooled": 0.6154,
+      "target_share_on_routes": 0.171,
+      "protector_share": 0.2555,
+      "inline_wing_share": 0.4865,
+      "play_action_share": 0.3004,
+      "mean_gravity_nontarget_routes": {
+        "mean": 0.018,
+        "lo": 0.011,
+        "hi": 0.025,
+        "n": 6397
+      },
+      "mean_defenders_in_box": {
+        "mean": 6.1069,
+        "lo": 6.0865,
+        "hi": 6.1274,
+        "n": 9033
+      },
+      "box_resid_vs_all_situation_formation_mean": {
+        "mean": -0.0604,
+        "lo": -0.0777,
+        "hi": -0.0432,
+        "n": 9033
+      }
+    },
+    "differences": {
+      "target_share_on_routes": {
+        "rz_minus_nonrz": 0.0135,
+        "lo": -0.0091,
+        "hi": 0.036
+      },
+      "protector_share": {
+        "rz_minus_nonrz": -0.1024,
+        "lo": -0.1229,
+        "hi": -0.0818
+      },
+      "inline_wing_share": {
+        "rz_minus_nonrz": -0.0195,
+        "lo": -0.0471,
+        "hi": 0.0081
+      },
+      "play_action_share": {
+        "rz_minus_nonrz": -0.0443,
+        "lo": -0.0686,
+        "hi": -0.0199
+      }
+    }
+  },
+  "reliability": {
+    "component_play_level": {
+      "tgt_route": {
+        "min_n_10": {
+          "split_half_rho": 0.6667,
+          "split_half_n_players": 7,
+          "odd_even_rho": 0.5837,
+          "odd_even_n_players": 17
+        },
+        "min_n_5": {
+          "split_half_rho": 0.0622,
+          "split_half_n_players": 26,
+          "odd_even_rho": 0.0244,
+          "odd_even_n_players": 40
+        }
+      },
+      "grav": {
+        "min_n_10": {
+          "split_half_rho": -0.2,
+          "split_half_n_players": 5,
+          "odd_even_rho": -0.1091,
+          "odd_even_n_players": 11
+        },
+        "min_n_5": {
+          "split_half_rho": -0.1063,
+          "split_half_n_players": 18,
+          "odd_even_rho": -0.3598,
+          "odd_even_n_players": 34
+        }
+      },
+      "protector": {
+        "min_n_10": {
+          "split_half_rho": 0.3515,
+          "split_half_n_players": 8,
+          "odd_even_rho": 0.335,
+          "odd_even_n_players": 22
+        },
+        "min_n_5": {
+          "split_half_rho": -0.2336,
+          "split_half_n_players": 29,
+          "odd_even_rho": 0.177,
+          "odd_even_n_players": 47
+        }
+      },
+      "inline": {
+        "min_n_10": {
+          "split_half_rho": 0.881,
+          "split_half_n_players": 8,
+          "odd_even_rho": 0.6957,
+          "odd_even_n_players": 22
+        },
+        "min_n_5": {
+          "split_half_rho": 0.462,
+          "split_half_n_players": 29,
+          "odd_even_rho": 0.4164,
+          "odd_even_n_players": 47
+        }
+      },
+      "box_resid": {
+        "min_n_10": {
+          "split_half_rho": -0.4524,
+          "split_half_n_players": 8,
+          "odd_even_rho": 0.2524,
+          "odd_even_n_players": 22
+        },
+        "min_n_5": {
+          "split_half_rho": -0.0153,
+          "split_half_n_players": 29,
+          "odd_even_rho": 0.1951,
+          "odd_even_n_players": 47
+        }
+      },
+      "pa": {
+        "min_n_10": {
+          "split_half_rho": 0.2515,
+          "split_half_n_players": 8,
+          "odd_even_rho": -0.1712,
+          "odd_even_n_players": 22
+        },
+        "min_n_5": {
+          "split_half_rho": 0.3343,
+          "split_half_n_players": 29,
+          "odd_even_rho": 0.1784,
+          "odd_even_n_players": 47
+        }
+      }
+    },
+    "score_level": {
+      "split_half_weeks1-6_vs_7-8": {
+        "score": 0.5,
+        "role_ambiguity": 0.7545,
+        "route_threat": 0.2636,
+        "protector": 0.3478,
+        "run_fit": 0.6636,
+        "n_players": 11,
+        "min_snaps_each_half": 8
+      },
+      "odd_even_games": {
+        "score": 0.5189,
+        "role_ambiguity": 0.5857,
+        "route_threat": 0.0328,
+        "protector": 0.4262,
+        "run_fit": 0.5413,
+        "n_players": 28,
+        "min_snaps_each_half": 8
+      }
+    }
+  },
+  "raw_vs_shrunk_spearman_qualified": 0.9329,
+  "median_ci_width_qualified": 0.3803,
+  "top5_qualified": [
+    {
+      "displayName": "Rob Gronkowski",
+      "team": "TB",
+      "n": 20,
+      "value_shrunk": 0.753,
+      "lo": 0.507,
+      "hi": 0.855,
+      "role_ambiguity": 0.633,
+      "pct_route_threat": 0.884,
+      "pct_protector": 0.977,
+      "pct_run_fit": 0.767
+    },
+    {
+      "displayName": "MyCole Pruitt",
+      "team": "TEN",
+      "n": 18,
+      "value_shrunk": 0.701,
+      "lo": 0.412,
+      "hi": 0.791,
+      "role_ambiguity": 0.588,
+      "pct_route_threat": 0.814,
+      "pct_protector": 0.953,
+      "pct_run_fit": 0.698
+    },
+    {
+      "displayName": "Donald Parham",
+      "team": "LAC",
+      "n": 16,
+      "value_shrunk": 0.683,
+      "lo": 0.404,
+      "hi": 0.765,
+      "role_ambiguity": 0.508,
+      "pct_route_threat": 0.791,
+      "pct_protector": 0.837,
+      "pct_run_fit": 0.953
+    },
+    {
+      "displayName": "Hunter Henry",
+      "team": "NE",
+      "n": 26,
+      "value_shrunk": 0.644,
+      "lo": 0.401,
+      "hi": 0.737,
+      "role_ambiguity": 0.525,
+      "pct_route_threat": 0.953,
+      "pct_protector": 0.872,
+      "pct_run_fit": 0.535
+    },
+    {
+      "displayName": "David Njoku",
+      "team": "CLE",
+      "n": 20,
+      "value_shrunk": 0.612,
+      "lo": 0.369,
+      "hi": 0.732,
+      "role_ambiguity": 0.53,
+      "pct_route_threat": 0.442,
+      "pct_protector": 0.93,
+      "pct_run_fit": 0.814
+    }
+  ],
+  "caveats": [
+    "No designed runs in the data (all dropbacks). Run-fit threat is a PRE-SNAP PROXY (inline/wing share + defendersInBox residual); it is not observed run-fit value. Play-action share is reported (pa_share_*) but not in the score.",
+    "Box residual is confounded with personnel (multi-TE sets) and game state beyond formation.",
+    "Small sample: median ~10 RZ snaps per TE, few RZ targets; shrinkage dominates for most TEs and bootstrap CIs are wide. Treat rankings as descriptive, not a stable trait.",
+    "Dirichlet smoothing pulls low-snap TEs toward league-level ambiguity (inflates RA for small n).",
+    "Percentiles and z-scores are relative to this 2021 wk1-8 qualified pool only.",
+    "Bootstrap holds league priors and reference fixed; it ignores between-play correlation within games."
+  ],
+  "runtime_s": 1.4
+}
